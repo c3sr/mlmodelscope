@@ -1,12 +1,15 @@
 import React from "react";
 import { useState, useRef, useEffect } from "react";
 
+import { useUploadInputControl } from "../UploadInput/useUploadInputControl";
+import { getAllowedFileTypes } from "../../../../../helpers/UppyFileTypeCheckerPlugin";
+
+import { Dashboard } from "@uppy/react";
+
 import MicrophoneIcon from "../../../../../resources/icons/icon-microphone-white.png"
 import DownloadIcon from "../../../../../resources/icons/icon-download.png"
 
 import "./AudioRecorder.scss";
-import {getAllowedFileTypes, useUploadInputControl} from "../UploadInput/useUploadInputControl";
-import { Dashboard } from "@uppy/react";
 
 const mimeType = "audio/webm";
 

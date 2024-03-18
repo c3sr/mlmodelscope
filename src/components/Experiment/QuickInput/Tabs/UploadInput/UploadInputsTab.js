@@ -5,7 +5,8 @@ import "@uppy/dashboard/dist/style.css";
 import "./UploadInputsTab.scss";
 import Task from "../../../../../helpers/Task";
 import useBEMNaming from "../../../../../common/useBEMNaming";
-import {getAllowedFileTypes, useUploadInputControl} from "./useUploadInputControl";
+import { useUploadInputControl } from "./useUploadInputControl";
+import { getAllowedFileTypes } from '../../../../../helpers/UppyFileTypeCheckerPlugin';
 
 export default function UploadInputsTab(props) {
   const {getBlock, getElement} = useBEMNaming("upload-inputs");
