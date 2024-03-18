@@ -6,7 +6,7 @@ import "./RemoveInputModal.scss"
 
 export default function RemoveInputModal(props) {
 
-  const {getBlock, getElement} = useBEMNaming("remove-input-modal")
+  const {getElement} = useBEMNaming("remove-input-modal")
 
   return <ConfirmationModal icon={<TrashIcon/>} onCancel={props.close}>
     <h2 className={getElement("heading")}>

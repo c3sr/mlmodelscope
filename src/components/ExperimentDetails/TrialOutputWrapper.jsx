@@ -66,6 +66,8 @@ export default function TrialOutputWrapper(props) {
           return <TextSummary trial={props.trial} value={props.value} />;
         case textToCode:
           return <TextToCodeSummary trial={props.trial} value={props.value} />;
+        default:
+          return <div>Something went wrong</div>
       }
 
       return <></>;

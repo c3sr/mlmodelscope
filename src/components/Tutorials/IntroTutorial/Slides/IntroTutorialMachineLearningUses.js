@@ -22,9 +22,9 @@ export default function IntroTutorialMachineLearningUses(props) {
             </button>
         </div>
         <div className={getElement("img-area")}>
-            <img src={PlantPicture} alt={"picture of a plant"} className={getElement("img-1")}/>
+            <img src={PlantPicture} alt={"plant"} className={getElement("img-1")}/>
 
-            <img src={BirdPicture} alt={"picture of a bird"} className={getElement("img-2")}/>
+            <img src={BirdPicture} alt={"bird"} className={getElement("img-2")}/>
         </div>
     </>
 }

@@ -20,7 +20,7 @@ export default function IntroTutorialComparingModels(props) {
             <div className={getElement("graphic-top")}>
 
                 <div className={getElement("gradient-border")}></div>
-                <img className={getElement("graphic-img")} alt={"a picture of a plant"} src={PlantPicture}/>
+                <img className={getElement("graphic-img")} alt={"plant"} src={PlantPicture}/>
                 <FatArrow className={getElement("graphic-arrow graphic-arrow-left")}/>
                 <FatArrow className={getElement("graphic-arrow graphic-arrow-right")}/>
             </div>

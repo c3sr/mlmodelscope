@@ -1,6 +1,5 @@
 import {useHoverControl} from "../../_Common/hooks/useHoverControl";
 import {useSectionFilters} from "./useSectionFilters";
-import React from 'react';
 import ObjectDetectionTrialParser from "../utils/ObjectDetectionTrialParser";
 import InstanceSegmentationTrialParser from "../../InstanceSegmentation/utils/InstanceSegmentationTrialParser";
 import useBoundingBoxControl from "./useBoundingBoxControl";

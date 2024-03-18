@@ -6,9 +6,9 @@ import "./TaskCard.scss";
 
 
 export function TaskCard(props) {
-  const {getBlock, getElement} = useBEMNaming("example-task-card");
+  const { getBlock } = useBEMNaming("example-task-card");
 
-  const {defaultModel, runTrial, sampleInputs, trial, onBackClicked, onCompare} = props;
+  const { defaultModel, runTrial, sampleInputs, trial, onBackClicked, onCompare } = props;
 
   const getContent = () => {
     if (!trial)
@@ -29,8 +29,8 @@ export function TaskCard(props) {
     />
   }
 
-  return <div className={getBlock()}>
+  return <div className={ getBlock() }>
 
-    {getContent()}
+    { getContent() }
   </div>
 }

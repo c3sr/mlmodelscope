@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import useBEMNaming from "../../../common/useBEMNaming";
 import Task from "../../../helpers/Task";
 import "./QuickTextInput.scss";

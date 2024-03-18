@@ -8,7 +8,6 @@ export default function HomePage(props) {
     const {getBlock} = useBEMNaming("home-page");
 
     const modelDetailsRef = useRef();
-    const otherRef = useRef()
 
 
     return (

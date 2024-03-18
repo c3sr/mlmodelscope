@@ -2,7 +2,7 @@ import React from "react";
 import useBEMNaming from "../../../common/useBEMNaming";
 
 export function InputPreviewText(props) {
-  const { getBlock, getElement } = useBEMNaming("input-preview");
+  const { getElement } = useBEMNaming("input-preview");
 
   let textToDisplay = props.selectedInput;
 

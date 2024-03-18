@@ -1,7 +1,6 @@
 import useBEMNaming from "../../../common/useBEMNaming";
 import useTextOutput from "../../Experiment/QuickOutput/Outputs/Text/useTextOutput";
 import React from "react";
-import SyntaxHighlighter from "react-syntax-highlighter";
 import { CodePreview } from "../../Experiment/QuickOutput/Outputs/_Common/components/CodePreview";
 
 export default function TextToCodeSummary(props) {

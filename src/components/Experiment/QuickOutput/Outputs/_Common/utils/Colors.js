@@ -77,6 +77,6 @@ export const colorToRGBA = (function() {
       return; // invalid color
     }
     ctx.fillRect(0, 0, 1, 1);
-    return [ ... ctx.getImageData(0, 0, 1, 1).data ];
+    return [ ...ctx.getImageData(0, 0, 1, 1).data ];
   });
 })();

@@ -11,7 +11,7 @@ export default function IntroTutorialPlantPrompt(props) {
         <p className={getElement("intro-text")}>Model Input</p>
         <p className={getElement("title")}>Can a machine learning model identify what type of plant this is?</p>
         <div className={getElement("img-wrapper")}>
-            <img src={PlantPicture} alt={"a picture of a plant"} className={getElement("img")}/>
+            <img src={PlantPicture} alt={"plant"} className={getElement("img")}/>
         </div>
 
         <button className={getElement("cta")} onClick={() => props.goToSection(props.index + 1)}>
