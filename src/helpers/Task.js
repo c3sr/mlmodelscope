@@ -151,7 +151,7 @@ export default class Task {
     name: "Conversation",
     description: "Converse with a bot in real-time",
     id: textConversation,
-    inputText: "Conversational text inputs",
+    inputText: "Begin a conversation.",
     outputText: "Conversational responses from the bot",
     icon: (props) => <TextConversation {...props} />,
     sampleInputs: [],
