@@ -7,6 +7,7 @@ import {
   textToText,
   textToCode,
   audioToText,
+  textConversation
 } from "./TaskIDs";
 import React from "react";
 import { ReactComponent as ImageClassification } from "../resources/icons/icon-imageClassification.svg";
@@ -15,6 +16,7 @@ import { ReactComponent as SemanticSegmentation } from "../resources/icons/icon-
 import { ReactComponent as InstanceSegmentation } from "../resources/icons/icon-instanceSegmentation.svg";
 import { ReactComponent as ImageEnhancement } from "../resources/icons/icon-imageEnhancement.svg";
 import { ReactComponent as AudioToText } from "../resources/icons/icon-audioToText.svg";
+import { ReactComponent as TextConversation } from "../resources/icons/icon-textConversation.svg";
 
 import {
   DefaultImageClassificationModel,
@@ -23,7 +25,8 @@ import {
   DefaultObjectDetectionModel,
   DefaultSemanticSegmentationModel,
   DefaultTextModel,
-  DefaultAudioToTextModel
+  DefaultAudioToTextModel,
+  DefaultTextConversationModel
 } from "./DefaultModels";
 import {
   SampleImageClassificationInputs,
@@ -38,6 +41,7 @@ import { TestImageSegmentationResult } from "../components/Experiment/QuickOutpu
 import { TestInstanceSegmentationOutput } from "../components/Experiment/QuickOutput/Outputs/InstanceSegmentation/testData/TestFeatures";
 import { TestTextOutput } from "../components/Experiment/QuickOutput/Outputs/Text/testData/testTextOutput";
 import { TestAudioToTextOutput } from "../components/Experiment/QuickOutput/Outputs/AudioToText/testData/testAudioToTextOutput";
+import { TestTextConversationOutput } from "../components/Experiment/QuickOutput/Outputs/Chatbot/testTextConversationOutput";
 import { TaskInputTypes } from "./TaskInputTypes";
 
 export default class Task {
@@ -142,7 +146,18 @@ export default class Task {
     sampleInputs: [],
     tutorialDescription: "Audio to text models transcribe audio files, allowing you to read what is said.",
     inputType: TaskInputTypes.Audio,
-  });  
+  });
+  static text_conversation = new Task({
+    name: "Conversation",
+    description: "Converse with a bot in real-time",
+    id: textConversation,
+    inputText: "Conversational text inputs",
+    outputText: "Conversational responses from the bot",
+    icon: (props) => <TextConversation {...props} />,
+    sampleInputs: [],
+    tutorialDescription: "[insert text tutorial page description here]",  // Update this
+    inputType: TaskInputTypes.Text,  // Does this need to be changed?
+  });
 
 
   constructor(options) {
@@ -182,6 +197,8 @@ export default class Task {
         return Task.text_to_code;
       case audioToText:
         return Task.audio_to_text;
+      case textConversation:
+        return Task.text_conversation;
       default:
         return new Task({ name: "unknown", description: "unknown task name" });
     }
@@ -201,12 +218,13 @@ export default class Task {
         return DefaultInstanceSegmentationModel;
       case textToText:
         return DefaultTextModel;
-
       case textToCode:
         // Should this be different from text-to-text?
         return DefaultTextModel;
       case audioToText:
         return DefaultAudioToTextModel;
+      case textConversation:
+        return DefaultTextConversationModel;
 
       default:
         return undefined;
@@ -229,6 +247,8 @@ export default class Task {
         return TestTextOutput;
       case audioToText:
         return TestAudioToTextOutput;
+      case textConversation:
+        return TestTextConversationOutput;
     }
   }
 
@@ -242,6 +262,7 @@ export default class Task {
       this.getStaticTask(textToText),
       this.getStaticTask(textToCode),
       this.getStaticTask(audioToText),
+      this.getStaticTask(textConversation)
     ];
   }
 
@@ -254,6 +275,7 @@ export default class Task {
       this.getStaticTask(instance_segmentation),
       this.getStaticTask(textToText),
       this.getStaticTask(audioToText),
+      this.getStaticTask(textConversation)
     ];
   }
 }
