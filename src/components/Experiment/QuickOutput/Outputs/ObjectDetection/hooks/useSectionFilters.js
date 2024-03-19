@@ -1,4 +1,4 @@
-import React, {useMemo} from "react";
+import {useMemo} from "react";
 import {useCategoryFilters} from "../../_Common/hooks/useCategoryFilters";
 import {useConfidenceFilters} from "./useConfidenceFilters";
 

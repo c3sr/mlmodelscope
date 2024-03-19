@@ -5,7 +5,7 @@ import SingleColumnImageOutput from "../_Common/components/SingleColumnImageOutp
 import ImageEnhancementImage from "./ImageEnhancementImage";
 
 export default function ImageEnhancement(props) {
-  const {getElement, getBlock} = useBEMNaming('image-enhancement');
+  const {getBlock} = useBEMNaming('image-enhancement');
 
 
   return <div className={getBlock()}>

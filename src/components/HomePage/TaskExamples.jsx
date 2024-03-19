@@ -32,7 +32,6 @@ export function TaskExamples(props) {
 
   const {
     name,
-    description,
     Icon,
     defaultModel,
     sampleInputs,

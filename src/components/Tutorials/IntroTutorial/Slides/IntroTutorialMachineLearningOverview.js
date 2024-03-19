@@ -20,7 +20,7 @@ export default function IntroTutorialMachineLearningOverview(props) {
             <div className={getElement("background-gradient")}></div>
             <div className={getElement("section-content")}>
                 <div className={getElement("content-group")}>
-                    <img className={getElement("content-image")} src={MachineLearning1} alt={"Input image"}/>
+                    <img className={getElement("content-image")} src={MachineLearning1} alt={"Input"}/>
                     <p className={getElement("content-label")}>Input image</p>
                 </div>
                 <div className={getElement("content-group")}>

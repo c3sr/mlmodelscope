@@ -17,8 +17,7 @@ export default function InputPreview(givenProps) {
     switch (props.inputType) {
       case "text":
         return <p className={getElement("text")}>{props.input}</p>;
-      case "audio":
-        // Currently not being used
+      case "audio":  // Currently not being used
       case "image":
       default:
         return <img className={getElement("image")} src={props.input} />;

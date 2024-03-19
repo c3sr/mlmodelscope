@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import "./ModelTag.scss";
 import Task from "../../helpers/Task";
 import Framework from "../../helpers/Framework";
@@ -6,7 +6,7 @@ import {ReactComponent as Microchip} from "../../resources/icons/microchip-solid
 
 export default function ModelTag(props) {
   let className = "model-tag";
-  if (!!props.type && props.type != "") {
+  if (!!props.type && props.type !== "") {
     className = `${className} -${props.type}`;
   }
   let Icon = (() => <></>);

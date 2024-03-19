@@ -5,7 +5,6 @@ import "./ImageEnhancementSummary.scss";
 
 export default function ImageEnhancementSummary(props) {
   const {getBlock, getElement} = useBEMNaming("image-enhancement-summary");
-  const goBack = () => History?.back() || null;
 
   return <div className={getBlock()}>
     <div className={getElement("summary")}>

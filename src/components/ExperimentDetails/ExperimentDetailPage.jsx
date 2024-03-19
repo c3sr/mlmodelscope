@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+// import React, { useState } from "react";
 import ExperimentDetailHeader from "./ExperimentDetailHeader";
 import TrialOutputWrapper from "./TrialOutputWrapper";
 import Header from "../Header/Header";
@@ -13,7 +14,7 @@ import RemoveInputModal from "./modals/RemoveInputModal";
 import InputCannotBeRemovedModal from "./modals/InputCannotBeRemovedModal";
 
 export default function ExperimentDetailPage(props) {
-  const [value, setValue] = useState(-1);
+  // const [value, setValue] = useState(-1);
 
   const { getBlock, getElement } = useBEMNaming("experiment-detail-page");
   const calculateCardWidth = () => {
@@ -30,7 +31,7 @@ export default function ExperimentDetailPage(props) {
       className={getElement("trial")}
     >
       <TrialOutputWrapper
-        value={value}
+        // value={value}
         trial={trial}
         onDeleteTrial={props.onDeleteTrial}
         deletedTrial={props.trialToDelete}

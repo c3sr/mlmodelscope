@@ -7,7 +7,7 @@ import {QuickInputType} from "../../quickInputType";
 
 export default function SampleInputsTab(props) {
     const {getBlock, getElement} = useBEMNaming("sample-inputs");
-    const {isUnselected, isSelected, selectedIndex, selectInput, type} = useSampleInputControl(props);
+    const {isUnselected, isSelected, selectInput, type} = useSampleInputControl(props);
 
     const getInputClassName = (url) => {
         let className = `input-${type}`;
@@ -25,6 +25,8 @@ export default function SampleInputsTab(props) {
                 return makeSampleTextInput(url, index);
             case QuickInputType.Audio:
                 return makeSampleAudioInput(url, index);
+            default:
+                return makeDefaultErrorInput();
         }
     }
 
@@ -53,6 +55,12 @@ export default function SampleInputsTab(props) {
         )
     }
 
+    function makeDefaultErrorInput() {
+        return (
+            <div>No input type defined</div>
+        )
+    }
+
     const task = Task.getStaticTask(props.task);
     const sampleInputs = props.sampleInputs ?? [];
     return (
@@ -72,6 +80,8 @@ export default function SampleInputsTab(props) {
                 return "Select text";
             case QuickInputType.Audio:
                 return "Select an audio file";
+            default:
+                return "Error: no input type set";
         }
     }
 }

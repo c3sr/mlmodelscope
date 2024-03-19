@@ -249,6 +249,8 @@ export default class Task {
         return TestAudioToTextOutput;
       case textConversation:
         return TestTextConversationOutput;
+      default:
+        return undefined
     }
   }
 
