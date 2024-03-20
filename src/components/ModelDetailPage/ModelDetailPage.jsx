@@ -13,6 +13,7 @@ import {
   textToText,
   textToCode,
   audioToText,
+  textConversation,
 } from "../../helpers/TaskIDs";
 import {
   SampleImageClassificationInputs,
@@ -44,6 +45,9 @@ const ModelDetailPage = (props) => {
         return SampleTextToCodeInputs;
       case audioToText:
         return SampleAudioToTextInputs;
+      case textConversation:
+        // TODO: Come back to this
+        // return
       case image_classification:
       default:
         return SampleImageClassificationInputs;
@@ -57,6 +61,8 @@ const ModelDetailPage = (props) => {
       case textToText:
         return "text";
       case textToCode:
+        return "text";
+      case textConversation:
         return "text";
       case object_detection:
       case image_enhancement:

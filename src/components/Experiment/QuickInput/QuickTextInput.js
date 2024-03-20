@@ -17,9 +17,11 @@ export default function QuickTextInput(props) {
         selectTab,
         selectInput,
         runModel,
+        hideUpload=false,
     } = useQuickInputControl(props);
     const {getBlock, getElement} = useBEMNaming("quick-text-input");
     const task = Task.getStaticTask(props.model.output.type);
+    console.log(task)
     const tabs = getTabs(QuickInputType.Text);
 
     return (

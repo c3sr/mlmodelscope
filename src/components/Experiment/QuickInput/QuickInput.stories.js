@@ -122,6 +122,7 @@ TextConversation.args = {
     "What is the weather tomorrow?",
     "What is the meaning of life?",
   ],
+  hideUpload: true,
   model: {
     output: {
       type: textConversation,
