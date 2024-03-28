@@ -84,6 +84,7 @@ const ModelDetailPage = (props) => {
         />
       );
     } else {
+      console.log('ModelDetailPage.renderContent')
       return (
         <QuickOutput
           input={props.trialOutput.inputs[0]}

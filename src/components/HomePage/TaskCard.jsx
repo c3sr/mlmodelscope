@@ -8,6 +8,8 @@ import "./TaskCard.scss";
 export function TaskCard(props) {
   const { getBlock } = useBEMNaming("example-task-card");
 
+  console.log('taskCard')
+
   const { defaultModel, runTrial, sampleInputs, trial, onBackClicked, onCompare } = props;
 
   const getContent = () => {

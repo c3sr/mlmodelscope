@@ -41,7 +41,7 @@ import { TestImageSegmentationResult } from "../components/Experiment/QuickOutpu
 import { TestInstanceSegmentationOutput } from "../components/Experiment/QuickOutput/Outputs/InstanceSegmentation/testData/TestFeatures";
 import { TestTextOutput } from "../components/Experiment/QuickOutput/Outputs/Text/testData/testTextOutput";
 import { TestAudioToTextOutput } from "../components/Experiment/QuickOutput/Outputs/AudioToText/testData/testAudioToTextOutput";
-import { TestTextConversationOutput } from "../components/Experiment/QuickOutput/Outputs/Chatbot/testTextConversationOutput";
+import { TestTextConversationOutput } from "../components/Experiment/QuickOutput/Outputs/TextConversation/testData/testTextConversationOutput";
 import { TaskInputTypes } from "./TaskInputTypes";
 
 export default class Task {

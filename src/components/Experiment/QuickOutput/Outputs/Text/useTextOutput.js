@@ -7,9 +7,18 @@ export default function useTextOutput(trial) {
     return trial?.inputs[0] ?? "";
   };
 
+  const getInferenceDuration = () => {
+    return trial?.results?.duration_for_inference ?? "0s";
+  };  
+
   const [input, setInput] = useState(getInputText());
+  const [inferenceDuration, setInferenceDuration] = useState(getInferenceDuration());
 
   const getOutput = () => {
+    // console.log('getOutput')
+
+    // console.log(trial)
+
     if (!trial?.results?.responses || !trial?.results?.responses[0].features)
       return "";
 
@@ -27,14 +36,13 @@ export default function useTextOutput(trial) {
     }
   };
 
-  const getInferenceDuration = () => {
-    return trial?.results?.duration_for_inference ?? "0s";
-  };
+
 
   return {
     output: getOutput(),
     input,
     setInput,
-    inferenceDuration: getInferenceDuration(),
+    inferenceDuration,
+    setInferenceDuration
   };
 }

@@ -1,0 +1,84 @@
+@import "src/App";
+.text-conversation-output {
+    &__output-container {
+        border: 1px solid $smokeDarker;
+        height: 360px;
+        overflow-y: scroll;
+    }
+    &__chat-container {
+        // border: 1px solid red;
+        display: flex;
+        flex-direction: column;
+        padding: 32px;
+
+        height: 360px;
+        // overflow-y: hidden;
+
+
+        .speech-bubble {
+            padding: 15px;
+            border-radius: 15px;    
+            margin-bottom: 15px;
+        }
+    }
+    &__chat-user-message {
+        // border: 1px solid orange;
+
+        display: flex;
+        justify-content: flex-end;
+        padding-left: 10%;
+        .speech-bubble {
+            background-color: $azul;
+            color: white;
+        }
+    }
+    &__chat-bot-message {
+        // border: 1px solid orange;
+
+        display: flex;
+        justify-content: flex-start;
+        padding-right: 10%;
+        .speech-bubble {
+            background-color: $smokeDarker;
+        }
+    }
+
+    &__chat-input-container {
+        // border: 1px solid green;
+    }
+
+    &__input-submit-button {
+
+    }
+
+    &__input-submit-button-content {
+        width: 80px;
+    }
+
+    &__input-container-text {
+        min-height: 80px;
+    }
+
+    &__input-submit-row {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    &__spinner-container {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }    
+    &__spinner {
+        animation: spin 1s linear 0s infinite;
+        border-bottom: solid 3px $purple;
+        border-left: solid 3px transparent;
+        border-radius: 50%;
+        border-right: solid 3px $purple;
+        border-top: solid 3px $purple;
+        height: 25px;
+        // margin-bottom: 16px;
+        width: 25px;
+      }    
+}
