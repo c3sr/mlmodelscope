@@ -24,8 +24,8 @@ export default function TextConversationOutput(props) {
     const [ message, setMessage ] = useState(null);
 
     const [ conversation, setConversation ] = useState([
-        { sender: 'user', text: input }, 
-        { sender: 'bot', text: output }
+        { role: 'user', content: input }, 
+        { role: 'bot', content: output }
     ]);
 
     const inputField = useRef(null);
@@ -44,10 +44,13 @@ export default function TextConversationOutput(props) {
     }, [conversation]);
 
     useEffect(() => {
-        if (!isSending && inputField.current) {
+        if (!isSending) {
             // NOTE: Currently not working
-            console.log('focus on input field')
-            inputField.current.focus();
+            if (inputField.current) {
+                console.log('focus on input field')
+                inputField.current.focus();
+            }
+
         }
     }, [isSending]);
     
@@ -63,8 +66,8 @@ export default function TextConversationOutput(props) {
         // TODO: Need to send the message to the API, wait for response, 
         // then send it back down to TextConversationChatContainer
         
-        // updateConversation({ sender: 'bot', text: 'Nope' })
-        setMessage({ sender: 'bot', text: 'Nope' })
+        // updateConversation({ role: 'bot', content: 'Nope' })
+        setMessage({ role: 'bot', content: 'Nope' })
     };
 
 
@@ -75,7 +78,7 @@ export default function TextConversationOutput(props) {
         console.log("send user message");
         console.log('current convo: ', conversation)
 
-        setMessage({ sender: 'user', text: newInput });
+        setMessage({ role: 'user', content: newInput });
         setIsSending(true);
         setNewInput('');
         
@@ -111,10 +114,10 @@ export default function TextConversationOutput(props) {
                         return (
                             <div 
                                 key={index}
-                                className={getElement(`chat-${message.sender}-message`)}
+                                className={getElement(`chat-${message.role}-message`)}
                             >
                                 <div className="speech-bubble">
-                                    {message.text}
+                                    {message.content}
                                 </div>
                             </div>
                         )
@@ -126,10 +129,11 @@ export default function TextConversationOutput(props) {
         </div>
         <div className={getElement("chat-input-container")}>
             <textarea
-                useRef={inputField}
+                useref={inputField}
                 value={newInput}
                 onChange={(e) => setNewInput(e.target.value)}
                 className={getElement("input-container-text")}
+                autoFocus
             ></textarea>
 
             <div className={getElement("input-submit-row")}>
