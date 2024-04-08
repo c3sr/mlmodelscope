@@ -4,13 +4,11 @@ import "./TextConversationOutputChatContainer.scss";
 import useBEMNaming from "../../../../../common/useBEMNaming";
 import useTextOutput from "../Text/useTextOutput";
 import OutputDuration from "../_Common/components/OutputDuration";
-import TextOutputInputSection from "../Text/TextOutputInputSection";
 import { textConversation } from "../../../../../helpers/TaskIDs";
 import Task from "../../../../../helpers/Task";
-import TextConversationChatContainer from "./TextConversationOutputChatContainer";
-import { getInitialConversation } from "./conversationHistory";
 
-// import TextConversationInputContainer from "./TextConversationOutputInputContainer";
+import conversationHistory from "./conversationHistory";
+
 
 export default function TextConversationOutput(props) {
 
@@ -18,6 +16,13 @@ export default function TextConversationOutput(props) {
     const { inferenceDuration, output, input, setInput, setInferenceDuration } = useTextOutput(
         props.trial
     );
+
+    const { getConversationHistory, updateConversationHistory } = conversationHistory();
+    // console.log('conversation history:', getConversationHistory())
+    updateConversationHistory('user', input)
+    // console.log('conversation history:', getConversationHistory())
+    updateConversationHistory('user', output)
+    // console.log('conversation history:', getConversationHistory())
 
     const task = Task.getStaticTask(textConversation);
 
@@ -56,6 +61,7 @@ export default function TextConversationOutput(props) {
     
     const updateConversation = (message) => {
         setConversation([...conversation, message]);
+        console.log('updateConversation: ', conversation);
     }    
 
     const onSubmit = () => {
@@ -76,9 +82,13 @@ export default function TextConversationOutput(props) {
 
     const sendMessage = () => {
         console.log("send user message");
-        console.log('current convo: ', conversation)
+        // console.log('current convo: ', conversation)
 
         setMessage({ role: 'user', content: newInput });
+
+        updateConversationHistory('user', newInput)
+        console.log('conversation history:', getConversationHistory())
+
         setIsSending(true);
         setNewInput('');
         

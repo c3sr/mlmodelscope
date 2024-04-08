@@ -1,10 +1,28 @@
 import { useState } from "react";
 
-export const getInitialConversation = (trial) => {
-    console.log('getChatHistory')
-    console.log('trial', trial)
-  
-    return trial?.results?.responses;
-}
+export default function conversationHistory() {
+//   const [conversation, setConversation] = useState([]);
+  let conversation = [];
 
-// Delete this file
+  const getConversationHistory = () => {
+    return conversation;
+  }
+
+  const setConversationHistory = (role, content) => {
+    conversation.push({role: role, content: content});
+    // console.log(conversation);
+    return conversation;
+  }
+
+  const updateConversationHistory = (role, content) => {
+    setConversationHistory(role, content);
+    return conversation;
+  }
+
+
+
+  return {
+    getConversationHistory,
+    updateConversationHistory
+  };
+}
