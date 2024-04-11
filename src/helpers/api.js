@@ -119,7 +119,7 @@ class Api {
     return trial;
   }
 
-  async runTrial(model, input, experimentId = null) {
+  async runTrial(model, input, experimentId = null, context = null) {
     let inputs = typeof (input) === 'string' ? [input] : input;
     const requestBody = {
       architecture: "amd64",
@@ -135,15 +135,24 @@ class Api {
       requestBody['experiment'] = experimentId;
     }
 
-    const response = await fetch(`${this.apiUrl}/predict`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(requestBody)
-    });
+    if (context) {
+      console.log('context:', context);
+      requestBody['context'] = context;
+    }
 
-    return await response.json();
+    console.log('runTrial: requestBody', requestBody)
+
+    // NOTE Uncomment this:
+
+    // const response = await fetch(`${this.apiUrl}/predict`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(requestBody)
+    // });
+
+    // return await response.json();
   }
 
   async poll({fn, params, validate, maxAttempts, subject}) {

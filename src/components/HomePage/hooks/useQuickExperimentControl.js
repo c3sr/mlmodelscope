@@ -28,6 +28,7 @@ export default function useQuickExperimentControl(model) {
   const trialIsComplete = (trial) => trial?.results?.responses[0].features.length > 0;
 
   const runTrial = async (image) => {
+    // Or this?
     setRunningState(RunningStates.RUNNING);
 
     const response = await api.runTrial(model, image);

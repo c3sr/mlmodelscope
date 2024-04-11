@@ -17,23 +17,37 @@ export const TestTextConversationOutput = {
             {
                 'features': [
                     {
-                        'sender': 'bot',
+                        'role': 'assistant',
                         'text': 'Buy a frozen pizza and put it in the microwave for ten minutes', 
                         'type': 'TEXT'
                     }
                 ], 
                 'id': "sampletestaudiototextoutputresponseidhere"
-            },
+            },            
+        ]
+    }
+}
+
+export const TestTextConversationOutput2 = {
+    id: "sampletesttextconversationoutputidhere",
+    inputs: [
+        'Can I have a different recipe?',
+    ],
+    completed_at: "2023-06-03T18:17:14.513854Z",
+    results: { 
+        'duration': "9.216154124s", 
+        'duration_for_inference': "7.233107566s", 
+        'responses': [
             {
                 'features': [
                     {
-                        'sender': 'user',
-                        'text': 'I meant a real pizza', 
-                        'type': 'TEXT',
+                        'role': 'assistant',
+                        'text': 'Just order from Domino\'s website', 
+                        'type': 'TEXT'
                     }
                 ], 
-                'id': "sampletestaudiototextoutputresponseidhere+1"
-            },              
+                'id': "sampletestaudiototextoutputresponseidhere"
+            },            
         ]
     }
 }

@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 export default function conversationHistory() {
-//   const [conversation, setConversation] = useState([]);
   let conversation = [];
 
   const getConversationHistory = () => {
@@ -18,8 +17,6 @@ export default function conversationHistory() {
     setConversationHistory(role, content);
     return conversation;
   }
-
-
 
   return {
     getConversationHistory,

@@ -2,16 +2,18 @@
 .text-conversation-output {
     &__output-container {
         border: 1px solid $smokeDarker;
-        height: 360px;
+        // height: 360px;
+        height: 202px;
         overflow-y: scroll;
     }
     &__chat-container {
         // border: 1px solid red;
         display: flex;
         flex-direction: column;
-        padding: 32px;
+        padding: 16px 32px;
 
-        height: 360px;
+        // height: 360px;
+        height: 200px;
         // overflow-y: hidden;
 
 
@@ -32,19 +34,37 @@
             color: white;
         }
     }
-    &__chat-bot-message {
+    &__chat-assistant-message {
         // border: 1px solid orange;
 
         display: flex;
         justify-content: flex-start;
-        padding-right: 10%;
+        // padding-right: 10%;
+        padding-right: 5%;
+        .assistant-icon-container {
+            // width: 5%;
+        }
+        .assistant-icon {
+            background-color: $grayDark;
+            color: white;
+            height: 38px;
+            width: 38px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            margin-top: 5px;
+        }
         .speech-bubble {
             background-color: $smokeDarker;
+            // width: 85%;
         }
     }
 
     &__chat-input-container {
         // border: 1px solid green;
+        // display: flex;
     }
 
     &__input-submit-button {

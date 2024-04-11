@@ -8,6 +8,7 @@ import { textConversation } from "../../../../../helpers/TaskIDs";
 import Task from "../../../../../helpers/Task";
 
 import conversationHistory from "./conversationHistory";
+import Rating from "../Classification/Rating";
 
 
 export default function TextConversationOutput(props) {
@@ -18,27 +19,23 @@ export default function TextConversationOutput(props) {
     );
 
     const { getConversationHistory, updateConversationHistory } = conversationHistory();
-    // console.log('conversation history:', getConversationHistory())
+    const convo = [];
     updateConversationHistory('user', input)
-    // console.log('conversation history:', getConversationHistory())
-    updateConversationHistory('user', output)
+    updateConversationHistory('assistant', output)
     // console.log('conversation history:', getConversationHistory())
 
     const task = Task.getStaticTask(textConversation);
 
     const [ message, setMessage ] = useState(null);
 
-    const [ conversation, setConversation ] = useState([
-        { role: 'user', content: input }, 
-        { role: 'bot', content: output }
-    ]);
+    const [ conversation, setConversation ] = useState(getConversationHistory());
 
     const inputField = useRef(null);
     const chatEnd = useRef(null);
 
     useEffect(() => {
         if (message) {
-            updateConversation(message)
+            updateConversation(message);
         }
     }, [message])
 
@@ -61,54 +58,64 @@ export default function TextConversationOutput(props) {
     
     const updateConversation = (message) => {
         setConversation([...conversation, message]);
-        console.log('updateConversation: ', conversation);
+        // console.log('updateConversation: ', conversation);
     }    
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         console.log('submit and return bot message....')
-        // TODO: Uncomment below?
-        // props.onSubmit(input);
-
         // TODO: Need to send the message to the API, wait for response, 
         // then send it back down to TextConversationChatContainer
         
-        // updateConversation({ role: 'bot', content: 'Nope' })
-        setMessage({ role: 'bot', content: 'Nope' })
+        // Submit to API
+        const convo = getConversationHistory();
+        const trialResponse = await props.onSubmit(newInput, convo);
+        // console.log(trialResponse);
+
+        const newOutput = trialResponse?.results?.responses[0]?.features[0]?.text ?? "Something went wrong.";
+        // console.log(newOutput)
+
+        setMessage({ role: 'assistant', content: newOutput });
+        updateConversationHistory('assistant', newOutput);
+        console.log('conversation history:', getConversationHistory())
+
+        const newInferenceDuration = trialResponse?.results?.duration_for_inference ?? "0s";
+        // console.log(newInferenceDuration)
+        setInferenceDuration(newInferenceDuration);
+
+        setIsSending(false);
+
+        console.log('this should be the last message...', conversation)
     };
 
 
     const [newInput, setNewInput] = useState('');
     const [isSending, setIsSending] = useState(false);
 
-    const sendMessage = () => {
+    const sendMessage = async () => {
         console.log("send user message");
         // console.log('current convo: ', conversation)
 
         setMessage({ role: 'user', content: newInput });
 
-        updateConversationHistory('user', newInput)
+        updateConversationHistory('user', newInput);
         console.log('conversation history:', getConversationHistory())
 
         setIsSending(true);
-        setNewInput('');
+
+        // TODO: Uncomment, this is when we want to actually submit
+        // await onSubmit();
         
+        // This is temporary, using as a mock response + delay
         setTimeout(() => {
             onSubmit();
-            setIsSending(false);
-            setInferenceDuration('2.1s')
-        }, 2000);
-        
+        }, 2000);        
+
+        setNewInput('');
     }    
 
 
   return (
     <div className={getBlock()}>
-      {/* <TextOutputInputSection
-        input={input}
-        setInput={setInput}
-        onSubmit={onSubmit}
-      /> */}
-
       <div className={getElement("results")}>
         <div className={getElement("title-row")}>
           <h3 className={getElement("title-row-title")}>Output</h3>
@@ -126,6 +133,14 @@ export default function TextConversationOutput(props) {
                                 key={index}
                                 className={getElement(`chat-${message.role}-message`)}
                             >
+                                { message.role === "assistant" && (
+                                    <div className="assistant-icon-container">
+                                        <div className="assistant-icon">
+                                            ML
+                                        </div>
+                                    </div>
+
+                                )}
                                 <div className="speech-bubble">
                                     {message.content}
                                 </div>
@@ -169,7 +184,7 @@ export default function TextConversationOutput(props) {
             </div>
         </div>        
 
-        {/* <Rating /> */}
+        <Rating />
       </div>
     </div>
   );

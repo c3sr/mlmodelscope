@@ -15,10 +15,6 @@ export default function useTextOutput(trial) {
   const [inferenceDuration, setInferenceDuration] = useState(getInferenceDuration());
 
   const getOutput = () => {
-    // console.log('getOutput')
-
-    // console.log(trial)
-
     if (!trial?.results?.responses || !trial?.results?.responses[0].features)
       return "";
 

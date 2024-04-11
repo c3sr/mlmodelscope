@@ -149,14 +149,14 @@ export default class Task {
   });
   static text_conversation = new Task({
     name: "Conversation",
-    description: "Converse with a bot in real-time",
+    description: "Converse with a virtual assistant in real-time",
     id: textConversation,
     inputText: "begin a conversation.",
-    outputText: "Conversational responses from the bot",
+    outputText: "Conversational responses from the virtual assistant",
     icon: (props) => <TextConversation {...props} />,
     sampleInputs: [],
-    tutorialDescription: "[insert text tutorial page description here]",  // Update this
-    inputType: TaskInputTypes.Text,  // Does this need to be changed?
+    tutorialDescription: "Type a question and receive a response from a virtual assistant",
+    inputType: TaskInputTypes.Text,
   });
 
 
