@@ -8,7 +8,6 @@ import "./TaskExamples.scss";
 import Task from "../../helpers/Task";
 
 export function TaskExamples(props) {
-  console.log('TaskExamples')
   const { getBlock, getElement } = useBEMNaming("home-page-tasks");
   const { taskSelection, quickExperiment, navigation, trialOutput } =
     useTaskExampleControl();

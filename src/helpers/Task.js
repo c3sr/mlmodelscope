@@ -275,9 +275,8 @@ export default class Task {
       this.getStaticTask(image_enhancement),
       this.getStaticTask(semantic_segmentation),
       this.getStaticTask(instance_segmentation),
-      this.getStaticTask(textToText),
-      this.getStaticTask(audioToText),
-      this.getStaticTask(textConversation)
+      // Note: Don't add new tasks here; 
+      // These are just examples on the Home Page
     ];
   }
 }
