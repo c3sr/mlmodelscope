@@ -6,42 +6,47 @@ import useTextOutput from "../Text/useTextOutput";
 import OutputDuration from "../_Common/components/OutputDuration";
 import { textConversation } from "../../../../../helpers/TaskIDs";
 import Task from "../../../../../helpers/Task";
-
-import conversationHistory from "./conversationHistory";
 import Rating from "../Classification/Rating";
 
+const ROLE = {
+    USER: 'user',
+    ASSISTANT: 'assistant'
+}
 
 export default function TextConversationOutput(props) {
-
     const { getBlock, getElement } = useBEMNaming("text-conversation-output");
     const { inferenceDuration, output, input, setInput, setInferenceDuration } = useTextOutput(
         props.trial
     );
 
-    const { getConversationHistory, updateConversationHistory } = conversationHistory();
-    const convo = [];
-    updateConversationHistory('user', input)
-    updateConversationHistory('assistant', output)
-    // console.log('conversation history:', getConversationHistory())
-
     const task = Task.getStaticTask(textConversation);
 
-    const [ message, setMessage ] = useState(null);
+    const [conversation, setConversation] = useState([
+        { role: ROLE.USER, content: input },
+        { role: ROLE.ASSISTANT, content: output }
+    ]);
+    const [message, setMessage] = useState(null);
+    const [isSending, setIsSending] = useState(false);
+    const [newInput, setNewInput] = useState('');
 
-    const [ conversation, setConversation ] = useState(getConversationHistory());
-
-    const inputField = useRef(null);
-    const chatEnd = useRef(null);
+    const inputField = useRef(null);  // Not working
+    const chatBottomPosition = useRef(null);
 
     useEffect(() => {
         if (message) {
-            updateConversation(message);
+            setConversation([...conversation, message]);
         }
     }, [message])
 
     useEffect(() => {
         if (conversation) {
-            chatEnd.current.scrollIntoView({ behavior: "smooth" });
+            chatBottomPosition.current.scrollIntoView({ behavior: "smooth" });
+            console.log('useEffect conversation, ', conversation);
+
+            if (conversation[conversation.length - 1].role === ROLE.USER) {
+                // Send to API
+                sendToAPI();
+            }
         }
     }, [conversation]);
 
@@ -54,62 +59,24 @@ export default function TextConversationOutput(props) {
             }
 
         }
-    }, [isSending]);
-    
-    const updateConversation = (message) => {
-        setConversation([...conversation, message]);
-        // console.log('updateConversation: ', conversation);
-    }    
+    }, [isSending]);  
 
-    const onSubmit = async () => {
-        console.log('submit and return bot message....')
-        // TODO: Need to send the message to the API, wait for response, 
-        // then send it back down to TextConversationChatContainer
-        
+    const sendToAPI = async () => {
         // Submit to API
-        const convo = getConversationHistory();
-        const trialResponse = await props.onSubmit(newInput, convo);
-        // console.log(trialResponse);
-
+        const trialResponse = await props.onSubmit(newInput, conversation);
         const newOutput = trialResponse?.results?.responses[0]?.features[0]?.text ?? "Something went wrong.";
-        // console.log(newOutput)
 
-        setMessage({ role: 'assistant', content: newOutput });
-        updateConversationHistory('assistant', newOutput);
-        console.log('conversation history:', getConversationHistory())
+        setMessage({ role: ROLE.ASSISTANT, content: newOutput });
 
         const newInferenceDuration = trialResponse?.results?.duration_for_inference ?? "0s";
-        // console.log(newInferenceDuration)
         setInferenceDuration(newInferenceDuration);
 
         setIsSending(false);
-
-        console.log('this should be the last message...', conversation)
     };
 
-
-    const [newInput, setNewInput] = useState('');
-    const [isSending, setIsSending] = useState(false);
-
-    const sendMessage = async () => {
-        console.log("send user message");
-        // console.log('current convo: ', conversation)
-
-        setMessage({ role: 'user', content: newInput });
-
-        updateConversationHistory('user', newInput);
-        console.log('conversation history:', getConversationHistory())
-
-        setIsSending(true);
-
-        // TODO: Uncomment, this is when we want to actually submit
-        // await onSubmit();
-        
-        // This is temporary, using as a mock response + delay
-        setTimeout(() => {
-            onSubmit();
-        }, 2000);        
-
+    const sendMessage = () => {
+        setMessage({ role: ROLE.USER, content: newInput });
+        setIsSending(true);   
         setNewInput('');
     }    
 
@@ -148,7 +115,7 @@ export default function TextConversationOutput(props) {
                         )
                     })
                 }
-                <div ref={chatEnd} />         
+                <div ref={chatBottomPosition} />         
             </div>  
             
         </div>
