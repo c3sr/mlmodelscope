@@ -41,8 +41,7 @@ export default function TextConversationOutput(props) {
     useEffect(() => {
         if (conversation) {
             chatBottomPosition.current.scrollIntoView({ behavior: "smooth" });
-            console.log('useEffect conversation, ', conversation);
-
+            
             if (conversation[conversation.length - 1].role === ROLE.USER) {
                 // Send to API
                 sendToAPI();
