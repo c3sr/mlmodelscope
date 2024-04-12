@@ -23,6 +23,7 @@ import {
   SampleTextInputs,
   SampleTextToCodeInputs,
   SampleAudioToTextInputs,
+  SampleTextConversationInputs,
 } from "../../helpers/sampleImages";  // This file should be renamed
 
 const ModelDetailPage = (props) => {
@@ -46,8 +47,7 @@ const ModelDetailPage = (props) => {
       case audioToText:
         return SampleAudioToTextInputs;
       case textConversation:
-        // TODO: Come back to this
-        // return
+        return SampleTextConversationInputs;
       case image_classification:
       default:
         return SampleImageClassificationInputs;
@@ -84,7 +84,6 @@ const ModelDetailPage = (props) => {
         />
       );
     } else {
-      console.log('ModelDetailPage.renderContent')
       return (
         <QuickOutput
           input={props.trialOutput.inputs[0]}

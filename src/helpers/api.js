@@ -136,23 +136,18 @@ class Api {
     }
 
     if (context) {
-      console.log('context:', context);
       requestBody['context'] = context;
     }
 
-    console.log('runTrial: requestBody', requestBody)
+    const response = await fetch(`${this.apiUrl}/predict`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestBody)
+    });
 
-    // NOTE Uncomment this:
-
-    // const response = await fetch(`${this.apiUrl}/predict`, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(requestBody)
-    // });
-
-    // return await response.json();
+    return await response.json();
   }
 
   async poll({fn, params, validate, maxAttempts, subject}) {

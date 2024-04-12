@@ -34,8 +34,6 @@ export default function QuickOutput(givenProps) {
   const props = { ...defaultProps, ...givenProps };
   const { getElement, getBlock } = useBEMNaming(props.className);
 
-  console.log('quickoutput')
-
   const preview = (
     <InputPreview
       input={props.input}
@@ -45,7 +43,6 @@ export default function QuickOutput(givenProps) {
   );
 
   const makeOutput = () => {
-    console.log('makeOutput')
     if (props.processFailed) {
       return (
         <>
