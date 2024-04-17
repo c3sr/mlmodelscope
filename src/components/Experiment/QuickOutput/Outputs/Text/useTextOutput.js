@@ -15,6 +15,7 @@ export default function useTextOutput(trial) {
   const [inferenceDuration, setInferenceDuration] = useState(getInferenceDuration());
 
   const getOutput = () => {
+    console.log('in getOutput')
     if (!trial?.results?.responses || !trial?.results?.responses[0].features)
       return "";
 
@@ -25,7 +26,8 @@ export default function useTextOutput(trial) {
         return trial.results.responses[0].features[0].generated_tokens
           .map((token) => token.token)
           .join(" ");
-
+      case "AUDIO":
+        return trial?.results?.responses[0]?.features[0] ?? "";
       case "TEXT":
       default:
         return trial?.results?.responses[0]?.features[0]?.text ?? "";
