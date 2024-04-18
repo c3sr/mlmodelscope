@@ -15,8 +15,8 @@ export const TestTextToAudioOutput = {
             {
                 'features': [
                     {
-                        title: "text-to-audio-outpu.flac",
-                        src: "https://xlab1.netlify.app/text-to-audio.flac",
+                        title: "text-to-audio-output.flac",
+                        src: "https://xlab1.netlify.app/text-to-audio-output.flac",
                         type: 'AUDIO'
                     }
                 ], 

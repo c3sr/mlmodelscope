@@ -52,6 +52,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 25px;
+    // border: 1px solid red;  
 
     .recorded-audio-file {
         filter: sepia(20%) saturate(70%) grayscale(1) contrast(99%) invert(11%);
