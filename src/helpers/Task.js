@@ -131,6 +131,18 @@ export default class Task {
     description:
       "Used to convert one image into the artistic style of a second image",
     id: styleTransfer,
+    inputText: "***",
+    outputText: "Stylized image:",
+    icon: (props) => <StyleTransfer {...props} />,
+    sampleInputs: SampleStyleTransferInputs,
+    tutorialDescription:
+      "###",
+  });
+  static style_transfer = new Task({
+    name: "Style Transfer",
+    description:
+      "Used to convert one image into the artistic style of a second image",
+    id: styleTransfer,
 
     // inputText: "Old inputText",
     // inputType: TaskInputTypes.Image,
