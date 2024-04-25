@@ -136,7 +136,7 @@ export default class Task {
     icon: (props) => <StyleTransfer {...props} />,
     sampleInputs: SampleStyleTransferInputs,
     tutorialDescription:
-      "###",
+      "Style transfer models convert one image into the artistic style of the second image.",
   });
   static style_transfer = new Task({
     name: "Style Transfer",
