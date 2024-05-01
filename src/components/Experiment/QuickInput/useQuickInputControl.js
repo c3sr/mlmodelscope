@@ -66,17 +66,19 @@ export default function useQuickInputControl(props) {
     }
   }  
   const runModel = () => {
+    // console.log('runModel selectedInputs', selectedInputs)
     if (typeof (props.onRunModelClicked) === 'function')
       props.onRunModelClicked(selectedInputs.filter(url => url));
   }
   const selectInput = (url, index) => {
+    console.log('selectInput--------')
     let selected = selectedInputs;
 
     if (index)
       selected[index] = url;
     else
       selected = Array.isArray(url) ? url : [url];
-    setSelectedInputs(selected);
+    setSelectedInputs(selected);    
   }
   const selectMultiInput = (url, inputIndex) => {
     let selected = [...selectedInputs];
