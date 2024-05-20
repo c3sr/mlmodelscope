@@ -1,6 +1,6 @@
 import useTaskSelection from "./useTaskSelection";
 import useQuickExperimentControl from "./useQuickExperimentControl";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import useOutputGenerator from "./useOutputGenerator";
 
 
@@ -8,7 +8,7 @@ export default function useTaskExampleControl() {
   const taskSelection = useTaskSelection();
   const quickExperiment = useQuickExperimentControl(taskSelection.selectedTask.defaultModel);
   const trialOutput = useOutputGenerator(taskSelection.selectedTask.id);
-  const History = useHistory();
+  const History = useNavigate();
 
 
   const onBackClick = () => quickExperiment.resetTrial();
