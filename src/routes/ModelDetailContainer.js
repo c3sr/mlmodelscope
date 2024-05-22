@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import ModelDetailPage from "../components/ModelDetailPage/ModelDetailPage"
-import {withRouter} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import GetApiHelper from "../helpers/api";
 
 let experimentSubscription = null;
@@ -15,7 +15,7 @@ export function ModelDetailContainer(props) {
 
     console.log("ModelDetailContainer")
 
-    let {modelId, experimentId} = props.match.params;
+    const {modelId, experimentId} = useParams();
 
     const backToModel = () => {
         props.history.push(`/model/${modelId}`);
@@ -89,4 +89,4 @@ export function ModelDetailContainer(props) {
     )
 }
 
-export default withRouter(ModelDetailContainer);
+export default ModelDetailContainer;
