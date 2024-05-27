@@ -252,7 +252,7 @@ export default class Task {
 
       },
       {
-        inputText: 'Questions here',
+        inputText: 'Question here',
         inputType: TaskInputTypes.Text,
         inputUpload: false,
         inputUrl: false,
@@ -290,7 +290,7 @@ export default class Task {
 
       },
       {
-        inputText: 'Questions here',
+        inputText: 'Question here',
         inputType: TaskInputTypes.Text,
         inputUpload: false,
         inputUrl: false,
@@ -327,7 +327,7 @@ export default class Task {
 
       },
       {
-        inputText: 'Questions here',
+        inputText: 'Question here',
         inputType: TaskInputTypes.Text,
         inputUpload: false,
         inputUrl: false,
