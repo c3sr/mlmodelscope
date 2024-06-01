@@ -6,7 +6,7 @@
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
-    "@storybook/addon-webpack5-compiler-swc": "^1.0.2",
+    "@storybook/addon-webpack5-compiler-swc": "^1.0.3",
     "@svgr/webpack": "^5.5.0",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^13.0.0",
@@ -78,18 +78,18 @@
     "bundle": "npm-run-all clean:build build build:assets",
     "clean:build": "rimraf build",
     "build:assets": "node scripts/build_go_assets.js",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.24.1",
-    "@storybook/addon-actions": "^8.1.1",
-    "@storybook/addon-essentials": "^8.1.1",
-    "@storybook/addon-links": "^8.1.1",
-    "@storybook/node-logger": "^8.1.1",
-    "@storybook/preset-create-react-app": "^8.1.2",
-    "@storybook/react": "^8.1.1",
-    "@storybook/react-webpack5": "^8.1.2",
+    "@storybook/addon-actions": "^8.1.5",
+    "@storybook/addon-essentials": "^8.1.5",
+    "@storybook/addon-links": "^8.1.5",
+    "@storybook/node-logger": "^8.1.5",
+    "@storybook/preset-create-react-app": "^8.1.5",
+    "@storybook/react": "^8.1.5",
+    "@storybook/react-webpack5": "^8.1.5",
     "@svgr/webpack": "^8.1.0",
     "babel-plugin-import": "^1.13.8",
     "customize-cra": "^1.0.0",
@@ -101,7 +101,8 @@
     "npm-run-all": "^4.1.5",
     "raw-loader": "^4.0.2",
     "react-error-overlay": "6.0.11",
-    "rimraf": "^5.0.7"
+    "rimraf": "^5.0.7",
+    "storybook": "^8.1.5"
   },
   "resolutions": {
     "//": "See https://github.com/facebook/create-react-app/issues/11773",

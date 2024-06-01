@@ -343,8 +343,6 @@ module.exports = function (webpackEnv) {
         //   test: /\.(sass|less|css)$/,
         //   use: ["style-loader", "css-loader", 'sass-loader'],
         // },
-
-        
         // Handle node_modules packages that contain sourcemaps
         shouldUseSourceMap && {
           enforce: 'pre',
