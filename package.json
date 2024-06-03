@@ -200,6 +200,7 @@
   "babel": {
     "presets": [
       "react-app"
-    ]
+    ],
+    "retainLines": true
   }
 }
