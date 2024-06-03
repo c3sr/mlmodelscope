@@ -14,7 +14,7 @@ export default function NewExperimentContainer(props) {
   const [models, setModels] = useState([]);
 
   const api = useMemo(() => GetApiHelper(), []);
-  const History = useNavigate();
+  const history = useNavigate();
   const task = getTaskFromQueryString(window.location.search);
 
   const {id: taskId} = Task.getStaticTask(task);
@@ -54,8 +54,8 @@ export default function NewExperimentContainer(props) {
     let flattenedPromises = trialPromises.flat();
 
     Promise.all(flattenedPromises).then(final => {
-      if (History)
-        History.push(`/experiment/${experimentId}`);
+      if (history)
+        history(`/experiment/${experimentId}`);
     })
   }
 
