@@ -1,4 +1,4 @@
-import Uppy from '@uppy/core';
+import BasePlugin from '@uppy/core/lib/BasePlugin.js';
 
 import { audioToText, image_classification, image_enhancement, object_detection, semantic_segmentation, styleTransfer } from './TaskIDs';
 
@@ -29,7 +29,7 @@ export const getAllowedFileTypes = (task) => {
     }
 }
 
-export default class UppyFileTypeCheckerPlugin extends Uppy.Plugin {
+export default class UppyFileTypeCheckerPlugin extends BasePlugin {
 	constructor(uppy, opts) {
 		super(uppy, opts);
 
