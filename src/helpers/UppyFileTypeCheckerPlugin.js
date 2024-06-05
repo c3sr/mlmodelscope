@@ -1,6 +1,6 @@
 import Uppy from '@uppy/core';
 
-import { audioToText, image_classification, image_enhancement, instance_segmentation, object_detection, semantic_segmentation, styleTransfer } from './TaskIDs';
+import { audioToText, documentQuestionAnswering, image_classification, image_enhancement, instance_segmentation, object_detection, semantic_segmentation, styleTransfer, textGuidedImagetoImage, visualQuestionAnswering } from './TaskIDs';
 
 import fileTypeChecker from "file-type-checker";
 
