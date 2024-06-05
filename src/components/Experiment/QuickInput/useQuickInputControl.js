@@ -97,6 +97,7 @@ export default function useQuickInputControl(props) {
   const selectInput = (url, index) => {
     let selected = selectedInputs;
 
+
     if (index)
       selected[index] = url;
     else
@@ -133,6 +134,16 @@ export default function useQuickInputControl(props) {
   const tabIsSelected = (index) => selectedTab === index;
 
 
+  return {
+    selectedInputs, 
+    getTabs, 
+    runModel, 
+    selectInput: !task.useMultiInput ? selectInput : selectMultiInput, 
+    addInput, 
+    removeInput, 
+    selectTab, 
+    tabIsSelected
+  };
   return {
     selectedInputs, 
     getTabs, 

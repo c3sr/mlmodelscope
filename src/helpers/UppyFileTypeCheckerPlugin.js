@@ -12,6 +12,9 @@ export const getAllowedFileTypes = (task) => {
           mimeTypes: ['audio/*', 'video/*'],
         };
       case image_classification:
+      case visualQuestionAnswering:
+      case textGuidedImagetoImage:
+      case documentQuestionAnswering:
       case image_enhancement:
       case object_detection:
       case semantic_segmentation:

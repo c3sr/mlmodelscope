@@ -190,6 +190,7 @@ export default class Task {
     inputText: "[insert text input help text here]",
     outputText: "[insert text output help text here]",
     icon: (props) => <TextToText {...props} />,
+    icon: (props) => <TextToText {...props} />,
     sampleInputs: [],
     tutorialDescription: "[insert text tutorial page description here]",
     inputType: TaskInputTypes.Text,
@@ -200,6 +201,7 @@ export default class Task {
     id: textToCode,
     inputText: "[insert text to code input help text here]",
     outputText: "[insert text to code output help text here]",
+    icon: (props) => <TextToCode {...props} />,
     icon: (props) => <TextToCode {...props} />,
     sampleInputs: [],
     tutorialDescription: "[insert text to code tutorial page description here]",
@@ -362,6 +364,9 @@ export default class Task {
     this.inputs = options.inputs ?? [];  // TODO: Update this to be only input-related field, and remove inputText and inputType
     this.useMultiInput = options.useMultiInput ?? false;
     this.multiple = options.multiple ?? false;  // This is used to allow multiple selections from one input
+    this.inputs = options.inputs ?? [];  // TODO: Update this to be only input-related field, and remove inputText and inputType
+    this.useMultiInput = options.useMultiInput ?? false;
+    this.multiple = options.multiple ?? false;  // This is used to allow multiple selections from one input
     this.outputText = options.outputText ?? "";
     this.Icon = options.icon ?? ((props) => <></>);
     this.defaultModel = Task.getDefaultModel(this.id);
@@ -388,6 +393,8 @@ export default class Task {
       case instance_segmentation:
       case Task.image_instance_segmentation.name:
         return Task.image_instance_segmentation;
+      case styleTransfer:
+        return Task.style_transfer;
       case styleTransfer:
         return Task.style_transfer;
       case textToText:
@@ -423,6 +430,8 @@ export default class Task {
         return DefaultSemanticSegmentationModel;
       case instance_segmentation:
         return DefaultInstanceSegmentationModel;
+      case styleTransfer:
+        return DefaultStyleTransferModel;
       case styleTransfer:
         return DefaultStyleTransferModel;
       case textToText:
@@ -461,6 +470,8 @@ export default class Task {
         return TestInstanceSegmentationOutput;
       case styleTransfer:
         return TestStyleTransferOutput;
+      case styleTransfer:
+        return TestStyleTransferOutput;
       case textToText:
         return TestTextOutput;
       case audioToText:
@@ -487,6 +498,7 @@ export default class Task {
       this.getStaticTask(image_enhancement),
       this.getStaticTask(semantic_segmentation),
       this.getStaticTask(instance_segmentation),
+      this.getStaticTask(styleTransfer),
       this.getStaticTask(styleTransfer),
       this.getStaticTask(textToText),
       this.getStaticTask(textToCode),

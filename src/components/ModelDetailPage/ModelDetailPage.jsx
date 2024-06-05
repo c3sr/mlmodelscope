@@ -50,6 +50,8 @@ const ModelDetailPage = (props) => {
         return SampleSegmentationInputs;
       case styleTransfer:
         return SampleStyleTransferInputs;
+      case styleTransfer:
+        return SampleStyleTransferInputs;
       case textToText:
         return SampleTextInputs;
       case textToCode:
@@ -85,6 +87,7 @@ const ModelDetailPage = (props) => {
       case image_classification:
       case semantic_segmentation:
       case instance_segmentation:
+      case styleTransfer:
       case styleTransfer:
       default:
         return "image";

@@ -39,6 +39,7 @@ export default function SampleInputsTab(props) {
     };
 
     // TODO: Rename "url" to "input" or similar
+    // TODO: Rename "url" to "input" or similar
     function makeSampleImageInput(url, index) {
         return (
             <button onClick={() => selectInput(index)} key={index} className={getElement(getInputClassName(url))}>

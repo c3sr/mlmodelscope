@@ -71,4 +71,10 @@ export default function useSampleInputControl(props) {
     isSelected, 
     isUnselected, 
     type};
+  return {
+    selectedIndex, 
+    selectInput: !task.useMultiInput ? selectInput : selectMultiInput, 
+    isSelected, 
+    isUnselected, 
+    type};
 }
