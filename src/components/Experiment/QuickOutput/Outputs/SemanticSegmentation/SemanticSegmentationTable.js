@@ -12,6 +12,7 @@ export default function SemanticSegmentationTable(props) {
 
     return (
             <div onMouseLeave={() => props.hover.leave()} onMouseEnter={() => props.hover.enter(label.index + 1)}
+                key={`label-${label.index}`}
                 className={getElement("row")}>
               <div className={getElement("row-middle")}>
                 <input name={`row-input-${label.label}`} type={"checkbox"}
