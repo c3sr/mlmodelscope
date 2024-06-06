@@ -5,18 +5,10 @@ import TestFeatures, {
   TestImageClassificationResultNoFeatures
 } from "./Outputs/Classification/Features";
 import kitty from "../../../stories/assets/kitty-large.jpg";
-import { BrowserRouter } from 'react-router-dom';
 
 export default {
   title: 'Experiments/Quick Output/Image Classification',
   component: QuickOutput,
-  decorators: [
-    (Story) => (
-      <BrowserRouter>
-        <Story />
-      </BrowserRouter>
-    )
-  ]
 };
 
 const Template = (args) => <QuickOutput {...args} />;
