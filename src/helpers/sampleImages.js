@@ -116,3 +116,74 @@ export const SampleTextConversationInputs = [
   "What is the weather tomorrow?",
   "What is the meaning of life?",
 ];
+export const SampleVisualQuestionAnsweringInputs = [
+  [{
+    src: "https://s3.amazonaws.com/uploads.staging.mlmodelscope.org/birdy.png",
+    alt: "bird"
+  },
+  {
+    src: "https://s3.amazonaws.com/uploads.staging.mlmodelscope.org/kitty.png",
+    alt: "cat"
+  },
+  {
+    src: "https://s3.amazonaws.com/uploads.staging.mlmodelscope.org/crabby.png",
+    alt: "crab"
+  }
+  ],
+  [
+    "Lorem ipsum dolor sit amet",
+    "Consectetur adipiscing elit",
+    "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+  ]
+];
+export const SampleTextGuidedImagetoImageInputs = [
+  [{
+    src: "https://s3.amazonaws.com/uploads.staging.mlmodelscope.org/birdy.png",
+    alt: "bird"
+  },
+  {
+    src: "https://s3.amazonaws.com/uploads.staging.mlmodelscope.org/kitty.png",
+    alt: "cat"
+  },
+  {
+    src: "https://s3.amazonaws.com/uploads.staging.mlmodelscope.org/crabby.png",
+    alt: "crab"
+  }
+  ],
+  [
+    "Replace the background with a beach.",
+    "Make the animal look like a cartoon.",
+    "Make the image look like a painting."
+  ]
+];
+export const SampleDocumentQuestionAnsweringInputs = [
+  [{
+    src: "https://s3.amazonaws.com/uploads.staging.mlmodelscope.org/birdy.png",
+    description: "Bird"
+  },
+  {
+    src: "https://s3.amazonaws.com/uploads.staging.mlmodelscope.org/kitty.png",
+    description: "Cat"
+  },
+  {
+    src: "https://xlab1.netlify.app/samples/PDF/invoice.pdf",
+    description: "Sample Invoice"
+  }
+  ],
+  [
+    "Lorem ipsum dolor sit amet",
+    "Consectetur adipiscing elit",
+    "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+  ]
+];
+
+export const SampleTextToImage = [
+  "Lorem ipsum dolor sit amet",
+  "Consectetur adipiscing elit",
+  "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+];
+export const SampleTextToVideo = [
+  "Lorem ipsum dolor sit amet",
+  "Consectetur adipiscing elit",
+  "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+];

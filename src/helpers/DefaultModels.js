@@ -489,3 +489,23 @@ export const DefaultTextConversationModel = {
   },
   version: "1.0",
 };
+
+export const DefaultVisualQuestionAnsweringModel = {
+  // TO BE ADDED HERE
+};
+
+export const DefaultTextGuidedImagetoImageModel = {
+  // TO BE ADDED HERE
+};
+
+export const DefaultDocumentQuestionAnsweringModel = {
+  // TO BE ADDED HERE
+};
+
+export const DefaultTextToImage = {
+  // TO BE ADDED HERE  
+};
+
+export const DefaultTextToVideo = {
+  // TO BE ADDED HERE
+};
