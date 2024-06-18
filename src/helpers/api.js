@@ -1,5 +1,5 @@
-import { BehaviorSubject, Subject } from 'rxjs';
-import jsonData from './apiData.json';
+import {BehaviorSubject, Subject} from 'rxjs';
+
 const AnonymousUserId = 'anonymous';
 
 class Api {
@@ -12,58 +12,33 @@ class Api {
     this.Models = new BehaviorSubject([]);
     this.Frameworks = new BehaviorSubject([]);
     this.ActiveModel = new BehaviorSubject([]);
-    this.ActiveUser = new BehaviorSubject({ id: AnonymousUserId });
+    this.ActiveUser = new BehaviorSubject({id: AnonymousUserId})
   }
 
-  // async getModels(filters) {
-  //   let queries = "";
-  //   if (filters !== undefined) {
-  //     queries = "?" + Object.keys(filters).map(key => `${key}=${filters[key]}`).join("&");
-  //   }
-  //   let result = await fetch(`${this.apiUrl}/models${queries}`);
-  //   let data = await result.json();
-
-  //   this.Models.next(data.models);
-  // }
-
-  // async getModel(id) {
-  //   let result = await fetch(`${this.apiUrl}/models/${id}`);
-  //   let data = await result.json();
-
-  //   this.ActiveModel.next(data.models);
-  // }
-
-  // async getFrameworks() {
-  //   let result = await fetch(`${this.apiUrl}/frameworks`);
-  //   let data = await result.json();
-
-  //   this.Frameworks.next(data.frameworks);
-  // }
-
-
   async getModels(filters) {
-    let data = jsonData;
+    let queries = "";
+    if (filters !== undefined) {
+      queries = "?" + Object.keys(filters).map(key => `${key}=${filters[key]}`).join("&");
+    }
+    let result = await fetch(`${this.apiUrl}/models${queries}`);
+    let data = await result.json();
 
     this.Models.next(data.models);
   }
 
   async getModel(id) {
-    // let result = await fetch(`${this.apiUrl}/models/${id}`);
-    // let data = await result.json();
-    let data = { models: jsonData.models.filter(model => model.id == id) };
-    this.ActiveModel.next(data);
+    let result = await fetch(`${this.apiUrl}/models/${id}`);
+    let data = await result.json();
+
     this.ActiveModel.next(data.models);
   }
 
   async getFrameworks() {
-    // let result = await fetch(`${this.apiUrl}/frameworks`);
-    // let data = await result.json();
-    let data = { "frameworks": [{ "id": 1, "name": "MXNet", "version": "1.7.0", "architectures": [{ "name": "amd64" }] }, { "id": 2, "name": "Onnxruntime", "version": "1.6.0", "architectures": [{ "name": "amd64" }] }, { "id": 3, "name": "PyTorch", "version": "1.5.0", "architectures": [{ "name": "amd64" }] }, { "id": 4, "name": "TensorFlow", "version": "1.14.0", "architectures": [{ "name": "amd64" }] }] };
+    let result = await fetch(`${this.apiUrl}/frameworks`);
+    let data = await result.json();
 
     this.Frameworks.next(data.frameworks);
   }
-
-
 
   /*
    * Look up an experiment by ID. Returns an Observable of Experiment details. Polls the experiment data delivering
@@ -90,7 +65,7 @@ class Api {
   _getExperiment = async (experimentId) => {
     let result = await fetch(`${this.apiUrl}/experiments/${experimentId}`);
     return await result.json();
-  };
+  }
 
   /*
    * Delete a trial by ID.
@@ -101,7 +76,7 @@ class Api {
    * it's experiment.
    */
   async deleteTrial(trialId) {
-    const result = await fetch(`${this.apiUrl}/trial/${trialId}`, { method: 'DELETE' });
+    const result = await fetch(`${this.apiUrl}/trial/${trialId}`, {method: 'DELETE'});
 
     if (result.status === 200 || result.status === 404)
       return;
@@ -124,7 +99,7 @@ class Api {
       fn: this._getTrial,
       params: trialId,
       validate: trial => trial.completed_at !== undefined,
-      // maxAttempts: 10,
+      // maxAttempts: 10,  // This should be on, but it totally breaks the page currently
       subject: trialSubject
     });
 
@@ -139,10 +114,10 @@ class Api {
 
     let trial = await result.json();
     if (trial.results.responses === undefined)
-      trial.results.responses = [{ features: [] }];
+      trial.results.responses = [{features: []}];
 
     return trial;
-  };
+  }
 
   async runTrial(model, input, experimentId = null, context = null) {
     let inputs = typeof (input) === 'string' ? [input] : input;
@@ -154,7 +129,7 @@ class Api {
       traceLevel: "NO_TRACE",
       gpu: false,
       desiredResultModality: model.output.type
-    };
+    }
 
     if (experimentId) {
       requestBody['experiment'] = experimentId;
@@ -175,10 +150,10 @@ class Api {
     return await response.json();
   }
 
-  async poll({ fn, params, validate, maxAttempts, subject }) {
+  async poll({fn, params, validate, maxAttempts, subject}) {
     let attempts = 0;
-    // let timeout = 250;
-    let timeout = 1000;
+    // let timeout = 250; // This was already commented out
+    // let timeout = 1000;
 
     const executePoll = async (resolve, reject) => {
       const result = await fn(params);
@@ -191,8 +166,14 @@ class Api {
         } else if (maxAttempts && attempts === maxAttempts) {
           return reject(new Error('max polling attempts exceeded'));
         } else if (subject && subject.observers.length > 0) {
-          setTimeout(executePoll, timeout, resolve, reject);
-          // timeout += timeout;
+          // 6/6/2024 - Alex - Note: This timeout isn't actually delaying anything and is probably
+          // implemented wrong. Additionally, attempts isn't incrementing correctly
+          // and maxAttempts is sometimes undefined.
+
+          // setTimeout(executePoll, timeout, resolve, reject);
+          // timeout += timeout;  // This was already commented out
+        } else {
+          return resolve("Canceled")
         }
       }
     };
@@ -210,4 +191,3 @@ export default function GetApiHelper() {
 
   return api;
 }
-   
