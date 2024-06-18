@@ -76,6 +76,7 @@
     align-items: end;
     justify-content: left;
     flex-grow: 1;
+    gap: 10px;
     border: 1px solid $gray;
     
     padding: 7.5px 8px;
@@ -95,7 +96,7 @@
     }
 
     .icon{
-      margin-right: 10%;
+     
     }
     & a{
     color: $azul;
