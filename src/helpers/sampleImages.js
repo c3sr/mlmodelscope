@@ -131,9 +131,9 @@ export const SampleVisualQuestionAnsweringInputs = [
   }
   ],
   [
-    "Lorem ipsum dolor sit amet",
-    "Consectetur adipiscing elit",
-    "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    "What is the color of the bird?",
+    "What is the animal in the image?",
+    "Where is the crab?"
   ]
 ];
 export const SampleTextGuidedImagetoImageInputs = [
@@ -171,19 +171,19 @@ export const SampleDocumentQuestionAnsweringInputs = [
   }
   ],
   [
-    "Lorem ipsum dolor sit amet",
-    "Consectetur adipiscing elit",
-    "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    "What is the color of the bird?",
+    "What is the animal in the image?",
+    "What is the total amount in the invoice?"
   ]
 ];
 
 export const SampleTextToImage = [
-  "Lorem ipsum dolor sit amet",
-  "Consectetur adipiscing elit",
-  "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+  "Cat and dog playing",
+  "Flower in a garden",
+  "Sunset on a beach"
 ];
 export const SampleTextToVideo = [
-  "Lorem ipsum dolor sit amet",
-  "Consectetur adipiscing elit",
-  "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+  "Cat and dog playing",
+  "Flower in a garden",
+  "Sunset on a beach"
 ];

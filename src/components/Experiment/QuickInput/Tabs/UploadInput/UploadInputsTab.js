@@ -15,7 +15,7 @@ export default function UploadInputsTab(props) {
   const {uppy} = useUploadInputControl({allowedFileTypes: allowedFileTypes, ...props});
 
   const task = Task.getStaticTask(props.task);
-  const taskName = task.useMultiInput ? (Task.getStaticTask(props.task).inputs[props.inputIndex]?.inputType).toLowerCase() : props.type?.toLowerCase();
+  const taskName = (task.useMultiInput ? (Task.getStaticTask(props.task).inputs[props.inputIndex]?.inputType) : props.type)?.toLowerCase();
   // Currently using both new and old way of handling inputs but should refactor in the future
   const inputText = task.inputText || props.input.inputText;  
 
