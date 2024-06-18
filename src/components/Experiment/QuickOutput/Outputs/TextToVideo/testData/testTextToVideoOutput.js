@@ -1,3 +1,8 @@
+export const TestTextToVideoGeneratedToken = {
+    id: "sampleTestTextToVideoOutputIdHere"
+};
+
+
 export const TestTextToVideoOutput = {
     id: "sampletesttexttovideooutputidhere",
     inputs: [

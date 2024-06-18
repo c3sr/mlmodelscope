@@ -43,7 +43,6 @@ export default function MultiInputPreview(givenProps) {
                 props.inputs.map((input, index) => (
                     <div className={getElement("single-input")} key={index}>
                     {getInputs(input)}
-                    {console.log(props.inputs)}
                     </div>
                 )
             )}

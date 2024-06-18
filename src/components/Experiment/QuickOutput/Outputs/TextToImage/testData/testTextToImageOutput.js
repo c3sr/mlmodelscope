@@ -1,3 +1,8 @@
+export const TestTextToImageGeneratedToken = {
+    id: "sampleTestTextToImageOutputIdHere"
+};
+
+
 export const TestTextToImageOutput = {
     id: "sampletesttexttovideooutputidhere",
     inputs: [

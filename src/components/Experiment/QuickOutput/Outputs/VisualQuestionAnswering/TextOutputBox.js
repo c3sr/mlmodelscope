@@ -7,7 +7,7 @@ import { documentQuestionAnswering } from "../../../../../helpers/TaskIDs";
 
 export function TextOutputBox(props) {
   const { getElement } = useBEMNaming("text-output");
-  const task =  Task.getStaticTask(documentQuestionAnswering);
+  const task = Task.getStaticTask(documentQuestionAnswering);
 
   return (
     <div className={getElement("results")}>

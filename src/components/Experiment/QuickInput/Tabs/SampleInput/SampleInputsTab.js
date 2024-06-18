@@ -11,9 +11,8 @@ export default function SampleInputsTab(props) {
     // Note: This is the content for the Sample Input Tab, below the header
 
     const { getBlock, getElement } = useBEMNaming("sample-inputs");
-    const { isUnselected, isSelected, selectInput, type } = useSampleInputControl(props);
+    const { isUnselected, isSelected, selectInput, type,sampleInputType } = useSampleInputControl(props);
     const task = Task.getStaticTask(props.task);
-    const sampleInputType = task.useMultiInput ? (Task.getStaticTask(props.task).inputs[props.inputIndex]?.inputType).toLowerCase() : props.type;
     const getInputClassName = (url) => {
         let className = `input-${sampleInputType}`;
         if (isSelected(url)) className += ` ${className}--selected`;

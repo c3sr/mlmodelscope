@@ -4,7 +4,7 @@ import Rating from "../Classification/Rating";
 import React from "react";
 import Task from "../../../../../helpers/Task";
 import { textToVideo } from "../../../../../helpers/TaskIDs";
-import ReactPlayer from 'react-player'
+import ReactPlayer from 'react-player';
 
 export function VideoOutputBox(props) {
   const { getElement } = useBEMNaming("text-to-video-output");
@@ -14,7 +14,7 @@ export function VideoOutputBox(props) {
     <div className={getElement("results")}>
       <div className={getElement("title-row")}>
         <h3 className={getElement("title-row-title")}>
-            Output
+          Output
         </h3>
         <OutputDuration duration={props.duration} />
       </div>
@@ -25,9 +25,9 @@ export function VideoOutputBox(props) {
         className={getElement("output-container output-container-background")}
       >
         <div className="output-video-content video-container">
-            
-          <ReactPlayer url={ props.output.src}  controls={true} />      
-        </div>        
+
+          <ReactPlayer url={props.output.src} controls={true} />
+        </div>
       </div>
 
       <Rating />

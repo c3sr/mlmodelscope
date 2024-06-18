@@ -12,9 +12,7 @@ export const getAllowedFileTypes = (task) => {
           mimeTypes: ['audio/*', 'video/*'],
         };
       case image_classification:
-      case visualQuestionAnswering:
       case textGuidedImagetoImage:
-      case documentQuestionAnswering:
       case image_enhancement:
       case object_detection:
       case semantic_segmentation:
@@ -24,6 +22,12 @@ export const getAllowedFileTypes = (task) => {
           fileTypes: ['bmp', 'gif', 'ico', 'jpeg', 'pdf', 'png', 'psd'],
           mimeTypes: ['image/*']
         };
+      case visualQuestionAnswering:
+        return {
+          fileTypes: ['bmp', 'gif', 'ico', 'jpeg', 'pdf', 'png', 'psd','mp4', 'm4a', 'wav', 'webm'],
+          mimeTypes: ['image/*','video/*']
+        };
+      case documentQuestionAnswering:
       default:
         // Allow all file types? Or disallow all file types?
         return {

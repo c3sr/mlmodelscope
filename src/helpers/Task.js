@@ -30,6 +30,8 @@ import { ReactComponent as TextToAudio } from "../resources/icons/icon-textToAud
 import { ReactComponent as TextConversation } from "../resources/icons/icon-textConversation.svg";
 import { ReactComponent as VisualQuestionAnswering } from "../resources/icons/icon-visualQuestionAnswering.svg";
 import { ReactComponent as TextGuidedImagetoImage } from "../resources/icons/icon-textGuidedImagetoImage.svg";
+import { ReactComponent as TexttoImage } from "../resources/icons/icon-textToImage.svg";
+import { ReactComponent as TexttoVideo } from "../resources/icons/icon-textToVideo.svg";
 
 import {
   DefaultImageClassificationModel,
@@ -73,6 +75,11 @@ import { TestTextConversationOutput } from "../components/Experiment/QuickOutput
 import { TaskInputTypes } from "./TaskInputTypes";
 import { TestStyleTransferOutput } from "../components/Experiment/QuickOutput/Outputs/StyleTransfer/testData/testStyleTransferOutput";
 import TextInputTab from "../components/Experiment/QuickInput/Tabs/TextInput/TextInputTab";
+import { TestVisualQuestionAnswering } from "../components/Experiment/QuickOutput/Outputs/VisualQuestionAnswering/testData/testVisualQuestionAnsweringOutput";
+import { TestDocumentQuestionAnswering } from "../components/Experiment/QuickOutput/Outputs/DocumentQuestionAnswering/testData/testDocumentQuestionAnsweringOuput";
+import { TestTextGuidedImagetoImage } from "../components/Experiment/QuickOutput/Outputs/TextGuidedImagetoImage/testData/testTextGuidedImagetoImageOutput";
+import { TestTextToImageOutput } from "../components/Experiment/QuickOutput/Outputs/TextToImage/testData/testTextToImageOutput";
+import { TestTextToVideoOutput } from "../components/Experiment/QuickOutput/Outputs/TextToVideo/testData/testTextToVideoOutput";
 
 export default class Task {
   static image_classification = new Task({
@@ -268,7 +275,7 @@ export default class Task {
           "id": "text-input",
           "title": "Text",
           "component": TextInputTab
-      }
+        }
       }
 
     ],
@@ -306,7 +313,7 @@ export default class Task {
           "id": "text-input",
           "title": "Text",
           "component": TextInputTab
-      }
+        }
       }
 
     ],
@@ -343,7 +350,7 @@ export default class Task {
           "id": "text-input",
           "title": "Text",
           "component": TextInputTab
-      }
+        }
       }
 
     ],
@@ -367,7 +374,7 @@ export default class Task {
     id: textToImage,
     inputText: "Input prompt to generate an image",
     outputText: "Image output",
-    icon: (props) => <TextToText {...props} />,
+    icon: (props) => <TexttoImage {...props} />,
     sampleInputs: SampleTextToImage,
     hideUpload: true,
     tutorialDescription: "Text to Image model generates images based on a textual prompt.",
@@ -380,7 +387,7 @@ export default class Task {
     id: textToVideo,
     inputText: "Input prompt to generate a video",
     outputText: "Video output",
-    icon: (props) => <TextToText {...props} />,
+    icon: (props) => <TexttoVideo {...props} />,
     sampleInputs: SampleTextToVideo,
     hideUpload: true,
     tutorialDescription: "Text to Video model generates a video based on a textual prompt.",
@@ -517,15 +524,15 @@ export default class Task {
       case textConversation:
         return TestTextConversationOutput;
       case visualQuestionAnswering:
-        return undefined; // TODO: Add test data
+        return TestVisualQuestionAnswering;
       case textGuidedImagetoImage:
-        return undefined; // TODO: Add test data
+        return TestTextGuidedImagetoImage;
       case documentQuestionAnswering:
-        return undefined; // TODO: Add test data
+        return TestDocumentQuestionAnswering;
       case textToImage:
-        return undefined; // TODO: Add test data
+        return TestTextToImageOutput;
       case textToVideo:
-        return undefined; // TODO: Add test data
+        return TestTextToVideoOutput;
       default:
         return undefined;
     }
