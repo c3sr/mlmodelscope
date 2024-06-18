@@ -1,7 +1,7 @@
 import React from "react";
 import "./InputPreview.scss";
 import useBEMNaming from "../../../common/useBEMNaming";
-import { ReactComponent as DocuemntIcon } from "../../../resources/icons/icon-document.svg";
+import { ReactComponent as DocumentIcon } from "../../../resources/icons/icon-document.svg";
 
 const defaultProps = {
   className: "multi-input-preview",
@@ -19,7 +19,7 @@ export default function MultiInputPreview(givenProps) {
         return <p className={getElement("text")}>{input.description}</p>;
       case "document":
         return (<button className={getElement("document")}>
-        <DocuemntIcon className='icon'/>
+        <DocumentIcon className='icon'/>
         <a href={input.src} target='_blank' >
             <span>{input.description ?? "Document"}</span>
         </a>

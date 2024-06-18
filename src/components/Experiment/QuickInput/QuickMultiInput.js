@@ -50,26 +50,14 @@ export default function QuickMultiInput(props) {
             {task.inputs.map((input, inputIndex) => {
               const noURLInput = input?.inputUrl === false;
               const noUploadInput = input?.inputUpload === false;
-              if ((tab.id === "url-input" && noURLInput) || (tab.id === "upload-input" && noUploadInput)) {
-                return (<QuickMultiInputTabContent
-                  key={inputIndex}
-                  tab={input.defaultTab}
-                  tabIndex={tabIndex}
-                  getElement={getElement}
-                  {...props}
-                  removeInput={removeInput}
-                  addInput={addInput}
-                  selectInput={selectInput}
-                  tabIsSelected={tabIsSelected}
-                  selectedInputs={selectedInputs}
-                  input={input}
-                  inputIndex={inputIndex}
-                />);
-              }
+              let thisTab = tab;
+              {/* console.log(tab) */}
+              if ((tab.id === "url-input" && noURLInput) || (tab.id === "upload-input" && noUploadInput))
+                thisTab = input.defaultTab;               
               return (
                 <QuickMultiInputTabContent
                   key={inputIndex}
-                  tab={tab}
+                  tab={thisTab}
                   tabIndex={tabIndex}
                   getElement={getElement}
                   {...props}

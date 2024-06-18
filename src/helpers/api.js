@@ -1,5 +1,5 @@
-import {BehaviorSubject, Subject} from 'rxjs';
-
+import { BehaviorSubject, Subject } from 'rxjs';
+import jsonData from './apiData.json';
 const AnonymousUserId = 'anonymous';
 
 class Api {
@@ -12,33 +12,58 @@ class Api {
     this.Models = new BehaviorSubject([]);
     this.Frameworks = new BehaviorSubject([]);
     this.ActiveModel = new BehaviorSubject([]);
-    this.ActiveUser = new BehaviorSubject({id: AnonymousUserId})
+    this.ActiveUser = new BehaviorSubject({ id: AnonymousUserId });
   }
 
+  // async getModels(filters) {
+  //   let queries = "";
+  //   if (filters !== undefined) {
+  //     queries = "?" + Object.keys(filters).map(key => `${key}=${filters[key]}`).join("&");
+  //   }
+  //   let result = await fetch(`${this.apiUrl}/models${queries}`);
+  //   let data = await result.json();
+
+  //   this.Models.next(data.models);
+  // }
+
+  // async getModel(id) {
+  //   let result = await fetch(`${this.apiUrl}/models/${id}`);
+  //   let data = await result.json();
+
+  //   this.ActiveModel.next(data.models);
+  // }
+
+  // async getFrameworks() {
+  //   let result = await fetch(`${this.apiUrl}/frameworks`);
+  //   let data = await result.json();
+
+  //   this.Frameworks.next(data.frameworks);
+  // }
+
+
   async getModels(filters) {
-    let queries = "";
-    if (filters !== undefined) {
-      queries = "?" + Object.keys(filters).map(key => `${key}=${filters[key]}`).join("&");
-    }
-    let result = await fetch(`${this.apiUrl}/models${queries}`);
-    let data = await result.json();
+    let data = jsonData;
 
     this.Models.next(data.models);
   }
 
   async getModel(id) {
-    let result = await fetch(`${this.apiUrl}/models/${id}`);
-    let data = await result.json();
-
+    // let result = await fetch(`${this.apiUrl}/models/${id}`);
+    // let data = await result.json();
+    let data = { models: jsonData.models.filter(model => model.id == id) };
+    this.ActiveModel.next(data);
     this.ActiveModel.next(data.models);
   }
 
   async getFrameworks() {
-    let result = await fetch(`${this.apiUrl}/frameworks`);
-    let data = await result.json();
+    // let result = await fetch(`${this.apiUrl}/frameworks`);
+    // let data = await result.json();
+    let data = { "frameworks": [{ "id": 1, "name": "MXNet", "version": "1.7.0", "architectures": [{ "name": "amd64" }] }, { "id": 2, "name": "Onnxruntime", "version": "1.6.0", "architectures": [{ "name": "amd64" }] }, { "id": 3, "name": "PyTorch", "version": "1.5.0", "architectures": [{ "name": "amd64" }] }, { "id": 4, "name": "TensorFlow", "version": "1.14.0", "architectures": [{ "name": "amd64" }] }] };
 
     this.Frameworks.next(data.frameworks);
   }
+
+
 
   /*
    * Look up an experiment by ID. Returns an Observable of Experiment details. Polls the experiment data delivering
@@ -65,7 +90,7 @@ class Api {
   _getExperiment = async (experimentId) => {
     let result = await fetch(`${this.apiUrl}/experiments/${experimentId}`);
     return await result.json();
-  }
+  };
 
   /*
    * Delete a trial by ID.
@@ -76,7 +101,7 @@ class Api {
    * it's experiment.
    */
   async deleteTrial(trialId) {
-    const result = await fetch(`${this.apiUrl}/trial/${trialId}`, {method: 'DELETE'});
+    const result = await fetch(`${this.apiUrl}/trial/${trialId}`, { method: 'DELETE' });
 
     if (result.status === 200 || result.status === 404)
       return;
@@ -114,10 +139,10 @@ class Api {
 
     let trial = await result.json();
     if (trial.results.responses === undefined)
-      trial.results.responses = [{features: []}];
+      trial.results.responses = [{ features: [] }];
 
     return trial;
-  }
+  };
 
   async runTrial(model, input, experimentId = null, context = null) {
     let inputs = typeof (input) === 'string' ? [input] : input;
@@ -129,7 +154,7 @@ class Api {
       traceLevel: "NO_TRACE",
       gpu: false,
       desiredResultModality: model.output.type
-    }
+    };
 
     if (experimentId) {
       requestBody['experiment'] = experimentId;
@@ -150,7 +175,7 @@ class Api {
     return await response.json();
   }
 
-  async poll({fn, params, validate, maxAttempts, subject}) {
+  async poll({ fn, params, validate, maxAttempts, subject }) {
     let attempts = 0;
     // let timeout = 250;
     let timeout = 1000;

@@ -84,6 +84,7 @@ export default function useQuickInputControl(props) {
     switch (type) {
       case QuickInputType.Image:
       case QuickInputType.Audio:
+      case QuickInputType.Document:
         return {id: 'upload-input', title: 'Upload', component: UploadInputsTab};
       case QuickInputType.Text:
         return {id: 'upload-input', title: 'Upload', component: UploadTextInputTab};

@@ -4,7 +4,7 @@ import Task from "../../../../../helpers/Task";
 import useSampleInputControl from "./useSampleInputControl";
 import useBEMNaming from "../../../../../common/useBEMNaming";
 import { QuickInputType } from "../../quickInputType";
-import { ReactComponent as DocuemntIcon } from "../../../../../resources/icons/icon-document.svg";
+import { ReactComponent as DocumentIcon } from "../../../../../resources/icons/icon-document.svg";
 
 
 export default function SampleInputsTab(props) {
@@ -23,7 +23,6 @@ export default function SampleInputsTab(props) {
     };
 
     const makeSampleInput = (url, index) => {
-        console.log(url,index)
         switch (sampleInputType) {
             case QuickInputType.Image:
                 return makeSampleImageInput(url, index);
@@ -68,7 +67,7 @@ export default function SampleInputsTab(props) {
     function makeSampleDocumentInput(url, index) {
         return (
             <button onClick={() => selectInput(index)} key={index} className={getElement(getInputClassName(url))}>
-                <DocuemntIcon className='icon'/>
+                <DocumentIcon className='icon'/>
                 <a href={url.src} target='_blank' >
                     <span>{url.description ?? "Document"}</span>
                 </a>
@@ -84,7 +83,6 @@ export default function SampleInputsTab(props) {
 
     // Currently using both new and old way of handling inputs but should refactor in the future
     const sampleInputs = task.useMultiInput ? props.sampleInputs[props.inputIndex] : (props.sampleInputs ?? []);
-    console.log(sampleInputs)
     const inputText = task.inputText || props.input.inputText;
 
     return (
