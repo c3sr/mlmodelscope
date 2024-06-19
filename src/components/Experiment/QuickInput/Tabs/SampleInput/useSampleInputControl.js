@@ -5,7 +5,6 @@ import Task from "../../../../../helpers/Task";
 export default function useSampleInputControl(props) {
   const task = Task.getStaticTask(props.task);
   const sampleInputType = (task.useMultiInput ? (Task.getStaticTask(props.task).inputs[props.inputIndex]?.inputType) : props.type)?.toLowerCase();
-  console.log("sampleInputType: ", sampleInputType);
 
   const [selectedIndex, setSelectedIndex] = useState([]);
 

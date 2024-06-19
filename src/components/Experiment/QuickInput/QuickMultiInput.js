@@ -51,7 +51,6 @@ export default function QuickMultiInput(props) {
               const noURLInput = input?.inputUrl === false;
               const noUploadInput = input?.inputUpload === false;
               let thisTab = tab;
-              {/* console.log(tab) */}
               if ((tab.id === "url-input" && noURLInput) || (tab.id === "upload-input" && noUploadInput))
                 thisTab = input.defaultTab;               
               return (
