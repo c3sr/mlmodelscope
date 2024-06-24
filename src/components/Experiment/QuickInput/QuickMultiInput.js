@@ -24,8 +24,6 @@ export default function QuickMultiInput(props) {
   // Note: This feels pretty hacky and TaskInputType/QuickInputType should probably be refactored?
   const tabs = getTabs(task.inputType.toLowerCase());
 
-  // console.log('QuickMultiInput props', props)
-
   return (
     <div className={getBlock()}>
       {!props.hideHeader && (

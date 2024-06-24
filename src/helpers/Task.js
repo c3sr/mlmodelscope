@@ -37,7 +37,8 @@ import {
   DefaultTextModel,
   DefaultAudioToTextModel,
   DefaultTextToAudioModel,
-  DefaultTextConversationModel
+  DefaultTextConversationModel,
+  DefaultImageTo3DModel
 } from "./DefaultModels";
 import {
   SampleAudioToTextInputs,
@@ -59,6 +60,7 @@ import { TestTextToAudioOutput } from "../components/Experiment/QuickOutput/Outp
 import { TestTextConversationOutput } from "../components/Experiment/QuickOutput/Outputs/TextConversation/testData/testTextConversationOutput";
 import { TaskInputTypes } from "./TaskInputTypes";
 import { TestStyleTransferOutput } from "../components/Experiment/QuickOutput/Outputs/StyleTransfer/testData/testStyleTransferOutput";
+import { TestImageTo3DOutput } from "../components/Experiment/QuickOutput/Outputs/ImageTo3D/testData/testImageTo3DOutput";
 
 
 export default class Task {
@@ -309,7 +311,7 @@ export default class Task {
       case styleTransfer:
         return DefaultStyleTransferModel;
       case imageTo3D:
-        return DefaultStyleTransferModel;  // TODO UPDATE THIS
+        return DefaultImageTo3DModel;
       case textToText:
         return DefaultTextModel;
       case textToCode:
@@ -342,7 +344,7 @@ export default class Task {
       case styleTransfer:
         return TestStyleTransferOutput;
       case imageTo3D:
-        return TestStyleTransferOutput; // TODO: UPDATE THIS
+        return TestImageTo3DOutput;
       case textToText:
         return TestTextOutput;
       case audioToText:
