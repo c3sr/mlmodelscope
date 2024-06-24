@@ -11,6 +11,11 @@ import {
   audioToText,
   textConversation,
   textToAudio,
+  visualQuestionAnswering,
+  textGuidedImagetoImage,
+  documentQuestionAnswering,
+  textToImage,
+  textToVideo,
   imageTo3D,
 } from "../../../helpers/TaskIDs";
 import {
@@ -20,6 +25,11 @@ import {
   SampleObjectDetectionInputs,
   SampleSegmentationInputs,
   SampleStyleTransferInputs,
+  SampleVisualQuestionAnsweringInputs,
+  SampleTextGuidedImagetoImageInputs,
+  SampleDocumentQuestionAnsweringInputs,
+  SampleTextToImage,
+  SampleTextToVideo
 } from "../../../helpers/sampleImages";
 
 export default {
@@ -162,6 +172,57 @@ TextConversation.args = {
   model: {
     output: {
       type: textConversation,
+    },
+  },
+};
+
+
+export const VisualQuestionAnswering = Template.bind({});
+VisualQuestionAnswering.args = {
+  sampleInputs: SampleVisualQuestionAnsweringInputs,
+  model: {
+    output: {
+      type: visualQuestionAnswering,
+    },
+  },
+};
+
+export const TextGuidedImagetoImage = Template.bind({});
+TextGuidedImagetoImage.args = {
+  sampleInputs: SampleTextGuidedImagetoImageInputs,
+  model: {
+    output: {
+      type: textGuidedImagetoImage,
+    },
+  },
+};
+
+export const DocumentQuestionAnswering = Template.bind({});
+DocumentQuestionAnswering.args = {
+  sampleInputs: SampleDocumentQuestionAnsweringInputs,
+  model: {
+    output: {
+      type: documentQuestionAnswering,
+    },
+  },
+};
+
+export const TextToImage = Template.bind({});
+TextToImage.args = {
+  sampleInputs: SampleTextToImage,
+  model: {
+    output: {
+      type: textToImage,
+    },
+  },
+};
+
+export const TextToVideo = Template.bind({});
+TextToVideo.args = {
+  sampleInputs: SampleTextToVideo,
+  model: {
+    output: {
+      type: textToVideo,
     },
   },
 };

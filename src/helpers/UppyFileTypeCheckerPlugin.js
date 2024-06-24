@@ -2,13 +2,16 @@ import BasePlugin from '@uppy/core/lib/BasePlugin.js';
 
 import { 
   audioToText, 
-  imageTo3D, 
+  documentQuestionAnswering, 
   image_classification, 
   image_enhancement, 
   instance_segmentation, 
   object_detection, 
   semantic_segmentation, 
-  styleTransfer 
+  styleTransfer, 
+  imageTo3D,
+  textGuidedImagetoImage, 
+  visualQuestionAnswering 
 } from './TaskIDs';
 
 import fileTypeChecker from "file-type-checker";
@@ -21,6 +24,7 @@ export const getAllowedFileTypes = (task) => {
           mimeTypes: ['audio/*', 'video/*'],
         };
       case image_classification:
+      case textGuidedImagetoImage:
       case image_enhancement:
       case object_detection:
       case semantic_segmentation:
@@ -31,6 +35,12 @@ export const getAllowedFileTypes = (task) => {
           fileTypes: ['bmp', 'gif', 'ico', 'jpeg', 'pdf', 'png', 'psd'],
           mimeTypes: ['image/*']
         };
+      case visualQuestionAnswering:
+        return {
+          fileTypes: ['bmp', 'gif', 'ico', 'jpeg', 'pdf', 'png', 'psd','mp4', 'm4a', 'wav', 'webm'],
+          mimeTypes: ['image/*','video/*']
+        };
+      case documentQuestionAnswering:
       default:
         // Allow all file types? Or disallow all file types?
         return {

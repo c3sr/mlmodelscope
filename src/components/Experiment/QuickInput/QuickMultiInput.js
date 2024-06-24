@@ -5,7 +5,7 @@ import useQuickInputControl from "./useQuickInputControl";
 import useBEMNaming from "../../../common/useBEMNaming";
 import { QuickMultiInputTabContent } from "./QuickMultiInputTabContent";
 import { QuickInputTabTitle } from "./QuickInputTabTitle";
-import {QuickInputType} from "./quickInputType";
+// import { QuickInputType } from "./quickInputType";
 
 export default function QuickMultiInput(props) {
   const {
@@ -47,23 +47,30 @@ export default function QuickMultiInput(props) {
         </div>
         {tabs.map((tab, tabIndex) => (
           <div key={tabIndex}>
-            {task.inputs.map((input, inputIndex) => (
-              <QuickMultiInputTabContent
-                key={inputIndex}
-                tab={tab}
-                tabIndex={tabIndex}
-                getElement={getElement}
-                {...props}
-                multiple={task.multiple}
-                removeInput={removeInput}
-                addInput={addInput}
-                selectInput={selectInput}
-                tabIsSelected={tabIsSelected}
-                selectedInputs={selectedInputs}
-                input={input}
-                inputIndex={inputIndex}  
-              />
-            ))}
+            {task.inputs.map((input, inputIndex) => {
+              const noURLInput = input?.inputUrl === false;
+              const noUploadInput = input?.inputUpload === false;
+              let thisTab = tab;
+              if ((tab.id === "url-input" && noURLInput) || (tab.id === "upload-input" && noUploadInput))
+                thisTab = input.defaultTab;               
+              return (
+                <QuickMultiInputTabContent
+                  key={inputIndex}
+                  tab={thisTab}
+                  tabIndex={tabIndex}
+                  getElement={getElement}
+                  {...props}
+                  multiple={task.multiple}
+                  removeInput={removeInput}
+                  addInput={addInput}
+                  selectInput={selectInput}
+                  tabIsSelected={tabIsSelected}
+                  selectedInputs={selectedInputs}
+                  input={input}
+                  inputIndex={inputIndex}
+                />
+              );
+            })}
           </div>
         ))}
       </div>
