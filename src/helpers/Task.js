@@ -285,12 +285,12 @@ export default class Task {
 
     inputs: [
       {
-        inputText: 'Visual Input.',
+        inputText: '[Visual Input]',
         inputType: TaskInputTypes.Image,
 
       },
       {
-        inputText: 'Question here',
+        inputText: '[Question here]',
         inputType: TaskInputTypes.Text,
         inputUpload: false,
         inputUrl: false,
@@ -323,12 +323,12 @@ export default class Task {
 
     inputs: [
       {
-        inputText: 'Visual Input.',
+        inputText: '[Visual Input]',
         inputType: TaskInputTypes.Image,
 
       },
       {
-        inputText: 'Question here',
+        inputText: '[Question here]',
         inputType: TaskInputTypes.Text,
         inputUpload: false,
         inputUrl: false,
@@ -365,7 +365,7 @@ export default class Task {
 
       },
       {
-        inputText: 'Question here',
+        inputText: '[Question here]',
         inputType: TaskInputTypes.Text,
         inputUpload: false,
         inputUrl: false,

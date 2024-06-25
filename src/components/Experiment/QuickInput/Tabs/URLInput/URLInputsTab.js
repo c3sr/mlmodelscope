@@ -9,15 +9,19 @@ import Task from "../../../../../helpers/Task";
 export default function URLInputsTab(props) {
   const {getBlock, getElement} = useBEMNaming("url-inputs");
   const {urlChanged, getUrlValidity, task, values} = useURLInputControl(props);
-  const taskName = (task.useMultiInput ? (Task.getStaticTask(props.task).inputs[props.inputIndex]?.inputType): props.type || '').toLowerCase();
+  const taskName = (task.useMultiInput ? 
+                    (Task.getStaticTask(props.task).inputs[props.inputIndex]?.inputType) : 
+                    props.type || 
+                    '').toLowerCase();
+  const longTaskName = "aeiou".includes(taskName[0]?.toLowerCase()) ? `an ${taskName}` : `a ${taskName}`;                    
   // Note: Currently using both new and old way of handling inputs but should refactor in the future
   const inputText = task.inputText || props.input.inputText;  
   const getInputClassName = (index) => getElement(getUrlValidity(index) ? "url url-error" : "url")
-  const taskNameWithVowel = "aeiou".includes(taskName[0]?.toLowerCase()) ? `an ${taskName}` : `a ${taskName}`;
+  
   return (
     <div className={getBlock()}>
       <div className={getElement('title')}>
-        <b>Copy {taskNameWithVowel} URL ({taskName} address) and paste</b>
+        <b>Copy {longTaskName} URL ({taskName} address) and paste</b>
         {" "}to {inputText.toLowerCase()}
       </div>
       {
@@ -34,7 +38,7 @@ export default function URLInputsTab(props) {
                   />
                   {getUrlValidity(index) &&
                     <p className={getElement("error-text")}>
-                      Not a valid URL. Right click on {taskNameWithVowel} to copy the {taskName}&nbsp;
+                      Not a valid URL. Right click on {longTaskName} to copy the {taskName}&nbsp;
                       address.
                     </p>}
                 </div>
@@ -56,7 +60,7 @@ export default function URLInputsTab(props) {
                 />
                 {getUrlValidity(props.inputIndex) &&
                   <p className={getElement("error-text")}>
-                    Not a valid URL. Right click on {taskNameWithVowel} to copy the {taskName}&nbsp;
+                    Not a valid URL. Right click on {longTaskName} to copy the {taskName}&nbsp;
                     address.
                   </p>}
               </div>      
@@ -74,7 +78,7 @@ export default function URLInputsTab(props) {
                   />
                   {getUrlValidity(index) &&
                     <p className={getElement("error-text")}>
-                      Not a valid URL. Right click on {taskNameWithVowel} to copy the {taskName}&nbsp;
+                      Not a valid URL. Right click on {longTaskName} to copy the {taskName}&nbsp;
                       address.
                     </p>}
                 </div>
