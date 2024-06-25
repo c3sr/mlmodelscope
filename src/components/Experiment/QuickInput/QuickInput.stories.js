@@ -12,7 +12,7 @@ import {
   textConversation,
   textToAudio,
   visualQuestionAnswering,
-  textGuidedImagetoImage,
+  textGuidedImageToImage,
   documentQuestionAnswering,
   textToImage,
   textToVideo,
@@ -26,7 +26,7 @@ import {
   SampleSegmentationInputs,
   SampleStyleTransferInputs,
   SampleVisualQuestionAnsweringInputs,
-  SampleTextGuidedImagetoImageInputs,
+  SampleTextGuidedImageToImageInputs,
   SampleDocumentQuestionAnsweringInputs,
   SampleTextToImage,
   SampleTextToVideo
@@ -187,12 +187,12 @@ VisualQuestionAnswering.args = {
   },
 };
 
-export const TextGuidedImagetoImage = Template.bind({});
-TextGuidedImagetoImage.args = {
-  sampleInputs: SampleTextGuidedImagetoImageInputs,
+export const TextGuidedImageToImage = Template.bind({});
+TextGuidedImageToImage.args = {
+  sampleInputs: SampleTextGuidedImageToImageInputs,
   model: {
     output: {
-      type: textGuidedImagetoImage,
+      type: textGuidedImageToImage,
     },
   },
 };

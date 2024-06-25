@@ -1,4 +1,4 @@
-import { audioToText, documentQuestionAnswering, styleTransfer, textGuidedImagetoImage, textToAudio, textToImage, textToText, textToVideo, visualQuestionAnswering } from "./TaskIDs";
+import { audioToText, documentQuestionAnswering, styleTransfer, textGuidedImageToImage, textToAudio, textToImage, textToText, textToVideo, visualQuestionAnswering } from "./TaskIDs";
 
 export const DefaultImageClassificationModel = {
   id: 1,
@@ -595,7 +595,7 @@ export const DefaultVisualQuestionAnsweringModel = {
   version: "1.0",
 };
 
-export const DefaultTextGuidedImagetoImageModel = {
+export const DefaultTextGuidedImageToImageModel = {
   id: 186,
   created_at: "2022-04-29T20:48:47.370171Z",
   updated_at: "2022-04-29T20:48:47.370171Z",
@@ -635,7 +635,7 @@ export const DefaultTextGuidedImagetoImageModel = {
   name: "DeepLabv3_MobileNet_v2_DM_05_PASCAL_VOC_Train_Aug",
   output: {
     description: "the chatbot's response to the inputted text",
-    type: textGuidedImagetoImage,
+    type: textGuidedImageToImage,
   },
   url: {
     github:

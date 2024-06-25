@@ -17,7 +17,7 @@ import {
   audioToText,
   textConversation,
   visualQuestionAnswering,
-  textGuidedImagetoImage,
+  textGuidedImageToImage,
   documentQuestionAnswering,
   textToImage,
   textToVideo,
@@ -33,7 +33,7 @@ import {
   SampleTextConversationInputs,
   SampleStyleTransferInputs,
   SampleVisualQuestionAnsweringInputs,
-  SampleTextGuidedImagetoImageInputs,
+  SampleTextGuidedImageToImageInputs,
   SampleDocumentQuestionAnsweringInputs,
   SampleTextToImage,
   SampleTextToVideo,
@@ -68,8 +68,8 @@ const ModelDetailPage = (props) => {
         return SampleTextConversationInputs;
       case visualQuestionAnswering:
         return SampleVisualQuestionAnsweringInputs;
-      case textGuidedImagetoImage:
-        return SampleTextGuidedImagetoImageInputs;
+      case textGuidedImageToImage:
+        return SampleTextGuidedImageToImageInputs;
       case documentQuestionAnswering:
         return SampleDocumentQuestionAnsweringInputs;
       case textToImage:

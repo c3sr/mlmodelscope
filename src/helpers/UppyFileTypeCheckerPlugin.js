@@ -10,7 +10,7 @@ import {
   semantic_segmentation, 
   styleTransfer, 
   imageTo3D,
-  textGuidedImagetoImage, 
+  textGuidedImageToImage, 
   visualQuestionAnswering 
 } from './TaskIDs';
 
@@ -24,7 +24,7 @@ export const getAllowedFileTypes = (task) => {
           mimeTypes: ['audio/*', 'video/*'],
         };
       case image_classification:
-      case textGuidedImagetoImage:
+      case textGuidedImageToImage:
       case image_enhancement:
       case object_detection:
       case semantic_segmentation:

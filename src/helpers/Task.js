@@ -12,7 +12,7 @@ import {
   textToAudio,
   textConversation,
   visualQuestionAnswering,
-  textGuidedImagetoImage,
+  textGuidedImageToImage,
   documentQuestionAnswering,
   textToImage,
   textToVideo
@@ -31,7 +31,7 @@ import { ReactComponent as AudioToText } from "../resources/icons/icon-audioToTe
 import { ReactComponent as TextToAudio } from "../resources/icons/icon-textToAudio.svg";
 import { ReactComponent as TextConversation } from "../resources/icons/icon-textConversation.svg";
 import { ReactComponent as VisualQuestionAnswering } from "../resources/icons/icon-visualQuestionAnswering.svg";
-import { ReactComponent as TextGuidedImagetoImage } from "../resources/icons/icon-textGuidedImagetoImage.svg";
+import { ReactComponent as TextGuidedImageToImage } from "../resources/icons/icon-textGuidedImageToImage.svg";
 import { ReactComponent as TexttoImage } from "../resources/icons/icon-textToImage.svg";
 import { ReactComponent as TexttoVideo } from "../resources/icons/icon-textToVideo.svg";
 
@@ -41,15 +41,13 @@ import {
   DefaultInstanceSegmentationModel,
   DefaultObjectDetectionModel,
   DefaultSemanticSegmentationModel,
-  DefaultStyleTransferModel,  
-
+  DefaultStyleTransferModel,
   DefaultTextModel,
   DefaultAudioToTextModel,
   DefaultTextToAudioModel,
   DefaultTextConversationModel,
-  DefaultStyleTransferModel,
   DefaultVisualQuestionAnsweringModel,
-  DefaultTextGuidedImagetoImageModel,
+  DefaultTextGuidedImageToImageModel,
   DefaultDocumentQuestionAnsweringModel,
   DefaultTextToImage,
   DefaultTextToVideo,
@@ -62,7 +60,7 @@ import {
   SampleObjectDetectionInputs,
   SampleSegmentationInputs,
   SampleStyleTransferInputs,
-  SampleTextGuidedImagetoImageInputs,
+  SampleTextGuidedImageToImageInputs,
   SampleVisualQuestionAnsweringInputs,
   SampleDocumentQuestionAnsweringInputs,
   SampleTextToImage,
@@ -83,7 +81,7 @@ import { TestStyleTransferOutput } from "../components/Experiment/QuickOutput/Ou
 import TextInputTab from "../components/Experiment/QuickInput/Tabs/TextInput/TextInputTab";
 import { TestVisualQuestionAnswering } from "../components/Experiment/QuickOutput/Outputs/VisualQuestionAnswering/testData/testVisualQuestionAnsweringOutput";
 import { TestDocumentQuestionAnswering } from "../components/Experiment/QuickOutput/Outputs/DocumentQuestionAnswering/testData/testDocumentQuestionAnsweringOuput";
-import { TestTextGuidedImagetoImage } from "../components/Experiment/QuickOutput/Outputs/TextGuidedImagetoImage/testData/testTextGuidedImagetoImageOutput";
+import { TestTextGuidedImageToImage } from "../components/Experiment/QuickOutput/Outputs/TextGuidedImageToImage/testData/testTextGuidedImageToImageOutput";
 import { TestTextToImageOutput } from "../components/Experiment/QuickOutput/Outputs/TextToImage/testData/testTextToImageOutput";
 import { TestTextToVideoOutput } from "../components/Experiment/QuickOutput/Outputs/TextToVideo/testData/testTextToVideoOutput";
 import { TestImageTo3DOutput } from "../components/Experiment/QuickOutput/Outputs/ImageTo3D/testData/testImageTo3DOutput";
@@ -321,7 +319,7 @@ export default class Task {
   static text_guided_image_to_image = new Task({
     name: "Text Guided Image to Image",
     description: "Generate images based on a source image and a given text prompt.",
-    id: textGuidedImagetoImage,
+    id: textGuidedImageToImage,
 
     inputs: [
       {
@@ -349,8 +347,8 @@ export default class Task {
     },
 
     outputText: "Generated Image",
-    icon: (props) => <TextGuidedImagetoImage {...props} />,
-    sampleInputs: SampleTextGuidedImagetoImageInputs,
+    icon: (props) => <TextGuidedImageToImage {...props} />,
+    sampleInputs: SampleTextGuidedImageToImageInputs,
     tutorialDescription:
       "Text Guided Image to Image models generate images based on a source image and a given text prompt.",
   });
@@ -386,7 +384,7 @@ export default class Task {
     },
 
     outputText: "Response to the question:",
-    icon: (props) => <TextGuidedImagetoImage {...props} />,
+    icon: (props) => <TextGuidedImageToImage {...props} />,
     sampleInputs: SampleDocumentQuestionAnsweringInputs,
     tutorialDescription:
       "Document Question Answering models answer questions based on a document.",
@@ -473,7 +471,7 @@ export default class Task {
         return Task.text_conversation;
       case visualQuestionAnswering:
         return Task.visual_question_answering;
-      case textGuidedImagetoImage:
+      case textGuidedImageToImage:
         return Task.text_guided_image_to_image;
       case documentQuestionAnswering:
         return Task.document_question_answering;
@@ -515,8 +513,8 @@ export default class Task {
         return DefaultTextConversationModel;
       case visualQuestionAnswering:
         return DefaultVisualQuestionAnsweringModel;
-      case textGuidedImagetoImage:
-        return DefaultTextGuidedImagetoImageModel;
+      case textGuidedImageToImage:
+        return DefaultTextGuidedImageToImageModel;
       case documentQuestionAnswering:
         return DefaultDocumentQuestionAnsweringModel;
       case textToImage:
@@ -556,8 +554,8 @@ export default class Task {
         return TestTextConversationOutput;
       case visualQuestionAnswering:
         return TestVisualQuestionAnswering;
-      case textGuidedImagetoImage:
-        return TestTextGuidedImagetoImage;
+      case textGuidedImageToImage:
+        return TestTextGuidedImageToImage;
       case documentQuestionAnswering:
         return TestDocumentQuestionAnswering;
       case textToImage:
@@ -585,7 +583,7 @@ export default class Task {
       this.getStaticTask(textToAudio),
       this.getStaticTask(audioToText),
       this.getStaticTask(visualQuestionAnswering),
-      this.getStaticTask(textGuidedImagetoImage),
+      this.getStaticTask(textGuidedImageToImage),
       this.getStaticTask(documentQuestionAnswering),
       this.getStaticTask(textToImage),
       this.getStaticTask(textToVideo)

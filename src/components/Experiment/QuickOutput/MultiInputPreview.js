@@ -48,13 +48,6 @@ export default function MultiInputPreview(givenProps) {
             Inputs
         </h3>
         <div className={getElement("container")}>
-            {
-                props.inputs.map((input, index) => (
-                    <div className={getElement("single-input")} key={index}>
-                      {getInputs(input)}
-                    </div>
-                )
-            )}
           {
             props.inputs.length > 2 ? (
               <div className={getElement("multi-input-grid-display")}>

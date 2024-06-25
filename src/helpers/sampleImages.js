@@ -165,7 +165,7 @@ export const SampleVisualQuestionAnsweringInputs = [
     "Where is the crab?"
   ]
 ];
-export const SampleTextGuidedImagetoImageInputs = [
+export const SampleTextGuidedImageToImageInputs = [
   [{
     src: "https://s3.amazonaws.com/uploads.staging.mlmodelscope.org/birdy.png",
     alt: "bird"
