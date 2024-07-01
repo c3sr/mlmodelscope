@@ -20,7 +20,6 @@ export default function TextGuidedImageToImageOutput(props) {
     const output = props.trial?.results?.responses[0]?.features[0] ?? {};
     const duration = props.trial?.results?.duration_for_inference ?? "0s";
 
-
     return (
         <div className={getBlock()}>
             <div className={getElement("header")}>

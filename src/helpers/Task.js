@@ -36,8 +36,8 @@ import { ReactComponent as VisualQuestionAnswering } from "../resources/icons/ic
 import { ReactComponent as TextGuidedImageToImage } from "../resources/icons/icon-textGuidedImageToImage.svg";
 import { ReactComponent as TextToImage } from "../resources/icons/icon-textToImage.svg";
 import { ReactComponent as TexttoVideo } from "../resources/icons/icon-textToVideo.svg";
-import { ReactComponent as ImageToText } from "../resources/icons/icon-imageToText.svg";
 import { ReactComponent as TextTo3D } from "../resources/icons/icon-textTo3D.svg";
+import { ReactComponent as ImageToText } from "../resources/icons/icon-imageToText.svg";
 
 import {
   DefaultImageClassificationModel,
@@ -88,7 +88,7 @@ import { TestStyleTransferOutput } from "../components/Experiment/QuickOutput/Ou
 import TextInputTab from "../components/Experiment/QuickInput/Tabs/TextInput/TextInputTab";
 import { TestVisualQuestionAnswering } from "../components/Experiment/QuickOutput/Outputs/VisualQuestionAnswering/testData/testVisualQuestionAnsweringOutput";
 import { TestDocumentQuestionAnswering } from "../components/Experiment/QuickOutput/Outputs/DocumentQuestionAnswering/testData/testDocumentQuestionAnsweringOuput";
-import { TestTextGuidedImageToImage } from "../components/Experiment/QuickOutput/Outputs/TextGuidedImageToImage/testData/testTextGuidedImageToImageOutput";
+import { TestTextGuidedImageToImage } from "../components/Experiment/QuickOutput/Outputs/TextGuidedImageToImage/testData/testTextGuidedImageToImageData";
 import { TestTextToImageOutput } from "../components/Experiment/QuickOutput/Outputs/TextToImage/testData/testTextToImageOutput";
 import { TestTextToVideoOutput } from "../components/Experiment/QuickOutput/Outputs/TextToVideo/testData/testTextToVideoOutput";
 import { TestImageTo3DOutput } from "../components/Experiment/QuickOutput/Outputs/ImageTo3D/testData/testImageTo3DOutput";
@@ -221,7 +221,6 @@ export default class Task {
         inputType: TaskInputTypes.Image,
       },
     ],
-
     outputText: "3D model generated from the uploaded images",
     icon: (props) => <ImageTo3D {...props} />,
     sampleInputs: [],
@@ -408,7 +407,6 @@ export default class Task {
     sampleInputs: SampleTextTo3DInputs,
     tutorialDescription: "3D conversion models produce a 3D version of the user's input.",
   });  
-
   static image_to_text = new Task({
     name: "Image to Text",
     description: "Caption an image.",

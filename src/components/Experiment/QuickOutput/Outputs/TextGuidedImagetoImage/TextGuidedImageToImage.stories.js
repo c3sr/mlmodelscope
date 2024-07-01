@@ -1,7 +1,6 @@
 import TextGuidedImageToImageOutput from "./TextGuidedImageToImageOutput";
 import { TestTextGuidedImageToImage } from "./testData/testTextGuidedImageToImageData";
 
-
 export default {
     title: "Experiments/Quick Output/Text Guided Image to Image",
     component: TextGuidedImageToImageOutput
