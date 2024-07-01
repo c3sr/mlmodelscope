@@ -16,4 +16,5 @@ export const documentQuestionAnswering = "document_question_answering";
 export const textToImage = "text_to_image";
 export const textToVideo = "text_to_video";
 export const textTo3D = "text_to_3D";
+export const imageToText = "image_to_text";
 export const pending = "pending";

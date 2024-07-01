@@ -217,6 +217,21 @@ export const SampleTextToVideo = [
   "Sunset on a beach"
 ];
 
+export const SampleImageToText = [
+  {
+    src: "https://s3.amazonaws.com/uploads.staging.mlmodelscope.org/birdy.png",
+    alt: "bird"
+  },
+  {
+    src: "https://s3.amazonaws.com/uploads.staging.mlmodelscope.org/kitty.png",
+    alt: "cat"
+  },
+  {
+    src: "https://s3.amazonaws.com/uploads.staging.mlmodelscope.org/crabby.png",
+    alt: "crab"
+  }
+];
+
 export const SampleTextTo3DInputs = [
   "a cool drum set"
 ]

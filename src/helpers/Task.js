@@ -16,6 +16,7 @@ import {
   documentQuestionAnswering,
   textToImage,
   textToVideo,
+  imageToText,
   textTo3D
 } from "./TaskIDs";
 import React from "react";
@@ -32,9 +33,10 @@ import { ReactComponent as AudioToText } from "../resources/icons/icon-audioToTe
 import { ReactComponent as TextToAudio } from "../resources/icons/icon-textToAudio.svg";
 import { ReactComponent as TextConversation } from "../resources/icons/icon-textConversation.svg";
 import { ReactComponent as VisualQuestionAnswering } from "../resources/icons/icon-visualQuestionAnswering.svg";
-import { ReactComponent as TextGuidedImageToImage } from "../resources/icons/icon-textGuidedImageToImage.svg";
-import { ReactComponent as TexttoImage } from "../resources/icons/icon-textToImage.svg";
+import { ReactComponent as TextGuidedImageToImage } from "../resources/icons/icon-textGuidedImagetoImage.svg";
+import { ReactComponent as TextToImage } from "../resources/icons/icon-textToImage.svg";
 import { ReactComponent as TexttoVideo } from "../resources/icons/icon-textToVideo.svg";
+import { ReactComponent as ImageToText } from "../resources/icons/icon-imageToText.svg";
 import { ReactComponent as TextTo3D } from "../resources/icons/icon-textTo3D.svg";
 
 import {
@@ -54,7 +56,8 @@ import {
   DefaultDocumentQuestionAnsweringModel,
   DefaultTextToImage,
   DefaultTextToVideo,
-  DefaultTextTo3DModel
+  DefaultTextTo3DModel,
+  DefaultImageToText
 } from "./DefaultModels";
 import {
   SampleAudioToTextInputs,
@@ -68,6 +71,7 @@ import {
   SampleDocumentQuestionAnsweringInputs,
   SampleTextToImage,
   SampleTextToVideo,
+  SampleImageToText,
   SampleTextTo3DInputs
 } from "./sampleImages";
 import { TestImageClassificationResult } from "../components/Experiment/QuickOutput/Outputs/Classification/Features";
@@ -84,10 +88,11 @@ import { TestStyleTransferOutput } from "../components/Experiment/QuickOutput/Ou
 import TextInputTab from "../components/Experiment/QuickInput/Tabs/TextInput/TextInputTab";
 import { TestVisualQuestionAnswering } from "../components/Experiment/QuickOutput/Outputs/VisualQuestionAnswering/testData/testVisualQuestionAnsweringOutput";
 import { TestDocumentQuestionAnswering } from "../components/Experiment/QuickOutput/Outputs/DocumentQuestionAnswering/testData/testDocumentQuestionAnsweringOuput";
-import { TestTextGuidedImageToImage } from "../components/Experiment/QuickOutput/Outputs/TextGuidedImageToImage/testData/testTextGuidedImageToImageOutput";
+import { TestTextGuidedImageToImage } from "../components/Experiment/QuickOutput/Outputs/TextGuidedImagetoImage/testData/testTextGuidedImagetoImageOutput";
 import { TestTextToImageOutput } from "../components/Experiment/QuickOutput/Outputs/TextToImage/testData/testTextToImageOutput";
 import { TestTextToVideoOutput } from "../components/Experiment/QuickOutput/Outputs/TextToVideo/testData/testTextToVideoOutput";
 import { TestImageTo3DOutput } from "../components/Experiment/QuickOutput/Outputs/ImageTo3D/testData/testImageTo3DOutput";
+import { TestImageToTextOutput } from "../components/Experiment/QuickOutput/Outputs/ImageToText/testData/testImageToTextOutput";
 import { TestTextTo3DOutput } from "../components/Experiment/QuickOutput/Outputs/TextTo3D/testData/testTextTo3DOutput";
 
 export default class Task {
@@ -216,7 +221,7 @@ export default class Task {
         inputType: TaskInputTypes.Image,
       },
     ],
-    
+
     outputText: "3D model generated from the uploaded images",
     icon: (props) => <ImageTo3D {...props} />,
     sampleInputs: [],
@@ -373,7 +378,7 @@ export default class Task {
     id: textToImage,
     inputText: "Input prompt to generate an image",
     outputText: "Image output",
-    icon: (props) => <TexttoImage {...props} />,
+    icon: (props) => <TextToImage {...props} />,
     sampleInputs: SampleTextToImage,
     hideUpload: true,
     tutorialDescription: "Text to Image model generates images based on a textual prompt.",
@@ -403,6 +408,19 @@ export default class Task {
     sampleInputs: SampleTextTo3DInputs,
     tutorialDescription: "3D conversion models produce a 3D version of the user's input.",
   });  
+
+  static image_to_text = new Task({
+    name: "Image to Text",
+    description: "Caption an image.",
+    id: imageToText,
+    inputText: "Generate a caption for the image.",
+    outputText: "Caption:",
+    icon: (props) => <ImageToText {...props} />,
+    sampleInputs: SampleImageToText,
+    tutorialDescription: "Image to Text model generates a caption for an image.",
+    inputType: TaskInputTypes.Image,
+  });
+
 
   constructor(options) {
     this.name = options.name ?? "";
@@ -466,6 +484,8 @@ export default class Task {
         return Task.text_to_image;
       case textToVideo:
         return Task.text_to_video;
+      case imageToText:
+        return Task.image_to_text;
         case textTo3D:
           return Task.text_to_3D;        
       default:
@@ -510,6 +530,8 @@ export default class Task {
         return DefaultTextToImage;
       case textToVideo:
         return DefaultTextToVideo;
+      case imageToText:
+        return DefaultImageToText;
       case textTo3D:
         return DefaultTextTo3DModel;
       default:
@@ -553,6 +575,8 @@ export default class Task {
         return TestTextToImageOutput;
       case textToVideo:
         return TestTextToVideoOutput;
+      case imageToText:
+        return TestImageToTextOutput;
       case textTo3D:
         return TestTextTo3DOutput;
       default:
@@ -580,6 +604,7 @@ export default class Task {
       this.getStaticTask(documentQuestionAnswering),
       this.getStaticTask(textToImage),
       this.getStaticTask(textToVideo),
+      this.getStaticTask(imageToText),
       this.getStaticTask(textTo3D)
     ];
   }
