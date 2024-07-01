@@ -1,5 +1,5 @@
 import TextGuidedImageToImageOutput from "./TextGuidedImageToImageOutput";
-import { TestTextGuidedImageToImage } from "./testData/testTextGuidedImageToImageData";
+import { TestTextGuidedImageToImage } from "./testData/testTextGuidedImageToImageOutput";
 
 export default {
     title: "Experiments/Quick Output/Text Guided Image to Image",
