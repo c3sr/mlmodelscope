@@ -33,7 +33,7 @@ import { ReactComponent as AudioToText } from "../resources/icons/icon-audioToTe
 import { ReactComponent as TextToAudio } from "../resources/icons/icon-textToAudio.svg";
 import { ReactComponent as TextConversation } from "../resources/icons/icon-textConversation.svg";
 import { ReactComponent as VisualQuestionAnswering } from "../resources/icons/icon-visualQuestionAnswering.svg";
-import { ReactComponent as TextGuidedImageToImage } from "../resources/icons/icon-textGuidedImagetoImage.svg";
+import { ReactComponent as TextGuidedImageToImage } from "../resources/icons/icon-textGuidedImageToImage.svg";
 import { ReactComponent as TextToImage } from "../resources/icons/icon-textToImage.svg";
 import { ReactComponent as TexttoVideo } from "../resources/icons/icon-textToVideo.svg";
 import { ReactComponent as ImageToText } from "../resources/icons/icon-imageToText.svg";
