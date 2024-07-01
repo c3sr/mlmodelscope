@@ -15,7 +15,8 @@ import {
   textGuidedImageToImage,
   documentQuestionAnswering,
   textToImage,
-  textToVideo
+  textToVideo,
+  textTo3D
 } from "./TaskIDs";
 import React from "react";
 import { ReactComponent as ImageClassification } from "../resources/icons/icon-imageClassification.svg";
@@ -34,6 +35,7 @@ import { ReactComponent as VisualQuestionAnswering } from "../resources/icons/ic
 import { ReactComponent as TextGuidedImageToImage } from "../resources/icons/icon-textGuidedImageToImage.svg";
 import { ReactComponent as TexttoImage } from "../resources/icons/icon-textToImage.svg";
 import { ReactComponent as TexttoVideo } from "../resources/icons/icon-textToVideo.svg";
+import { ReactComponent as TextTo3D } from "../resources/icons/icon-textTo3D.svg";
 
 import {
   DefaultImageClassificationModel,
@@ -42,6 +44,7 @@ import {
   DefaultObjectDetectionModel,
   DefaultSemanticSegmentationModel,
   DefaultStyleTransferModel,
+  DefaultImageTo3DModel,
   DefaultTextModel,
   DefaultAudioToTextModel,
   DefaultTextToAudioModel,
@@ -51,7 +54,7 @@ import {
   DefaultDocumentQuestionAnsweringModel,
   DefaultTextToImage,
   DefaultTextToVideo,
-  DefaultImageTo3DModel
+  DefaultTextTo3DModel
 } from "./DefaultModels";
 import {
   SampleAudioToTextInputs,
@@ -64,8 +67,8 @@ import {
   SampleVisualQuestionAnsweringInputs,
   SampleDocumentQuestionAnsweringInputs,
   SampleTextToImage,
-  SampleTextToVideo
-
+  SampleTextToVideo,
+  SampleTextTo3DInputs
 } from "./sampleImages";
 import { TestImageClassificationResult } from "../components/Experiment/QuickOutput/Outputs/Classification/Features";
 import { TestImageEnhancementData } from "../components/Experiment/QuickOutput/Outputs/ImageEnhancement/testData/TestFeatures";
@@ -85,7 +88,7 @@ import { TestTextGuidedImageToImage } from "../components/Experiment/QuickOutput
 import { TestTextToImageOutput } from "../components/Experiment/QuickOutput/Outputs/TextToImage/testData/testTextToImageOutput";
 import { TestTextToVideoOutput } from "../components/Experiment/QuickOutput/Outputs/TextToVideo/testData/testTextToVideoOutput";
 import { TestImageTo3DOutput } from "../components/Experiment/QuickOutput/Outputs/ImageTo3D/testData/testImageTo3DOutput";
-
+import { TestTextTo3DOutput } from "../components/Experiment/QuickOutput/Outputs/TextTo3D/testData/testTextTo3DOutput";
 
 export default class Task {
   static image_classification = new Task({
@@ -282,7 +285,6 @@ export default class Task {
     name: "Visual Question Answering",
     description: "Used to answer questions based on visual input.",
     id: visualQuestionAnswering,
-
     inputs: [
       {
         inputText: '[Visual Input]',
@@ -300,32 +302,22 @@ export default class Task {
           "component": TextInputTab
         }
       }
-
     ],
     useMultiInput: true,
-    // Note: This is just an example of what a config field could look like, not currently used
-    config: {
-      numWarmups: 0
-    },
-
     outputText: "Response to the question:",
     icon: (props) => <VisualQuestionAnswering {...props} />,
     sampleInputs: SampleVisualQuestionAnsweringInputs,
     tutorialDescription:
       "Visual Question Answering models answer questions based on visual input.",
   });
-
-
   static text_guided_image_to_image = new Task({
     name: "Text Guided Image to Image",
     description: "Generate images based on a source image and a given text prompt.",
     id: textGuidedImageToImage,
-
     inputs: [
       {
         inputText: '[Visual Input]',
         inputType: TaskInputTypes.Image,
-
       },
       {
         inputText: '[Question here]',
@@ -338,14 +330,8 @@ export default class Task {
           "component": TextInputTab
         }
       }
-
     ],
     useMultiInput: true,
-    // Note: This is just an example of what a config field could look like, not currently used
-    config: {
-      numWarmups: 0
-    },
-
     outputText: "Generated Image",
     icon: (props) => <TextGuidedImageToImage {...props} />,
     sampleInputs: SampleTextGuidedImageToImageInputs,
@@ -357,12 +343,10 @@ export default class Task {
     name: "Document Question Answering",
     description: "Answer questions based on a document.",
     id: documentQuestionAnswering,
-
     inputs: [
       {
         inputText: 'Training Document',
         inputType: TaskInputTypes.Document,
-
       },
       {
         inputText: '[Question here]',
@@ -375,22 +359,14 @@ export default class Task {
           "component": TextInputTab
         }
       }
-
     ],
     useMultiInput: true,
-    // Note: This is just an example of what a config field could look like, not currently used
-    config: {
-      numWarmups: 0
-    },
-
     outputText: "Response to the question:",
     icon: (props) => <TextGuidedImageToImage {...props} />,
     sampleInputs: SampleDocumentQuestionAnsweringInputs,
     tutorialDescription:
       "Document Question Answering models answer questions based on a document.",
   });
-
-
   static text_to_image = new Task({
     name: "Text to Image",
     description: "Generate images with a text prompt.",
@@ -403,7 +379,6 @@ export default class Task {
     tutorialDescription: "Text to Image model generates images based on a textual prompt.",
     inputType: TaskInputTypes.Text,
   });
-
   static text_to_video = new Task({
     name: "Text to Video",
     description: "Generate videos with a text prompt.",
@@ -416,6 +391,18 @@ export default class Task {
     tutorialDescription: "Text to Video model generates a video based on a textual prompt.",
     inputType: TaskInputTypes.Text,
   });
+  static text_to_3D = new Task({
+    name: "Text to 3D",
+    description: "Convert a text prompt to a 3D model",
+    id: textTo3D,
+    multiple: false,
+    inputText: "generate a 3D model from a text prompt.",
+    inputType: TaskInputTypes.Text,
+    outputText: "3D model generated from the text prompt",
+    icon: (props) => <TextTo3D {...props} />,
+    sampleInputs: SampleTextTo3DInputs,
+    tutorialDescription: "3D conversion models produce a 3D version of the user's input.",
+  });  
 
   constructor(options) {
     this.name = options.name ?? "";
@@ -479,6 +466,8 @@ export default class Task {
         return Task.text_to_image;
       case textToVideo:
         return Task.text_to_video;
+        case textTo3D:
+          return Task.text_to_3D;        
       default:
         return new Task({ name: "unknown", description: "unknown task name" });
     }
@@ -521,6 +510,8 @@ export default class Task {
         return DefaultTextToImage;
       case textToVideo:
         return DefaultTextToVideo;
+      case textTo3D:
+        return DefaultTextTo3DModel;
       default:
         return undefined;
     }
@@ -562,6 +553,8 @@ export default class Task {
         return TestTextToImageOutput;
       case textToVideo:
         return TestTextToVideoOutput;
+      case textTo3D:
+        return TestTextTo3DOutput;
       default:
         return undefined;
     }
@@ -586,7 +579,8 @@ export default class Task {
       this.getStaticTask(textGuidedImageToImage),
       this.getStaticTask(documentQuestionAnswering),
       this.getStaticTask(textToImage),
-      this.getStaticTask(textToVideo)
+      this.getStaticTask(textToVideo),
+      this.getStaticTask(textTo3D)
     ];
   }
 

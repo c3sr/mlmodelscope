@@ -216,3 +216,7 @@ export const SampleTextToVideo = [
   "Flower in a garden",
   "Sunset on a beach"
 ];
+
+export const SampleTextTo3DInputs = [
+  "a cool drum set"
+]
