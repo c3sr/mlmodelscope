@@ -1,0 +1,79 @@
+@import "../../../../../App";
+
+@mixin ratingButton($color, $background, $iconWidth, $iconHeight) {
+  @include headline6;
+
+  align-items: center;
+  border: 2px solid $color;
+  border-radius: 26px;
+  color: $charcoalLightest;
+  display: flex;
+  padding: 12px 24px;
+
+  & > span {
+    cursor: default;
+  }
+
+  & > svg {
+    margin-right: 8px;
+    height: $iconHeight;
+    width: $iconWidth;
+
+    & > path {
+      fill: $color;
+    }
+  }
+
+  transition: 0.5s;
+  &:hover {
+    background-color: $background;
+
+    & > svg > path {
+      fill: $charcoalLightest;
+    }
+  }
+}
+
+.rating {
+
+  &__title {
+    @include body;
+    font-weight: bold;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+  &__submitted {
+    @include headline5;
+    color: $charcoalLightest;
+
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+
+    @include mobileWidth-lg {
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      > * {
+        width: 140px;
+      }
+    }
+  }
+
+  &__correct {
+    @include ratingButton($mint, $mintLight, 19px, 13px);
+    margin-right: 16px;
+
+    @include mobileWidth-lg {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+  }
+
+  &__incorrect {
+    @include ratingButton($pink, $pinkLight, 14px, 14px);
+  }
+}
