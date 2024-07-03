@@ -1,6 +1,6 @@
 import React from 'react';
-import TopPrediction from "./TopPrediction";
-import "./TextClassificationOutput.scss";
+import TopPrediction from "../Classification/TopPrediction";
+import "../Classification/ClassificationOutput.scss";
 import PredictionExpander from "../../../../Common/PredictionExpander";
 import NoPredictions from "../_Common/components/NoPredictions";
 import Task from "../../../../../helpers/Task";
