@@ -10,16 +10,16 @@ import { imageTo3D } from '../../../../../helpers/TaskIDs';
 
 export default function SampleInputsTab(props) {
     // Note: This is the content for the Sample Input Tab, below the header
-
     const { getBlock, getElement } = useBEMNaming("sample-inputs");
     const { isUnselected, isSelected, selectInput, type,sampleInputType } = useSampleInputControl(props);
     const task = Task.getStaticTask(props.task);
+
     const getInputClassName = (url) => {
+        const tasksWithLargeImages = [imageTo3D];
         let className = `input-${sampleInputType}`;
         if (isSelected(url)) className += ` ${className}--selected`;
         if (isUnselected(url)) className += ` ${className}--unselected`;
-
-        if (task.id === imageTo3D) className += ` input-${sampleInputType}--large`;
+        if (tasksWithLargeImages.includes(task.id)) className += ` input-${sampleInputType}--large`;
 
         return className;
     };
