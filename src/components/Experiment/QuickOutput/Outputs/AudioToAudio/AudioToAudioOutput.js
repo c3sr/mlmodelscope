@@ -11,7 +11,7 @@ export default function AudioToAudioOutput(props) {
     const { getBlock } = useBEMNaming("audio-to-audio-output");
 
     // Note: This method could probably be renamed to a more generic 'useOutput' or similar?
-    const { output, inferenceDuration, input,setInput } = useTextOutput(
+    const { output, inferenceDuration, input, setInput } = useTextOutput(
         props.trial
     );
 
@@ -21,10 +21,10 @@ export default function AudioToAudioOutput(props) {
 
     return (
         <div className={getBlock()}>
-                <AudioToTextOutputInputSection 
+            <AudioToTextOutputInputSection
                 input={input}
                 setInput={setInput}
-                onSubmit={onSubmit}        
+                onSubmit={onSubmit}
             />
             <AudioOutputBox duration={inferenceDuration} output={output} task={audioToAudio} />
         </div>
