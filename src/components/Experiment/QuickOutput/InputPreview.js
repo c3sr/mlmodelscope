@@ -27,8 +27,9 @@ export default function InputPreview(givenProps) {
       case "audio":
         return <audio className={getElement("audio")} controls src={props.input} />;
       case "image":
-      default:
         return <img className={getElement("image")} src={props.input} />;
+      default:
+        return <p>Not currently supported</p>;
     }
   };
 

@@ -38,7 +38,7 @@ import { ReactComponent as TextConversation } from "../resources/icons/icon-text
 import { ReactComponent as VisualQuestionAnswering } from "../resources/icons/icon-visualQuestionAnswering.svg";
 import { ReactComponent as TextGuidedImageToImage } from "../resources/icons/icon-textGuidedImageToImage.svg";
 import { ReactComponent as TextToImage } from "../resources/icons/icon-textToImage.svg";
-import { ReactComponent as TexttoVideo } from "../resources/icons/icon-textToVideo.svg";
+import { ReactComponent as TextToVideo } from "../resources/icons/icon-textToVideo.svg";
 import { ReactComponent as TextTo3D } from "../resources/icons/icon-textTo3D.svg";
 import { ReactComponent as ImageToText } from "../resources/icons/icon-imageToText.svg";
 import { ReactComponent as TextClassification } from "../resources/icons/icon-textClassification.svg";
@@ -300,11 +300,11 @@ export default class Task {
     id: visualQuestionAnswering,
     inputs: [
       {
-        inputText: "[Visual Input]",
+        inputText: "use as visual context.",
         inputType: TaskInputTypes.Image,
       },
       {
-        inputText: "[Question here]",
+        inputText: "ask a question.",
         inputType: TaskInputTypes.Text,
         inputUpload: false,
         inputUrl: false,
@@ -329,11 +329,11 @@ export default class Task {
     id: textGuidedImageToImage,
     inputs: [
       {
-        inputText: "[Visual Input]",
+        inputText: "use as source image.",
         inputType: TaskInputTypes.Image,
       },
       {
-        inputText: "[Question here]",
+        inputText: "use as text prompt.",
         inputType: TaskInputTypes.Text,
         inputUpload: false,
         inputUrl: false,
@@ -362,7 +362,7 @@ export default class Task {
         inputType: TaskInputTypes.Document,
       },
       {
-        inputText: "[Question here]",
+        inputText: "ask a question.",
         inputType: TaskInputTypes.Text,
         inputUpload: false,
         inputUrl: false,
@@ -399,7 +399,7 @@ export default class Task {
     id: textToVideo,
     inputText: "Input prompt to generate a video",
     outputText: "Video output",
-    icon: (props) => <TexttoVideo {...props} />,
+    icon: (props) => <TextToVideo {...props} />,
     sampleInputs: SampleTextToVideo,
     hideUpload: true,
     tutorialDescription:
