@@ -106,6 +106,15 @@ export const SampleImageTo3DInputs = [
   ],
 ];
 
+export const SampleMaskGenerationInputs = [
+  [
+    {
+      src: "https://s3.amazonaws.com/uploads.staging.mlmodelscope.org/plane-blue.jpg",
+      alt: "airplane",
+    }
+  ]
+]
+
 export const SampleTextInputs = [
   "Lorem ipsum dolor sit amet",
   "Consectetur adipiscing elit",

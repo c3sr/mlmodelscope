@@ -6,12 +6,14 @@ import useBEMNaming from "../../../../../common/useBEMNaming";
 import { QuickInputType } from "../../quickInputType";
 import { ReactComponent as DocumentIcon } from "../../../../../resources/icons/icon-document.svg";
 import { imageTo3D } from '../../../../../helpers/TaskIDs';
+import DrawRectangle from './DrawRectangle';
+
 
 
 export default function SampleInputsTab(props) {
     // Note: This is the content for the Sample Input Tab, below the header
     const { getBlock, getElement } = useBEMNaming("sample-inputs");
-    const { isUnselected, isSelected, selectInput, type,sampleInputType } = useSampleInputControl(props);
+    const { isUnselected, isSelected, selectInput, type, sampleInputType } = useSampleInputControl(props);
     const task = Task.getStaticTask(props.task);
 
     const getInputClassName = (url) => {
@@ -25,6 +27,8 @@ export default function SampleInputsTab(props) {
     };
 
     const makeSampleInput = (url, index) => {
+        console.log('task: ', task)
+        console.log('sampleInputType', sampleInputType)
         switch (sampleInputType) {
             case QuickInputType.Image:
                 return makeSampleImageInput(url, index);
@@ -34,6 +38,8 @@ export default function SampleInputsTab(props) {
                 return makeSampleAudioInput(url, index);
             case QuickInputType.Document:
                 return makeSampleDocumentInput(url, index);
+            case QuickInputType.ImageCanvas:
+                return makeSampleImageCanvasInput(url, index);
             default:
                 return makeDefaultErrorInput();
         }
@@ -76,6 +82,18 @@ export default function SampleInputsTab(props) {
         );
     }
 
+    function makeSampleImageCanvasInput(url, index) {
+        return (
+            // <button onClick={() => selectInput(index)} key={index} className={getElement(getInputClassName(url))}>
+            //     <img src={url.src} alt={url.alt} />
+            // </button>
+            <div key={index}>
+                <p>Image + Canvas</p>
+                <DrawRectangle {...props} />
+            </div>
+        );
+    }    
+
     function makeDefaultErrorInput() {
         return (
             <div>No input type defined</div>
@@ -105,6 +123,9 @@ export default function SampleInputsTab(props) {
                 return "Select an audio file";
             case QuickInputType.Document:
                 return "Select a document";
+            case QuickInputType.ImageCanvas:
+                // return "Select an image and draw a rectangle over the area";      
+                return "Draw a rectangle over the area";
             default:
                 return "Error: no input type set";
         }

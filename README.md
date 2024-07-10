@@ -100,6 +100,11 @@ The project is structured as follows:
       - Returne the `Test[Task Name]Output` that you created in `testData` above 
     - `getStaticTasks`
 - Create a new story for the task in `QuickInput.stories.js`
+- If the task requires new input types, you will need to add those
+  - Add the new input type to `TaskInputTypes` and `QuickInputType`
+  - Update `SampleInputsTab` as necessary
+
+- 
 
 ## Adding new Task icons
 - Go to svgrepo.com, search for a suitable icon, download it, and drag the file into the `src/resources/icons` directory

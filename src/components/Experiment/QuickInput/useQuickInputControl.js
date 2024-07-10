@@ -66,6 +66,7 @@ export default function useQuickInputControl(props) {
     switch (type) {
       case QuickInputType.Image:
       case QuickInputType.Document:
+      case QuickInputType.ImageCanvas:
         return [{id: 'url-input', title: 'URL', component: URLInputsTab}];
       case QuickInputType.Audio:
         return [
@@ -84,6 +85,7 @@ export default function useQuickInputControl(props) {
       case QuickInputType.Image:
       case QuickInputType.Audio:
       case QuickInputType.Document:
+      case QuickInputType.ImageCanvas:
         return {id: 'upload-input', title: 'Upload', component: UploadInputsTab};
       case QuickInputType.Text:
         return {id: 'upload-input', title: 'Upload', component: UploadTextInputTab};

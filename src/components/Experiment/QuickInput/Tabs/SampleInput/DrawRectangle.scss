@@ -1,0 +1,27 @@
+.parent {
+    position: relative;
+    top: 0;
+    left: 0;
+    border: 1px solid yellow;
+}
+
+.canvas-container-rect {
+    height: 500px;
+    width: 500px;
+    border: 2px solid #000;
+    // margin-left: 100px;
+    // margin-top: 100px;
+}
+
+.image1 {
+    position: relative;
+    top: 0;
+    left: 0;
+    border: 1px red solid;
+  }
+.image2 {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border: 1px green solid;
+}

@@ -21,6 +21,7 @@ import {
   textTo3D,
   textClassification,
   audioToAudio,
+  maskGeneration,
 } from "../../../helpers/TaskIDs";
 import {
   SampleImageClassificationInputs,
@@ -38,6 +39,7 @@ import {
   SampleTextTo3DInputs,
   SampleTextClassification,
   SampleAudioToAudioInputs,
+  SampleMaskGenerationInputs,
 } from "../../../helpers/sampleImages";
 
 export default {
@@ -103,6 +105,16 @@ ImageTo3D.args = {
   model: {
     output: {
       type: imageTo3D,
+    },
+  },
+};
+
+export const MaskGeneration = Template.bind({});
+MaskGeneration.args = {
+  sampleInputs: SampleMaskGenerationInputs,
+  model: {
+    output: {
+      type: maskGeneration,
     },
   },
 };
