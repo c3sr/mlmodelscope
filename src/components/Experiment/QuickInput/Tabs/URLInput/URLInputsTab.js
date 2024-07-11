@@ -5,6 +5,7 @@ import { ReactComponent as PlusSign } from "../../../../../resources/icons/plus-
 import useURLInputControl from "./useURLInputControl";
 import Task from "../../../../../helpers/Task";
 import { TaskInputTypes } from '../../../../../helpers/TaskInputTypes';
+import URLInputPreview from './URLInputPreview';
 
 
 export default function URLInputsTab(props) {
@@ -21,10 +22,8 @@ export default function URLInputsTab(props) {
     props?.inputPreviewProps?.setURLValidity(false);
 
     setTimeout(() => {
-      if (task.inputType !== TaskInputTypes.Text && task.inputType !== TaskInputTypes.Document) {
-        props?.inputPreviewProps?.setURLValidity(!getUrlValidity(0));
-        props?.inputPreviewProps?.setSelectedInputSrc(e.target.value);
-      }
+      props?.inputPreviewProps?.setURLValidity(!getUrlValidity(0));
+      props?.inputPreviewProps?.setSelectedInputSrc(e.target.value);
     }, 500);
   };
 
@@ -100,6 +99,7 @@ export default function URLInputsTab(props) {
       }
 
 
+      <URLInputPreview inputPreviewProps={props.inputPreviewProps} inputType={task.inputType} selectedInputs={props.values} />
     </div>
   );
 }
