@@ -43,7 +43,7 @@ import TextToImageOutput from "./Outputs/TextToImage/TextToImageOutput";
 import TextClassificationOutput from "./Outputs/TextClassification/TextClassificationOutput";
 import ImageToTextOutput from "./Outputs/ImageToText/ImageToTextOutput";
 import ImageTo3DOutput from "./Outputs/ImageTo3D/ImageTo3DOutput";
-import TextTo3DOutput from "./Outputs/TextTo3D/textTo3DOutput";
+import TextTo3DOutput from "./Outputs/TextTo3D/TextTo3DOutput";
 import AudioToTextOutput from "./Outputs/AudioToText/AudioToTextOutput";
 import TextToAudioOutput from "./Outputs/TextToAudio/TextToAudioOutput";
 
