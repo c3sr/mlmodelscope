@@ -22,6 +22,7 @@ import {
   textTo3D,
   textClassification,
   imageToText,
+  textToImage,
 } from "../../../helpers/TaskIDs";
 import ObjectDetection from "./Outputs/ObjectDetection/ObjectDetection";
 import ImageEnhancement from "./Outputs/ImageEnhancement/ImageEnhancement";
@@ -41,7 +42,10 @@ import TextToVideoOutput from "./Outputs/TextToVideo/TextToVideoOutput";
 import TextToImageOutput from "./Outputs/TextToImage/TextToImageOutput";
 import TextClassificationOutput from "./Outputs/TextClassification/TextClassificationOutput";
 import ImageToTextOutput from "./Outputs/ImageToText/ImageToTextOutput";
-import { AudioToText, ImageTo3D, TextTo3D } from "../QuickInput/QuickInput.stories";
+import ImageTo3DOutput from "./Outputs/ImageTo3D/ImageTo3DOutput";
+import TextTo3DOutput from "./Outputs/TextTo3D/textTo3DOutput";
+import AudioToTextOutput from "./Outputs/AudioToText/AudioToTextOutput";
+import TextToAudioOutput from "./Outputs/TextToAudio/TextToAudioOutput";
 
 const defaultProps = {
   className: "quick-output",
@@ -118,7 +122,7 @@ export default function QuickOutput(givenProps) {
           );
         case imageTo3D:
           return (
-            <ImageTo3D
+            <ImageTo3DOutput
               onBackClicked={props.onBackClicked}
               trial={props.trialOutput}
             />
@@ -139,9 +143,9 @@ export default function QuickOutput(givenProps) {
           );
         case audioToText:
           return (
-            <AudioToText
+            <AudioToTextOutput
               onBackClicked={props.onBackClicked}
-              trial={props.trialOutput}
+              trial={props.trialOutput}            
             />
           );
         case textConversation:
@@ -172,6 +176,13 @@ export default function QuickOutput(givenProps) {
               trial={props.trialOutput}
             />
           );
+        case textToImage:
+          return (
+            <TextToImageOutput
+              onBackClicked={props.onBackClicked}
+              trial={props.trialOutput}    
+            />
+          )  
         case textToVideo:
           return (
             <TextToVideoOutput
@@ -181,16 +192,16 @@ export default function QuickOutput(givenProps) {
           );
         case textToAudio:
           return (
-            <TextToImageOutput
+            <TextToAudioOutput
               onBackClicked={props.onBackClicked}
-              trial={props.trialOutput}
+              trial={props.trialOutput}            
             />
           );
         case textTo3D:
           return (
-            <TextTo3D
+            <TextTo3DOutput 
               onBackClicked={props.onBackClicked}
-              trial={props.trialOutput}
+              trial={props.trialOutput}            
             />
           );
         case imageToText:
