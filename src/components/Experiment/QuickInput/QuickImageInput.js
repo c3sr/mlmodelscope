@@ -5,7 +5,7 @@ import useQuickInputControl from "./useQuickInputControl";
 import useBEMNaming from "../../../common/useBEMNaming";
 import { QuickInputTabContent } from "./QuickInputTabContent";
 import { QuickInputTabTitle } from "./QuickInputTabTitle";
-import {QuickInputType} from "./quickInputType";
+import { QuickInputType } from "./quickInputType";
 
 export default function QuickImageInput(props) {
   const {
@@ -57,6 +57,9 @@ export default function QuickImageInput(props) {
             selectedInputs={selectedInputs}
           />
         ))}
+
+        {(!(selectedInputs.length === 0 || selectedInputs[0] === "") && props?.inputPreviewProps?.URLValidity) && <img src={props?.inputPreviewProps?.selectedInputSrc} className={getElement("image-input-preview")} />}
+
       </div>
       <button
         className={getElement("run-model")}

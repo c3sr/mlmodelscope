@@ -96,6 +96,11 @@
     align-self: flex-end;
     line-height: 16px;
     margin-top: 24px;
+  }
 
+  &__image-input-preview {
+    margin: 20px auto;
+    width: 80%;
+    max-width: 700px;
   }
 }
