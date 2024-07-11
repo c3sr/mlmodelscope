@@ -59,8 +59,12 @@ export default function QuickAudioInput(props) {
           />
         ))}
 
-        {(!(selectedInputs.length === 0 || selectedInputs[0] === "") && props?.inputPreviewProps?.URLValidity) && <audio src={props?.inputPreviewProps?.selectedInputSrc} controls className={getElement("audio-input-preview")} />}
 
+        {(!(selectedInputs.length === 0 || selectedInputs[0] === "") && props?.inputPreviewProps?.URLValidity) &&
+          <div className={getElement("audio-input-preview")}>
+            <h3>Input Preview</h3>
+            <audio src={props?.inputPreviewProps?.selectedInputSrc} controls />
+          </div>}
       </div>
       <button
         className={getElement("run-model")}

@@ -58,7 +58,11 @@ export default function QuickImageInput(props) {
           />
         ))}
 
-        {(!(selectedInputs.length === 0 || selectedInputs[0] === "") && props?.inputPreviewProps?.URLValidity) && <img src={props?.inputPreviewProps?.selectedInputSrc} className={getElement("image-input-preview")} />}
+        {(!(selectedInputs.length === 0 || selectedInputs[0] === "") && props?.inputPreviewProps?.URLValidity) &&
+          <div className={getElement("image-input-preview")}>
+            <h3>Input Preview</h3>
+            <img src={props?.inputPreviewProps?.selectedInputSrc} />
+          </div>}
 
       </div>
       <button
