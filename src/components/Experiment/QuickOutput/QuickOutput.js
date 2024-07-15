@@ -44,7 +44,10 @@ import TextToVideoOutput from "./Outputs/TextToVideo/TextToVideoOutput";
 import TextToImageOutput from "./Outputs/TextToImage/TextToImageOutput";
 import TextClassificationOutput from "./Outputs/TextClassification/TextClassificationOutput";
 import ImageToTextOutput from "./Outputs/ImageToText/ImageToTextOutput";
-import { AudioToText, ImageTo3D, TextTo3D } from "../QuickInput/QuickInput.stories";
+import ImageTo3DOutput from "./Outputs/ImageTo3D/ImageTo3DOutput";
+import TextTo3DOutput from "./Outputs/TextTo3D/TextTo3DOutput";
+import AudioToTextOutput from "./Outputs/AudioToText/AudioToTextOutput";
+import TextToAudioOutput from "./Outputs/TextToAudio/TextToAudioOutput";
 import AudioClassificationOutput from "./Outputs/AudioClassification/AudioClassificationOutput";
 import AudioToAudioOutput from "./Outputs/AudioToAudio/AudioToAudioOutput";
 
@@ -123,7 +126,7 @@ export default function QuickOutput(givenProps) {
           );
         case imageTo3D:
           return (
-            <ImageTo3D
+            <ImageTo3DOutput
               onBackClicked={props.onBackClicked}
               trial={props.trialOutput}
             />
@@ -144,7 +147,7 @@ export default function QuickOutput(givenProps) {
           );
         case audioToText:
           return (
-            <AudioToText
+            <AudioToTextOutput
               onBackClicked={props.onBackClicked}
               trial={props.trialOutput}
             />
@@ -177,6 +180,13 @@ export default function QuickOutput(givenProps) {
               trial={props.trialOutput}
             />
           );
+        case textToImage:
+          return (
+            <TextToImageOutput
+              onBackClicked={props.onBackClicked}
+              trial={props.trialOutput}
+            />
+          );
         case textToVideo:
           return (
             <TextToVideoOutput
@@ -186,14 +196,14 @@ export default function QuickOutput(givenProps) {
           );
         case textToImage:
           return (
-            <TextToImageOutput
+            <TextToAudioOutput
               onBackClicked={props.onBackClicked}
               trial={props.trialOutput}
             />
           );
         case textTo3D:
           return (
-            <TextTo3D
+            <TextTo3DOutput
               onBackClicked={props.onBackClicked}
               trial={props.trialOutput}
             />
