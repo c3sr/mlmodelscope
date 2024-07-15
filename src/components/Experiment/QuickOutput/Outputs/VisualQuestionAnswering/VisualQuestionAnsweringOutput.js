@@ -13,14 +13,10 @@ import { TextOutputBox } from "../Text/TextOutputBox";
 
 export default function VisualQuestionAnsweringOutput(props) {
     const { getElement, getBlock } = useBEMNaming('visual-question-answering');
-
     const task = Task.getStaticTask(visualQuestionAnswering);
-
     const inputs = props.trial?.inputs ?? [];
     const output = props.trial?.results?.responses[0]?.features[0] ?? {};
     const duration = props.trial?.results?.duration_for_inference ?? "0s";
-    console.log("output", output);
-
     return (
         <div className={getBlock()}>
             <MultiInputPreview inputs={inputs} onBackClicked={props.onBackClicked} />
