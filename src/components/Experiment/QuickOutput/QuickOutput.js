@@ -235,12 +235,10 @@ export default function QuickOutput(givenProps) {
           );
         case audioToAudio:
           return (
-            <>
-              <AudioToAudioOutput
-                features={props.features}
-                trial={props.trialOutput}
-              />
-            </>
+            <AudioToAudioOutput
+              features={props.features}
+              trial={props.trialOutput}
+            />
           );
         default:
           return (
