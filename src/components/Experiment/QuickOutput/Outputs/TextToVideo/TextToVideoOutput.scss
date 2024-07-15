@@ -2,7 +2,8 @@
   display: block !important;
 }
 
-.video-container div {
-  margin: auto;
-  width: 100%;
+.video-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
