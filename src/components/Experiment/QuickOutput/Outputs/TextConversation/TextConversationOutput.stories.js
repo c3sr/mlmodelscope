@@ -1,6 +1,9 @@
 import React from "react";
 import TextConversationOutput from "./TextConversationOutput";
 import { TestTextConversationOutput, TestTextConversationOutput2 } from "./testData/testTextConversationOutput";
+// import api from "../../../../../helpers/api"
+// import GetApiHelper from "../../../../../helpers/api";
+// import { DefaultTextConversationModel } from "../../../../../helpers/DefaultModels";
 
 export default {
   title: "Experiments/Quick Output/Text Conversation",
@@ -18,7 +21,7 @@ const fakeOnSubmit = async (input, context) => {
     // const api = GetApiHelper(); 
     // await api.runTrial(DefaultTextConversationModel, input, null, context);
 
-    // Dummy response instead of actually calling api.runTrial above
+    // Dummy response instead of actually calling api.runTrial above, uncomment when finished testing
     return TestTextConversationOutput2;
 }
 
