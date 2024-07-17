@@ -19,7 +19,7 @@ const fakeOnSubmit = async (input, context) => {
     // This is basically what "should" happen, uncomment to confirm in Storybook
     // see what values would be sent to the api
     // const api = GetApiHelper(); 
-    // await api.runTrial(DefaultTextConversationModel, input, null, context);
+    // await api.runTrial(DefaultTextConversationModel, {src: input, inputType: "TEXT"}, null, context);
 
     // Dummy response instead of actually calling api.runTrial above, uncomment when finished testing
     return TestTextConversationOutput2;

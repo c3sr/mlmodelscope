@@ -97,9 +97,11 @@ The project is structured as follows:
     - `getDefaultModel`
       -  Open `DefaultModels.js` and copy/paste one of the existing models (editing where appropriate)
     - `getSampleOutput` 
-      - Returne the `Test[Task Name]Output` that you created in `testData` above 
+      - Return the `Test[Task Name]Output` that you created in `testData` above 
     - `getStaticTasks`
 - Create a new story for the task in `QuickInput.stories.js`
+- ...still in progress
+- See `TextConversationOutput.stories.js` for an example of how to test api requests
 
 ## Adding new Task icons
 - Go to svgrepo.com, search for a suitable icon, download it, and drag the file into the `src/resources/icons` directory
