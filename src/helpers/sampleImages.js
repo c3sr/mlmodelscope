@@ -200,18 +200,18 @@ export const SampleDocumentQuestionAnsweringInputs = [
   ]
 ];
 
-export const SampleTextToImage = [
+export const SampleTextToImageInputs = [
   "Cat and dog playing",
   "Flower in a garden",
   "Sunset on a beach"
 ];
-export const SampleTextToVideo = [
+export const SampleTextToVideoInputs = [
   "Cat and dog playing",
   "Flower in a garden",
   "Sunset on a beach"
 ];
 
-export const SampleImageToText = [
+export const SampleImageToTextInputs = [
   {
     src: "https://s3.amazonaws.com/uploads.staging.mlmodelscope.org/birdy.png",
     alt: "bird"
@@ -230,7 +230,7 @@ export const SampleTextTo3DInputs = [
   "a cool drum set"
 ];
 
-export const SampleTextClassification = [
+export const SampleTextClassificationInputs = [
   "The weather is very pleasant today.",
   "The ending of the movie was sad.",
   "There is a car parked there."
@@ -250,6 +250,13 @@ export const SampleAudioToAudioInputs = [
   {
     title: "audio3.flac",
     src: "https://xlab1.netlify.app/audio-to-audio-input.flac"
+
+  },
+];
+export const SampleAudioClassificationInputs = [
+  {
+    title: "audio1.flac",
+    src: "https://xlab1.netlify.app/audio-classification-input.flac"
 
   },
 ];

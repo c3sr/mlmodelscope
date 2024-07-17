@@ -21,6 +21,11 @@ import {
   documentQuestionAnswering,
   textToImage,
   textToVideo,
+  textTo3D,
+  audioClassification,
+  imageToText,
+  textClassification,
+  audioToAudio,
 } from "../../helpers/TaskIDs";
 import {
   SampleImageClassificationInputs,
@@ -35,9 +40,13 @@ import {
   SampleVisualQuestionAnsweringInputs,
   SampleTextGuidedImageToImageInputs,
   SampleDocumentQuestionAnsweringInputs,
-  SampleTextToImage,
-  SampleTextToVideo,
-  SampleImageTo3DInputs
+  SampleTextToImageInputs,
+  SampleTextToVideoInputs,
+  SampleImageTo3DInputs,
+  SampleTextTo3DInputs,
+  SampleImageToTextInputs,
+  SampleTextClassificationInputs,
+  SampleAudioToAudioInputs
 } from "../../helpers/sampleImages";  // This file should be renamed
 
 const ModelDetailPage = (props) => {
@@ -73,9 +82,19 @@ const ModelDetailPage = (props) => {
       case documentQuestionAnswering:
         return SampleDocumentQuestionAnsweringInputs;
       case textToImage:
-        return SampleTextToImage;
+        return SampleTextToImageInputs;
       case textToVideo:
-        return SampleTextToVideo;
+        return SampleTextToVideoInputs;
+      case textTo3D:
+        return SampleTextTo3DInputs;
+      case imageToText:
+        return SampleImageToTextInputs;
+      case textClassification:
+        return SampleTextClassificationInputs;
+      case audioToAudio:
+        return SampleAudioToAudioInputs;
+      case audioClassification:
+        return SampleAudioToAudioInputs;
       case image_classification:
       default:
         return SampleImageClassificationInputs;
@@ -85,12 +104,14 @@ const ModelDetailPage = (props) => {
   const getInputType = () => {
     switch (outputType) {
       case audioToText:
+      case audioToAudio:
+      case audioClassification:
         return "audio";
       case textToText:
-        return "text";
       case textToCode:
-        return "text";
       case textConversation:
+      case textTo3D:
+      case textClassification:
         return "text";
       case object_detection:
       case image_enhancement:
@@ -99,6 +120,7 @@ const ModelDetailPage = (props) => {
       case instance_segmentation:
       case styleTransfer:
       case imageTo3D:
+      case imageToText:
       default:
         return "image";
     }
