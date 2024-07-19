@@ -27,8 +27,8 @@ export default function SampleInputsTab(props) {
     };
 
     const makeSampleInput = (url, index) => {
-        console.log('task: ', task)
-        console.log('sampleInputType', sampleInputType)
+        // console.log('task: ', task)
+        // console.log('sampleInputType', sampleInputType)
         switch (sampleInputType) {
             case QuickInputType.Image:
                 return makeSampleImageInput(url, index);
@@ -87,9 +87,9 @@ export default function SampleInputsTab(props) {
             // <button onClick={() => selectInput(index)} key={index} className={getElement(getInputClassName(url))}>
             //     <img src={url.src} alt={url.alt} />
             // </button>
-            <div key={index}>
+            <div key={index} className={getElement(getInputClassName(url))}>
                 <p>Image + Canvas</p>
-                <DrawRectangle {...props} />
+                <DrawRectangle selectInput={selectInput} index={index} url={url} {...props} />
             </div>
         );
     }    

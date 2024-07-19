@@ -18,7 +18,7 @@ const loadImage = (setImageDimensions, imageUrl) => {
 };
 
 const DrawRectangle = (props) => {
-    // console.log('props', props)
+    console.log('props', props)
 
     const canvasRef = useRef(null);
     const contextRef = useRef(null);
@@ -31,30 +31,27 @@ const DrawRectangle = (props) => {
     const startY = useRef(null);
 
     const [rectangleWidth, setRectangleWidth] = useState(0);
-    let [rectangleHeight, setRectangleHeight] = useState(0);
+    const [rectangleHeight, setRectangleHeight] = useState(0);
 
-    const imageUrl = "https://s3.amazonaws.com/uploads.staging.mlmodelscope.org/plane-blue.jpg";
+    // const imageUrl = "https://s3.amazonaws.com/uploads.staging.mlmodelscope.org/plane-blue.jpg";
+    const imageUrl = props.url.src;
     const [imageDimensions, setImageDimensions] = useState({});
+
     useEffect(() => {
         loadImage(setImageDimensions, imageUrl); 
-        // console.log('imageDimensions', imageDimensions);
-        
-        // Note: not currently working
-        // We need to get the dimensions of the image and then use them to set the 
-        // height/width of the canvas, or set the image as the background of the canvas
-
-      }, 
-      []
-    //   [loadImage]
+      }, []
     );
 
     useEffect(() => {
         console.log('set canvas dimensions')
         const canvas = canvasRef.current;
-        canvas.width = 500;
-        canvas.height = 500;
-        // canvas.width = imageDimensions.width;
-        // canvas.height = imageDimensions.height;        
+        // canvas.width = 500;
+        // canvas.height = 500;
+        canvas.width = imageDimensions.width;
+        canvas.height = imageDimensions.height;        
+        console.log('imageDimensions', imageDimensions)
+        console.log('canvas width', canvas.width)
+        console.log('canvas height', canvas.height)
 
         const context = canvas.getContext("2d");
         context.lineCap = "round";
@@ -65,7 +62,7 @@ const DrawRectangle = (props) => {
         const canvasOffSet = canvas.getBoundingClientRect();
         canvasOffSetX.current = canvasOffSet.top;
         canvasOffSetY.current = canvasOffSet.left;
-    }, []);
+    }, [imageDimensions]);
 
     const startDrawingRectangle = ({nativeEvent}) => {
         nativeEvent.preventDefault();
@@ -103,7 +100,11 @@ const DrawRectangle = (props) => {
 
     const stopDrawingRectangle = () => {
         setIsDrawing(false);
-        console.log('dimensions', startX.current, startY.current, rectangleWidth, rectangleHeight)
+        console.log('rectangle dimensions', startX.current, startY.current, rectangleWidth, rectangleHeight)
+        
+        // Do we need to make a new selectInput just for sampleDraw?
+        // Always index 0, and then submit the selected coordinates
+        props.selectInput()
     };
 
     return (
@@ -140,3 +141,6 @@ const DrawRectangle = (props) => {
 }
 
 export default DrawRectangle;
+
+// Note: Based off of this example: 
+// https://coolboi567.medium.com/dynamically-get-image-dimensions-from-image-url-in-react-d7e216887b68
