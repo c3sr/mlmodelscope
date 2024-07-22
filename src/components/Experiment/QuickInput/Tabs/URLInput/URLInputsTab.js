@@ -9,6 +9,7 @@ import URLInputPreview from './URLInputPreview';
 
 
 export default function URLInputsTab(props) {
+  console.log('URLInputsTab props', props)
   const { getBlock, getElement } = useBEMNaming("url-inputs");
   const { urlChanged, getUrlValidity, task, values } = useURLInputControl(props);
   const taskName = (task.useMultiInput ? (Task.getStaticTask(props.task).inputs[props.inputIndex]?.inputType) : Task.getStaticTask(props.task).inputType || '').toLowerCase();
@@ -27,6 +28,8 @@ export default function URLInputsTab(props) {
     }, 500);
   };
 
+  // IMPORTANT - When updating the code below, any changes to one <input> will (probably) need to be applied to all of them
+  // We have three <input>s below, for regular Tasks, Tasks that use .multiple, and tasks that use .useMultiInput
   return (
     <div className={getBlock()}>
       <div className={getElement('title')}>
@@ -43,7 +46,7 @@ export default function URLInputsTab(props) {
                     placeholder={`Paste any ${taskName} URL`}
                     type="url"
                     value={value}
-                    onChange={(e) => urlChanged(e, index)}
+                    onChange={(e) => inputHandlerForPreview(e, index)}
                   />
                   {getUrlValidity(index) &&
                     <p className={getElement("error-text")}>
@@ -65,7 +68,7 @@ export default function URLInputsTab(props) {
                   placeholder={`Paste any ${taskName} URL`}
                   type="url"
                   value={values[props.inputIndex] || ''}
-                  onChange={(e) => urlChanged(e, props.inputIndex)}
+                  onChange={(e) => inputHandlerForPreview(e, props.inputIndex)}
                 />
                 {getUrlValidity(props.inputIndex) &&
                   <p className={getElement("error-text")}>

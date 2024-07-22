@@ -13,7 +13,7 @@ export default function useQuickInputControl(props) {
   const task = Task.getStaticTask(props.model.output.type);
 
   const [selectedInputs, setSelectedInputs] = useState([""]);
-  const [selectedTab, setSelectedTab] = useState(0);
+  const [selectedTab, setSelectedTab] = useState(2);  // TODO: change this back
 
   // Note: Uncomment for debugging
   // useEffect(() => {

@@ -18,7 +18,7 @@ const loadImage = (setImageDimensions, imageUrl) => {
 };
 
 const DrawRectangle = (props) => {
-    console.log('props', props)
+    // console.log('DrawRectangle props', props)
 
     const canvasRef = useRef(null);
     const contextRef = useRef(null);
@@ -43,15 +43,15 @@ const DrawRectangle = (props) => {
     );
 
     useEffect(() => {
-        console.log('set canvas dimensions')
+        // console.log('set canvas dimensions')
         const canvas = canvasRef.current;
         // canvas.width = 500;
         // canvas.height = 500;
         canvas.width = imageDimensions.width;
         canvas.height = imageDimensions.height;        
-        console.log('imageDimensions', imageDimensions)
-        console.log('canvas width', canvas.width)
-        console.log('canvas height', canvas.height)
+        // console.log('imageDimensions', imageDimensions)
+        // console.log('canvas width', canvas.width)
+        // console.log('canvas height', canvas.height)
 
         const context = canvas.getContext("2d");
         context.lineCap = "round";

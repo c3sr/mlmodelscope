@@ -8,6 +8,7 @@ import { QuickInputTabTitle } from "./QuickInputTabTitle";
 // import { QuickInputType } from "./quickInputType";
 
 export default function QuickMultiInput(props) {
+  console.log('QuickMultiInput props', props)
   const {
     tabIsSelected,
     selectedInputs,
