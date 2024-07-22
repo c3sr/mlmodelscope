@@ -16,12 +16,12 @@ export default function useQuickInputControl(props) {
   const [selectedTab, setSelectedTab] = useState(0);
 
   // Note: Uncomment for debugging
-  // TODO: add a line about this in the readme
-  useEffect(() => {
-    console.log('selectedInputs', selectedInputs)
-    console.log('selectedInputData', selectedInputData)
-    
-  }, [selectedInputs, selectedInputData])
+  // useEffect(() => {
+  //   Because of how hooks/timing works with react, if you print these 
+  //   variables out below, such as in `selectInput`, you may see incorrect values
+  //   console.log('selectedInputs', selectedInputs)
+  //   console.log('selectedInputData', selectedInputData)
+  // }, [selectedInputs, selectedInputData]);
 
   const getTabs = (type = QuickInputType.Image) => {  // TODO: Remove this default
     if(task.useMultiInput) return getMultiInputTabs(task.inputs);
@@ -96,18 +96,17 @@ export default function useQuickInputControl(props) {
   }  
   const runModel = () => {
     if (typeof (props.onRunModelClicked) === 'function') {
-      console.log('useQuickInputControl runModel selectedInputs', selectedInputData) 
       props.onRunModelClicked(selectedInputData.filter(input => input));
     } 
   }
   const selectInput = (url, index) => {
-    console.log('in selectInput')
-
     let selected = selectedInputs;
     let selectedData = selectedInputs;
 
     if (index) {
-      console.log('*********** if **********')  // This doesn't get selected in audioToText Sample inputs - does it ever happen?
+      // Note: This doesn't get selected in audioToText Sample inputs 
+      // - does it ever happen? Or do we always go to the else?
+      
       // Display as selected
       selected[index] = url;
       // Data to be sent to API
@@ -117,7 +116,6 @@ export default function useQuickInputControl(props) {
         selectedData[index] = { inputType: task.inputType, ...url }
       }
     } else {
-      console.log('else')
       // Display as selected
       selected = Array.isArray(url) ? url : [url];
       // Data to be sent to API
@@ -132,7 +130,6 @@ export default function useQuickInputControl(props) {
     setSelectedInputData(selectedData);
   }
   const selectMultiInput = (url, inputIndex) => {
-    console.log('in selectMultiInput')
     let selected = [...selectedInputs];
     let selectedData = [...selectedInputData];
 
