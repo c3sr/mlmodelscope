@@ -16,9 +16,12 @@ export default function useQuickInputControl(props) {
   const [selectedTab, setSelectedTab] = useState(2);  // TODO: change this back
 
   // Note: Uncomment for debugging
-  // useEffect(() => {
-  //   console.log('selectedInputs', selectedInputs)
-  // }, [selectedInputs])
+  useEffect(() => {
+    // Because of how hooks/timing works with react, if you print these 
+    // variables out below, such as in `selectInput`, you may see incorrect values
+    console.log('selectedInputs', selectedInputs)
+    console.log('selectedInputData', selectedInputData)
+  }, [selectedInputs, selectedInputData]);
 
   const getTabs = (type = QuickInputType.Image) => {  // TODO: Remove this default
     if(task.useMultiInput) return getMultiInputTabs(task.inputs);
