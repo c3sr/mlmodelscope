@@ -12,3 +12,7 @@ audio {
   margin: 10px auto;
   display: block;
 }
+
+video {
+  max-width: min(100%, 1000px);
+}

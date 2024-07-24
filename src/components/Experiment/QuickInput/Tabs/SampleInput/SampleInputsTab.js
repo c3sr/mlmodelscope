@@ -6,7 +6,6 @@ import useBEMNaming from "../../../../../common/useBEMNaming";
 import { QuickInputType } from "../../quickInputType";
 import { ReactComponent as DocumentIcon } from "../../../../../resources/icons/icon-document.svg";
 import { imageTo3D } from '../../../../../helpers/TaskIDs';
-import ReactPlayer from 'react-player';
 import URLInputPreview from '../URLInput/URLInputPreview';
 import { TaskInputTypes } from '../../../../../helpers/TaskInputTypes';
 
@@ -90,7 +89,6 @@ export default function SampleInputsTab(props) {
     function makeSampleVideoInput(url, index) {
         return (
             <button onClick={() => { inputHandlerForPreview(url.src); selectInput(index); }} key={index} className={getElement(getInputClassName(url))}>
-                {/* <ReactPlayer url={url.src} autoPlay={true} muted={true} /> */}
                 <video src={url.src} alt={url.alt} autoPlay muted={true} loop />
 
             </button>
