@@ -3,6 +3,7 @@ import "./QuickImageInput.scss";
 import QuickImageInput from "./QuickImageInput";
 import QuickTextInput from "./QuickTextInput";
 import QuickAudioInput from "./QuickAudioInput";
+import QuickVideoInput from "./QuickVideoInput";
 import Task from "../../../helpers/Task";
 import { TaskInputTypes } from "../../../helpers/TaskInputTypes";
 // import { TaskControls } from "../../HomePage/TaskControls";
@@ -29,6 +30,8 @@ export default function QuickInput(props) {
       return <QuickTextInput hideUpload={task.hideUpload} {...props} />;
     case TaskInputTypes.Audio:
       return <QuickAudioInput  {...props} />;
+    case TaskInputTypes.Video:
+      return <QuickVideoInput {...props} />;
     case TaskInputTypes.Image:
     default:
       return <QuickImageInput {...props} />;
