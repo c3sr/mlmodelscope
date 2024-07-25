@@ -48,11 +48,18 @@ export default function URLInputsTab(props) {
                     value={value}
                     onChange={(e) => inputHandlerForPreview(e, index)}
                   />
-                  {getUrlValidity(index) &&
+                  { getUrlValidity(index) &&
                     <p className={getElement("error-text")}>
                       Not a valid URL. Right click on {longTaskName} to copy the {taskName}&nbsp;
                       address.
-                    </p>}
+                    </p>
+                  }
+                  <URLInputPreview 
+                    inputPreviewProps={props.inputPreviewProps} 
+                    task={task} 
+                    index={index}
+                    selectedInputs={props.values} 
+                  />
                 </div>
               )
               )}
@@ -70,17 +77,24 @@ export default function URLInputsTab(props) {
                   value={values[props.inputIndex] || ''}
                   onChange={(e) => inputHandlerForPreview(e, props.inputIndex)}
                 />
-                {getUrlValidity(props.inputIndex) &&
+                { getUrlValidity(props.inputIndex) &&
                   <p className={getElement("error-text")}>
                     Not a valid URL. Right click on {longTaskName} to copy the {taskName}&nbsp;
                     address.
-                  </p>}
+                  </p>
+                }
+                <URLInputPreview 
+                  inputPreviewProps={props.inputPreviewProps} 
+                  task={task} 
+                  index={props.inputIndex}
+                  selectedInputs={props.values} 
+                />              
               </div>
             </>
           )
         ) : (
           <>
-            {(values).map((value, index) => (
+            { (values).map((value, index) => (
               <div key={`input-tab-${index}`}>
                 <input className={getInputClassName(index)}
                   placeholder={`Paste any ${taskName} URL`}
@@ -88,21 +102,24 @@ export default function URLInputsTab(props) {
                   value={value}
                   onChange={(e) => inputHandlerForPreview(e, index)}
                 />
-                {getUrlValidity(index) &&
+                { getUrlValidity(index) &&
                   <p className={getElement("error-text")}>
                     Not a valid URL. Right click on {longTaskName} to copy the {taskName}&nbsp;address.
-                  </p>}
+                  </p>
+                }
+                <URLInputPreview 
+                  inputPreviewProps={props.inputPreviewProps} 
+                  task={task} 
+                  index={index}
+                  selectedInputs={props.values} 
+                />
               </div>
-            )
-            )}
+            ))}
             {props.multiple && <button onClick={props.addInput} className={getElement("add-btn")}><PlusSign
               className={getElement("add-btn-icon")} /> Add another URL</button>}
           </>
         )
       }
-
-
-      <URLInputPreview inputPreviewProps={props.inputPreviewProps} inputType={task.inputType} selectedInputs={props.values} />
     </div>
   );
 }

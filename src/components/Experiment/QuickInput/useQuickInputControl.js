@@ -13,7 +13,9 @@ export default function useQuickInputControl(props) {
   const task = Task.getStaticTask(props.model.output.type);
   const [selectedInputs, setSelectedInputs] = useState([""]);
   const [selectedInputData, setSelectedInputData] = useState([{src: "", inputType: ""}]);
-  const [selectedTab, setSelectedTab] = useState(2);  // TODO: change this back
+  
+  const [selectedTab, setSelectedTab] = useState(0);
+  // const [selectedTab, setSelectedTab] = useState(2);  // TODO: change this back
 
   // Note: Uncomment for debugging
   useEffect(() => {
@@ -101,7 +103,7 @@ export default function useQuickInputControl(props) {
       props.onRunModelClicked(selectedInputData.filter(input => input));
     } 
   }
-  const selectInput = (url, index) => {
+  const selectInput = (url, index, additionalContext=null) => {
     let selected = selectedInputs;
     let selectedData = selectedInputs;
 
@@ -131,7 +133,7 @@ export default function useQuickInputControl(props) {
     setSelectedInputs(selected);
     setSelectedInputData(selectedData);
   }
-  const selectMultiInput = (url, inputIndex) => {
+  const selectMultiInput = (url, inputIndex, additionalContext=null) => {
     let selected = [...selectedInputs];
     let selectedData = [...selectedInputData];
 
@@ -142,12 +144,14 @@ export default function useQuickInputControl(props) {
       if (typeof url !== 'object') {
         selectedData[inputIndex] = {
           src: url, 
-          inputType: task.inputs[inputIndex].inputType
+          inputType: task.inputs[inputIndex].inputType,
+          ...additionalContext
         }        
       } else {
         selectedData[inputIndex] = {
           inputType: task.inputs[inputIndex].inputType,
-          ...url
+          ...url,
+          ...additionalContext
         }
       }
     }

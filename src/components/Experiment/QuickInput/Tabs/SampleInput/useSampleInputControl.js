@@ -32,7 +32,7 @@ export default function useSampleInputControl(props) {
       }
       setSelectedIndex(selected);
       if (typeof (props.inputSelected) === 'function')
-        props.inputSelected(selected);
+        props.inputSelected(selected, props.inputIndex);
     } else {
        setSelectedIndex([input]);
        if (typeof(props.inputSelected) === 'function')

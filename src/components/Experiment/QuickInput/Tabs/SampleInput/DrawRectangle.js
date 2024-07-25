@@ -18,7 +18,11 @@ const loadImage = (setImageDimensions, imageUrl) => {
 };
 
 const DrawRectangle = (props) => {
-    // console.log('DrawRectangle props', props)
+    console.log('DrawRectangle props', props)
+    const inputIndex = props.inputIndex;
+    console.log('drawRectangle url', props.url)
+    const imageUrl = props.url.src ?? props.url;
+    // console.log('inputUrl', inputUrl)
 
     const canvasRef = useRef(null);
     const contextRef = useRef(null);
@@ -34,7 +38,7 @@ const DrawRectangle = (props) => {
     const [rectangleHeight, setRectangleHeight] = useState(0);
 
     // const imageUrl = "https://s3.amazonaws.com/uploads.staging.mlmodelscope.org/plane-blue.jpg";
-    const imageUrl = props.url.src;
+    // const imageUrl = props.url.src;
     const [imageDimensions, setImageDimensions] = useState({});
 
     useEffect(() => {
@@ -103,8 +107,15 @@ const DrawRectangle = (props) => {
         console.log('rectangle dimensions', startX.current, startY.current, rectangleWidth, rectangleHeight)
         
         // Do we need to make a new selectInput just for sampleDraw?
-        // Always index 0, and then submit the selected coordinates
-        props.selectInput()
+        // Always index 0, and then submit the selected coordinates?
+        // TODO: How do we add coordinates to useQuickInputControl.selectedInputData?
+        const dimensions = {
+            xmin: startX.current,
+            xmax: rectangleWidth,
+            ymin: startY.current,
+            ymax: rectangleHeight
+        };
+        props.selectInput(imageUrl, inputIndex, dimensions)
     };
 
     return (
