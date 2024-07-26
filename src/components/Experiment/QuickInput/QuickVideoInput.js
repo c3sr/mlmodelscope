@@ -28,7 +28,7 @@ export default function QuickVideoInput(props) {
             {!props.hideHeader && (
                 <>
                     <h2 className={getElement("title")}>Try this model</h2>
-                    {/* <div className={getElement("subtitle")}>{task.inputText}</div> */}
+                    <div className={getElement("subtitle")}>{task.inputText}</div>
                 </>
             )}
             <div className={getElement("tabs")}>

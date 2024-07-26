@@ -89,7 +89,7 @@ export default function SampleInputsTab(props) {
     function makeSampleVideoInput(url, index) {
         return (
             <button onClick={() => { inputHandlerForPreview(url.src); selectInput(index); }} key={index} className={getElement(getInputClassName(url))}>
-                <video src={url.src} alt={url.alt} autoPlay muted={true} loop />
+                <video src={url.src} alt={url.alt} autoPlay muted={true} loop className={getElement("sample-video-content")} />
 
             </button>
         );

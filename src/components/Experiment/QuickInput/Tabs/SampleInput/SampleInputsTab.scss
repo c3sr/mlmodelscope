@@ -137,7 +137,7 @@
     width: 100%;
     max-width: 240px;
 
-    & > video {
+    & .sample-inputs__sample-video-content {
       border: 6px solid transparent;
       width: 100%;
     }
@@ -147,7 +147,7 @@
     }
 
     &--selected {
-      & > video {
+      & .sample-inputs__sample-video-content {
         border-color: $azul;
         box-shadow: -2px 4px 4px rgba(0, 0, 0, 0.25);
       }

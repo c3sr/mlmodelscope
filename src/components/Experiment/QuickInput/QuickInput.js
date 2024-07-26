@@ -9,6 +9,8 @@ import { TaskInputTypes } from "../../../helpers/TaskInputTypes";
 // import { TaskControls } from "../../HomePage/TaskControls";
 import QuickMultiInput from "./QuickMultiInput";
 
+// TODO: QuickText/Image/Audio/VideoInput should be refactored into a single component
+
 export default function QuickInput(props) {
   const task = Task.getStaticTask(props.model.output.type);
   const [URLValidity, setURLValidity] = useState(false);
