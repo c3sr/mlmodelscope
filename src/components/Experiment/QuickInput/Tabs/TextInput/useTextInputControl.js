@@ -13,10 +13,9 @@ export default function useTextInputControl(props) {
         setText(event.target.value);
 
         if (typeof (props.inputSelected) === "function") {
-            if (index === null) {
-                console.error("Index is required for multi-input tasks");
+            if (index !== null) {
+                props.inputSelected(text, index);
             }
-            props.inputSelected(text, index);
         }
     };
 
