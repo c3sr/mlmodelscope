@@ -64,9 +64,6 @@ export default function useURLInputControl(props) {
 
   const getUrlValidity = (index) => isInvalidUrl[index];
 
-
-
-
   let values = props.values;
   if (!values || values.length === 0) values = [""];
 

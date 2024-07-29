@@ -59,6 +59,7 @@ export default function URLInputsTab(props) {
                     task={task} 
                     index={index}
                     selectedInputs={props.values} 
+                    inputSelected={props.inputSelected}
                   />
                 </div>
               )
@@ -88,6 +89,7 @@ export default function URLInputsTab(props) {
                   task={task} 
                   index={props.inputIndex}
                   selectedInputs={props.values} 
+                  inputSelected={props.inputSelected}
                 />              
               </div>
             </>
@@ -112,6 +114,7 @@ export default function URLInputsTab(props) {
                   task={task} 
                   index={index}
                   selectedInputs={props.values} 
+                  inputSelected={props.inputSelected}
                 />
               </div>
             ))}

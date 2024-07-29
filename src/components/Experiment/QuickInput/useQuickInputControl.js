@@ -8,6 +8,7 @@ import {QuickInputType} from "./quickInputType";
 import TextInputTab from "./Tabs/TextInput/TextInputTab";
 import UploadTextInputTab from "./Tabs/UploadTextInput/UploadTextInputTab";
 import Task from "../../../helpers/Task";
+import { maskGeneration } from "../../../helpers/TaskIDs";
 
 export default function useQuickInputControl(props) {
   const task = Task.getStaticTask(props.model.output.type);
@@ -195,6 +196,19 @@ export default function useQuickInputControl(props) {
   }
   const tabIsSelected = (index) => selectedTab === index;
 
+  const submitButtonIsDisabled = () => {
+    console.log('submitButtonIsDisabled task', task)
+    if (task.id === maskGeneration && (selectedInputData[0].src === '' || selectedInputData[0].xmin === null)) {
+      console.log('button should be disabled')
+      return true;
+    }
+
+    if (task.useMultiInput) {
+      return (selectedInputs.length < task.inputs.length || selectedInputs[0] === "")
+    } else {
+      return (selectedInputs.length === 0 || selectedInputs[0] === "")
+    }
+  }
 
   return {
     selectedInputs, 
@@ -204,6 +218,7 @@ export default function useQuickInputControl(props) {
     addInput, 
     removeInput, 
     selectTab, 
-    tabIsSelected
+    tabIsSelected,
+    submitButtonIsDisabled
   };
 }

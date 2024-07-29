@@ -18,6 +18,7 @@ export default function QuickMultiInput(props) {
     selectTab,
     selectInput,
     runModel,
+    submitButtonIsDisabled
   } = useQuickInputControl(props);
   const { getBlock, getElement } = useBEMNaming("quick-image-input");
 
@@ -77,7 +78,7 @@ export default function QuickMultiInput(props) {
       </div>
       <button
         className={getElement("run-model")}
-        disabled={selectedInputs.length < task.inputs.length || selectedInputs[0] === ""}
+        disabled={submitButtonIsDisabled()}
         onClick={() => runModel()}
       >
         Run model and see results

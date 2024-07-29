@@ -15,6 +15,7 @@ export default function QuickInput(props) {
   
   const [URLValidity, setURLValidity] = useState(false);
   const [selectedInputSrc, setSelectedInputSrc] = useState("");
+  
   const inputPreviewProps = {
     URLValidity,
     setURLValidity,
