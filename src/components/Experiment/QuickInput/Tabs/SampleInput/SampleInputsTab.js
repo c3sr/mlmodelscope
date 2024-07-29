@@ -49,6 +49,11 @@ export default function SampleInputsTab(props) {
         }
     };
 
+    const onSampleInputClickPreview = (index, url) => {
+        selectInput(index);
+        inputHandlerForPreview(url.src);
+    };
+
     // TODO: Rename "url" to "input" or similar
     function makeSampleImageInput(url, index) {
         return (
@@ -88,7 +93,7 @@ export default function SampleInputsTab(props) {
 
     function makeSampleVideoInput(url, index) {
         return (
-            <button onClick={() => { inputHandlerForPreview(url.src); selectInput(index); }} key={index} className={getElement(getInputClassName(url))}>
+            <button onClick={() => onSampleInputClickPreview(index, url)} key={index} className={getElement(getInputClassName(url))}>
                 <video src={url.src} alt={url.alt} autoPlay muted={true} loop className={getElement("sample-video-content")} />
 
             </button>
