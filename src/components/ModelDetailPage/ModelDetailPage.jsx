@@ -26,6 +26,8 @@ import {
   imageToText,
   textClassification,
   audioToAudio,
+  textToAudio,
+  videoClassification,
 } from "../../helpers/TaskIDs";
 import {
   SampleImageClassificationInputs,
@@ -46,7 +48,9 @@ import {
   SampleTextTo3DInputs,
   SampleImageToTextInputs,
   SampleTextClassificationInputs,
-  SampleAudioToAudioInputs
+  SampleAudioToAudioInputs,
+  SampleTextToAudio,
+  SampleVideoClassificationInputs
 } from "../../helpers/sampleImages";  // This file should be renamed
 
 const ModelDetailPage = (props) => {
@@ -95,6 +99,10 @@ const ModelDetailPage = (props) => {
         return SampleAudioToAudioInputs;
       case audioClassification:
         return SampleAudioToAudioInputs;
+      case textToAudio:
+        return SampleTextToAudio;
+      case videoClassification:
+        return SampleVideoClassificationInputs;
       case image_classification:
       default:
         return SampleImageClassificationInputs;
@@ -103,6 +111,8 @@ const ModelDetailPage = (props) => {
 
   const getInputType = () => {
     switch (outputType) {
+      case videoClassification:
+        return "video";
       case audioToText:
       case audioToAudio:
       case audioClassification:
@@ -112,6 +122,7 @@ const ModelDetailPage = (props) => {
       case textConversation:
       case textTo3D:
       case textClassification:
+      case textToAudio:
         return "text";
       case object_detection:
       case image_enhancement:

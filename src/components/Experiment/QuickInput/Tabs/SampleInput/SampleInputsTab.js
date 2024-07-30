@@ -6,6 +6,8 @@ import useBEMNaming from "../../../../../common/useBEMNaming";
 import { QuickInputType } from "../../quickInputType";
 import { ReactComponent as DocumentIcon } from "../../../../../resources/icons/icon-document.svg";
 import { imageTo3D } from '../../../../../helpers/TaskIDs';
+import URLInputPreview from '../URLInput/URLInputPreview';
+import { TaskInputTypes } from '../../../../../helpers/TaskInputTypes';
 import CanvasInput from '../CanvasInput/CanvasInput';
 
 
@@ -13,7 +15,7 @@ import CanvasInput from '../CanvasInput/CanvasInput';
 export default function SampleInputsTab(props) {
     // Note: This is the content for the Sample Input Tab, below the header
     const { getBlock, getElement } = useBEMNaming("sample-inputs");
-    const { isUnselected, isSelected, selectInput, type, sampleInputType } = useSampleInputControl(props);
+    const { isUnselected, isSelected, selectInput, type,  sampleInputType } = useSampleInputControl(props);
     const task = Task.getStaticTask(props.task);
 
     const getInputClassName = (url) => {
@@ -24,6 +26,12 @@ export default function SampleInputsTab(props) {
         if (tasksWithLargeImages.includes(task.id)) className += ` input-${sampleInputType}--large`;
 
         return className;
+    };
+
+    const inputHandlerForPreview = (src) => {
+        props?.inputPreviewProps?.setURLValidity(true);
+        props?.inputPreviewProps?.setSelectedInputSrc(src);
+
     };
 
     const makeSampleInput = (url, index) => {
@@ -38,6 +46,8 @@ export default function SampleInputsTab(props) {
                 return makeSampleAudioInput(url, index);
             case QuickInputType.Document:
                 return makeSampleDocumentInput(url, index);
+            case QuickInputType.Video:
+                return makeSampleVideoInput(url, index);
             case QuickInputType.ImageCanvas:
                 return makeSampleImageCanvasInput(url, index);
             default:
@@ -45,11 +55,16 @@ export default function SampleInputsTab(props) {
         }
     };
 
+    const onSampleInputClickPreview = (index, url) => {
+        selectInput(index);
+        inputHandlerForPreview(url.src);
+    };
+
     // TODO: Rename "url" to "input" or similar
     function makeSampleImageInput(url, index) {
         return (
             <button onClick={() => selectInput(index)} key={index} className={getElement(getInputClassName(url))}>
-                <img src={url.src} alt={url.alt} />
+                <img src={url.src} alt={url.description} />
             </button>
         );
     }
@@ -74,7 +89,7 @@ export default function SampleInputsTab(props) {
     function makeSampleDocumentInput(url, index) {
         return (
             <button onClick={() => selectInput(index)} key={index} className={getElement(getInputClassName(url))}>
-                <DocumentIcon className='icon'/>
+                <DocumentIcon className='icon' />
                 <a href={url.src} target='_blank' >
                     <span>{url.description ?? "Document"}</span>
                 </a>
@@ -89,6 +104,14 @@ export default function SampleInputsTab(props) {
             </div>
         );
     }    
+
+    function makeSampleVideoInput(url, index) {
+        return (
+            <button onClick={() => onSampleInputClickPreview(index, url)} key={index} className={getElement(getInputClassName(url))}>
+                <video src={url.src} alt={url.alt} autoPlay muted={true} loop className={getElement("sample-video-content")} />
+            </button>
+        );
+    }
 
     function makeDefaultErrorInput() {
         return (
@@ -106,6 +129,9 @@ export default function SampleInputsTab(props) {
             <div className={getElement('list')}>
                 {sampleInputs.map(makeSampleInput)}
             </div>
+            {sampleInputType === QuickInputType.Video &&
+                <URLInputPreview inputPreviewProps={props.inputPreviewProps} inputType={TaskInputTypes.Video} selectedInputs={props.values} />
+            }
         </div>
     );
 
@@ -119,6 +145,8 @@ export default function SampleInputsTab(props) {
                 return "Select an audio file";
             case QuickInputType.Document:
                 return "Select a document";
+            case QuickInputType.Video:
+                return "Select a video";
             case QuickInputType.ImageCanvas:
                 // return "Select an image and draw a rectangle over the area";      
                 return "Draw a rectangle over the area";

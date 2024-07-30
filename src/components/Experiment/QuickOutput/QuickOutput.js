@@ -1,5 +1,6 @@
 import React from "react";
 import InputPreview from "./InputPreview";
+import MultiInputPreview from "./MultiInputPreview";
 import ClassificationOutput from "./Outputs/Classification/ClassificationOutput";
 import PendingOutput from "./Outputs/Classification/PendingOutput";
 import {
@@ -25,6 +26,7 @@ import {
   audioClassification,
   textToImage,
   audioToAudio,
+  videoClassification,
 } from "../../../helpers/TaskIDs";
 import ObjectDetection from "./Outputs/ObjectDetection/ObjectDetection";
 import ImageEnhancement from "./Outputs/ImageEnhancement/ImageEnhancement";
@@ -50,6 +52,8 @@ import AudioToTextOutput from "./Outputs/AudioToText/AudioToTextOutput";
 import TextToAudioOutput from "./Outputs/TextToAudio/TextToAudioOutput";
 import AudioClassificationOutput from "./Outputs/AudioClassification/AudioClassificationOutput";
 import AudioToAudioOutput from "./Outputs/AudioToAudio/AudioToAudioOutput";
+import VideoClassificationOutput from "./Outputs/VideoClassification/VideoClassificationOutput";
+// import MultiInputPreview from "./MultiInputPreview";
 
 const defaultProps = {
   className: "quick-output",
@@ -64,7 +68,7 @@ export default function QuickOutput(givenProps) {
   const props = { ...defaultProps, ...givenProps };
   const { getElement, getBlock } = useBEMNaming(props.className);
 
-  const preview = (
+  const preview = props?.trialOutput?.inputs.length > 1 ? <MultiInputPreview inputs={props.trialOutput.inputs} onBackClicked={props.onBackClicked} /> : (
     <InputPreview
       input={props.input}
       onBackClicked={props.onBackClicked}
@@ -239,6 +243,16 @@ export default function QuickOutput(givenProps) {
               features={props.features}
               trial={props.trialOutput}
             />
+          );
+        case videoClassification:
+          return (
+            <>
+              <InputPreview input={props.trialOutput.inputs[0]} inputType="video" onBackClicked={props.onBackClicked} />
+              <VideoClassificationOutput
+                features={props.features}
+                trial={props.trialOutput}
+              />
+            </>
           );
         default:
           return (

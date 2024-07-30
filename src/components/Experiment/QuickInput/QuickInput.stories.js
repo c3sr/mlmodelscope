@@ -22,6 +22,7 @@ import {
   textClassification,
   audioToAudio,
   audioClassification,
+  videoClassification,
   maskGeneration,
 } from "../../../helpers/TaskIDs";
 import {
@@ -41,6 +42,7 @@ import {
   SampleTextClassificationInputs,
   SampleAudioToAudioInputs,
   SampleAudioClassificationInputs,
+  SampleVideoClassificationInputs,
   SampleMaskGenerationInputs,
 } from "../../../helpers/sampleImages";
 import { QuickInputType } from "./quickInputType";
@@ -303,6 +305,16 @@ AudioClassification.args = {
   model: {
     output: {
       type: audioClassification,
+    },
+  },
+};
+
+export const VideoClassification = Template.bind({});
+VideoClassification.args = {
+  sampleInputs: SampleVideoClassificationInputs,
+  model: {
+    output: {
+      type: videoClassification,
     },
   },
 };

@@ -22,6 +22,7 @@ import {
   textClassification,
   audioToAudio,
   audioClassification,
+  videoClassification,
 } from "./TaskIDs";
 import React from "react";
 import { ReactComponent as ImageClassification } from "../resources/icons/icon-imageClassification.svg";
@@ -46,6 +47,7 @@ import { ReactComponent as ImageToText } from "../resources/icons/icon-imageToTe
 import { ReactComponent as TextClassification } from "../resources/icons/icon-textClassification.svg";
 import { ReactComponent as AudioToAudio } from "../resources/icons/icon-audioToAudio.svg";
 import { ReactComponent as AudioClassification } from "../resources/icons/icon-audioClassification.svg";
+import { ReactComponent as VideoClassification } from "../resources/icons/icon-videoClassification.svg";
 
 import {
   DefaultImageClassificationModel,
@@ -70,6 +72,7 @@ import {
   DefaultTextClassification,
   DefaultAudioToAudioModel,
   DefaultAudioClassificationModel,
+  DefaultVideoClassificationModel,
 } from "./DefaultModels";
 import {
   SampleAudioToTextInputs,
@@ -89,6 +92,7 @@ import {
   SampleTextClassificationInputs,
   SampleAudioToAudioInputs,
   SampleAudioClassificationInputs,
+  SampleVideoClassificationInputs,
 } from "./sampleImages";
 import { TestImageClassificationResult } from "../components/Experiment/QuickOutput/Outputs/Classification/Features";
 import { TestImageEnhancementData } from "../components/Experiment/QuickOutput/Outputs/ImageEnhancement/testData/TestFeatures";
@@ -114,6 +118,7 @@ import { TestTextTo3DOutput } from "../components/Experiment/QuickOutput/Outputs
 import { TestTextClassificationOutput } from "../components/Experiment/QuickOutput/Outputs/TextClassification/testData/testTextClassification";
 import { TestAudioToAudioOutput } from "../components/Experiment/QuickOutput/Outputs/AudioToAudio/testData/testAudioToAudio";
 import { TestAudioClassificationOutput } from "../components/Experiment/QuickOutput/Outputs/AudioClassification/testData/testAudioClassification";
+import { TestVideoClassificationOutput } from "../components/Experiment/QuickOutput/Outputs/VideoClassification/testData/testVideoClassification";
 
 export default class Task {
   static image_classification = new Task({
@@ -487,8 +492,21 @@ export default class Task {
     icon: (props) => <AudioClassification {...props} />,
     sampleInputs: SampleAudioClassificationInputs,
     tutorialDescription:
-      "Image classification models can recognize a single object in an image.",
+      "Audio classification models can classify audio into different labels.",
     inputType: TaskInputTypes.Audio,
+  });
+  static video_classification = new Task({
+    name: "Video Classification",
+    description: "Used to classify video into different labels.",
+    modelDescription: "Used to classify video into different labels.",
+    id: videoClassification,
+    inputText: "See how well this model can classify the video.",
+    outputText: "How this model classified the video:",
+    icon: (props) => <VideoClassification {...props} />,
+    sampleInputs: SampleVideoClassificationInputs,
+    tutorialDescription:
+      "Video classification models can classify video into different labels.",
+    inputType: TaskInputTypes.Video,
   });
 
   constructor(options) {
@@ -566,6 +584,8 @@ export default class Task {
         return Task.audio_to_audio;
       case audioClassification:
         return Task.audio_classification;
+      case videoClassification:
+        return Task.video_classification;
       default:
         return new Task({ name: "unknown", description: "unknown task name" });
     }
@@ -620,6 +640,8 @@ export default class Task {
         return DefaultAudioToAudioModel;
       case audioClassification:
         return DefaultAudioClassificationModel;
+      case videoClassification:
+        return DefaultVideoClassificationModel;
       default:
         return undefined;
     }
@@ -671,6 +693,8 @@ export default class Task {
         return TestAudioToAudioOutput;
       case audioClassification:
         return TestAudioClassificationOutput;
+      case videoClassification:
+        return TestVideoClassificationOutput;
       default:
         return undefined;
     }
@@ -701,6 +725,7 @@ export default class Task {
       this.getStaticTask(textClassification),
       this.getStaticTask(audioToAudio),
       this.getStaticTask(audioClassification),
+      this.getStaticTask(videoClassification),
     ];
   }
 

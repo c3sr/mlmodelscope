@@ -12,28 +12,23 @@ const URLInputPreview = (props) => {
 
     return (
         <>
-            {/* Delete later */}
-            {/* <p>URL Input preview</p>
-            <p>Index: {index}</p>
-            <p>props.selectedInputs: {props.selectedInputs}</p>
-            <p>
-                props?.inputPreviewProps?.URLValidity: {props?.inputPreviewProps?.URLValidity ? "True" : "False"}
-            </p> */}
-
             {!(props.selectedInputs.length === 0 || props.selectedInputs[0] === "") && props?.inputPreviewProps?.URLValidity && 
                 <div className={getBlock()}>
                     <h3 className={getElement("title")}> Input Preview</h3>
                     <div className={getElement("preview")}>
                         { inputType === TaskInputTypes.Image ? 
                             (
-                              <img src={props?.inputPreviewProps?.selectedInputSrc} alt="Preview" />
+                              <img src={props?.inputPreviewProps?.selectedInputSrc} alt="Preview" className={getElement("img")} />
                             ) : inputType === TaskInputTypes.Audio ? 
                             (
-                                <audio controls src={props?.inputPreviewProps?.selectedInputSrc} title="Preview" />
+                                <audio controls src={props?.inputPreviewProps?.selectedInputSrc} title="Preview" className={getElement("audio")} />
+                            ) : inputType === TaskInputTypes.Video ? 
+                            (
+                                <video src={props?.inputPreviewProps?.selectedInputSrc} controls className={getElement("video")} />
                             ) : inputType === TaskInputTypes.ImageCanvas ?
                             (
                                  <CanvasInput selectInput={props.inputSelected} index={index} url={props?.inputPreviewProps?.selectedInputSrc} {...props} />                                
-                            ): 
+                            ) : 
                             (
                                 <p>Preview not supported for {inputType}</p>
                             )
