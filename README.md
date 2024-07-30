@@ -109,7 +109,10 @@ The project is structured as follows:
   - Update `SampleInputsTab` as necessary
 - ...to be continued
 - Additional Notes:
-  - To test the upload dashboard, open `useUploadInputControl` and find the text `UNCOMMENT THIS BEFORE COMMITTING` and comment it out.
+  - To test the upload dashboard in storybook, open `useUploadInputControl` and:
+    - Find the text `COMMENT THIS OUT BEFORE COMMITTING` and uncomment it.
+    - Find the text `UNCOMMENT THIS BEFORE COMMITTING` and comment it out.
+    - Be sure to reset these when you are finished. These changes are necessary to avoid making a call to S3 (which will not work) as well as to make a fake `uploadURL` so that our code will continue to execute as if the S3 call was successful.
   - To see what your currently-selected inputs, and the current state of the data that will be sent to the API (prior to clicking the "Run Model" button), go to `useQuickInputControl.js` and uncomment the useEffect with `console.log`s in it.
   - To check the array of inputs that you are submitting to the API, add an `onRunModelClicked` function to your task in `QuickInput.stories.js` (it takes the inputs as a param). Because of how Storybook works, the component you're building won't be passed the real method, but you can make a mock in the stories file to test behavior.
     - See `TextConversationOutput.stories.js` for an example of how to test api requests in this way

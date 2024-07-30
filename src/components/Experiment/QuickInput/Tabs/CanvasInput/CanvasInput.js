@@ -1,5 +1,9 @@
-import './DrawRectangle.scss';
 import {useEffect, useRef, useState} from 'react';
+import useBEMNaming from "../../../../../common/useBEMNaming";
+
+import './CanvasInput.scss';
+
+
 
 const loadImage = (setImageDimensions, imageUrl) => {
     const img = new Image();
@@ -17,13 +21,17 @@ const loadImage = (setImageDimensions, imageUrl) => {
     };
 };
 
-const DrawRectangle = (props) => {
-    console.log('DrawRectangle props', props)
+const CanvasInput = (props) => {
+    const { getBlock, getElement } = useBEMNaming("canvas-input");
+
+
+    console.log('CanvasInput props', props)
     const inputIndex = props.index;
-    console.log('drawRectangle url', props.url)
+    console.log('CanvasInput url', props.url)
     const imageUrl = props.url.src ?? props.url;
     // console.log('inputUrl', inputUrl)
 
+    const imageRef = useRef(null);
     const canvasRef = useRef(null);
     const contextRef = useRef(null);
 
@@ -39,7 +47,7 @@ const DrawRectangle = (props) => {
 
     // const imageUrl = "https://s3.amazonaws.com/uploads.staging.mlmodelscope.org/plane-blue.jpg";
     // const imageUrl = props.url.src;
-    const [imageDimensions, setImageDimensions] = useState({});
+    const [imageDimensions, setImageDimensions] = useState({});  // Prob could change this to a boolean?
 
     useEffect(() => {
         loadImage(setImageDimensions, imageUrl); 
@@ -47,12 +55,19 @@ const DrawRectangle = (props) => {
     );
 
     useEffect(() => {
-        // console.log('set canvas dimensions')
+        // This useEffect fires once, when imageDimensions is set, then we use imageRef to get the
+        // size of the image as-displayed (rather than )
+        const image = imageRef.current;
+        console.log('imageRef', image, image.width, image.height)
+
         const canvas = canvasRef.current;
         // canvas.width = 500;
         // canvas.height = 500;
-        canvas.width = imageDimensions.width;
-        canvas.height = imageDimensions.height;        
+        // canvas.width = imageDimensions.width;
+        // canvas.height = imageDimensions.height;  
+        canvas.width = image.width;
+        canvas.height = image.height;   
+
         // console.log('imageDimensions', imageDimensions)
         // console.log('canvas width', canvas.width)
         // console.log('canvas height', canvas.height)
@@ -112,44 +127,36 @@ const DrawRectangle = (props) => {
             ymin: startY.current,
             ymax: rectangleHeight
         };
-        
+
         props.selectInput(imageUrl, inputIndex, dimensions);
     };
 
     return (
-        <div className="parent">
-            <img 
-                className="image1" 
-                src={imageUrl}
-                alt="canvas background" 
-            />
-            <canvas className="canvas-container-rect image2"
-                ref={canvasRef}
-                onMouseDown={startDrawingRectangle}
-                onMouseMove={drawRectangle}
-                onMouseUp={stopDrawingRectangle}
-                onMouseLeave={stopDrawingRectangle} 
-            />
-
-            {/* <div>
-                {Object.keys(imageDimensions).length === 0 ? (
-                    <b>Calculating...</b>
-                ) : (
-                    <>
-                    <p>
-                        <b>Height:</b> {imageDimensions.height}{" "}
-                    </p>
-                    <p>
-                        <b>Width:</b> {imageDimensions.width}{" "}
-                    </p>
-                    </>
-                )}
-            </div>             */}
+        <div className={getBlock()}>
+            <p className={getElement("help-text")}>
+                Tip: Click and drag to draw a rectangle around the object you wish to identify.
+            </p>
+            <div className={getElement("canvas-container")}>
+                <img 
+                    className={getElement("canvas-background")}
+                    src={imageUrl}
+                    alt="canvas background" 
+                    ref={imageRef}
+                />
+                <canvas className={getElement("canvas-element")}
+                    ref={canvasRef}
+                    onMouseDown={startDrawingRectangle}
+                    onMouseMove={drawRectangle}
+                    onMouseUp={stopDrawingRectangle}
+                    onMouseLeave={stopDrawingRectangle} 
+                />
+            </div>
         </div>
+
     )
 }
 
-export default DrawRectangle;
+export default CanvasInput;
 
 // Note: Based off of this example: 
 // https://coolboi567.medium.com/dynamically-get-image-dimensions-from-image-url-in-react-d7e216887b68

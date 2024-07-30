@@ -242,7 +242,7 @@ export default class Task {
     useMultiInput: true,
     inputs: [
       {
-        inputText: 'to be identified',
+        inputText: 'be identified',
         inputType: TaskInputTypes.ImageCanvas,
       },
     ],

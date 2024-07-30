@@ -197,7 +197,7 @@ export default function useQuickInputControl(props) {
   const tabIsSelected = (index) => selectedTab === index;
 
   const submitButtonIsDisabled = () => {
-    console.log('submitButtonIsDisabled task', task)
+    // console.log('submitButtonIsDisabled task', task)
     if (task.id === maskGeneration && (selectedInputData[0].src === '' || selectedInputData[0].xmin === null)) {
       console.log('button should be disabled')
       return true;

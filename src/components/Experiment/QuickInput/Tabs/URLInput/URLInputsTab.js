@@ -9,7 +9,6 @@ import URLInputPreview from './URLInputPreview';
 
 
 export default function URLInputsTab(props) {
-  console.log('URLInputsTab props', props)
   const { getBlock, getElement } = useBEMNaming("url-inputs");
   const { urlChanged, getUrlValidity, task, values } = useURLInputControl(props);
   const taskName = (task.useMultiInput ? (Task.getStaticTask(props.task).inputs[props.inputIndex]?.inputType) : Task.getStaticTask(props.task).inputType || '').toLowerCase();

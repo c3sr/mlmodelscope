@@ -1,0 +1,33 @@
+@import "src/App";
+
+.canvas-input {
+    &__help-text {
+        font-size: 14px;
+        // font-weight: normal;
+        // line-height: 28px;
+        color: $charcoalLightest;
+        margin-bottom: 10px;
+    }
+
+    &__canvas-container {
+        position: relative;
+        top: 0;
+        left: 0;
+        // border: 1px solid yellow;
+    }
+
+    &__canvas-background {
+        position: relative;
+        top: 0;
+        left: 0;
+        // border: 1px red solid;
+    }
+
+    &__canvas-element {
+        // border: 2px solid #000;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        // border: 1px green solid;        
+    }
+}

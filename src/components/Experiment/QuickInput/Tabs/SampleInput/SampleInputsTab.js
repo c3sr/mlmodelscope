@@ -6,7 +6,7 @@ import useBEMNaming from "../../../../../common/useBEMNaming";
 import { QuickInputType } from "../../quickInputType";
 import { ReactComponent as DocumentIcon } from "../../../../../resources/icons/icon-document.svg";
 import { imageTo3D } from '../../../../../helpers/TaskIDs';
-import DrawRectangle from './DrawRectangle';
+import CanvasInput from '../CanvasInput/CanvasInput';
 
 
 
@@ -84,12 +84,8 @@ export default function SampleInputsTab(props) {
 
     function makeSampleImageCanvasInput(url, index) {
         return (
-            // <button onClick={() => selectInput(index)} key={index} className={getElement(getInputClassName(url))}>
-            //     <img src={url.src} alt={url.alt} />
-            // </button>
             <div key={index} className={getElement(getInputClassName(url))}>
-                <p>Image + Canvas</p>
-                <DrawRectangle selectInput={selectInput} index={index} url={url} {...props} />
+                <CanvasInput selectInput={selectInput} index={index} url={url} {...props} />
             </div>
         );
     }    

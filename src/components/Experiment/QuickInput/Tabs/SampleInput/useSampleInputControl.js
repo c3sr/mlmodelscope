@@ -5,7 +5,6 @@ import Task from "../../../../../helpers/Task";
 export default function useSampleInputControl(props) {
   const task = Task.getStaticTask(props.task);
   const sampleInputType = (task.useMultiInput ? (Task.getStaticTask(props.task).inputs[props.inputIndex]?.inputType) : props.type)?.toLowerCase();
-  console.log('sampleInputType', sampleInputType)
 
   const [selectedIndex, setSelectedIndex] = useState([]);
 
@@ -13,8 +12,6 @@ export default function useSampleInputControl(props) {
   const isUnselected = (input) => selectedIndex.length >= 0 && sampleInputType === QuickInputType.Image ? selectedIndex.indexOf(input.src) === -1 : selectedIndex.indexOf(input) === -1;
   
   const selectMultiInput = (selectedValueIndex) => {
-    console.log('selectMultiInput')
-
     // Note: Currently using both new and old way of handling inputs but should refactor in the future
     let input = sampleInputType === QuickInputType.Image ? 
         props.sampleInputs[props.inputIndex][selectedValueIndex].src : 
@@ -41,9 +38,7 @@ export default function useSampleInputControl(props) {
     }
   }
 
-  const selectInput = (index) => {
-    console.log('selectInput')
-    
+  const selectInput = (index) => {    
     const input = sampleInputType === QuickInputType.Image ?
         props.sampleInputs[index].src :
       props.sampleInputs[index];

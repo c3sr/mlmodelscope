@@ -12,7 +12,7 @@ import Rating from "../Classification/Rating";
 import OutputDuration from "../_Common/components/OutputDuration";
 
 // import "./ImageTo3D.scss";
-import "../../../QuickInput/Tabs/SampleInput/DrawRectangle.scss"
+import "../../../QuickInput/Tabs/CanvasInput/CanvasInput.scss"
 
 
 export default function MaskGenerationOutput(props) {

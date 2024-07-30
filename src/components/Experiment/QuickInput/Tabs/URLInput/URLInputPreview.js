@@ -2,27 +2,23 @@ import React from 'react';
 import useBEMNaming from '../../../../../common/useBEMNaming';
 import "./URLInputPreview.scss";
 import { TaskInputTypes } from '../../../../../helpers/TaskInputTypes';
-import DrawRectangle from '../SampleInput/DrawRectangle';
+import CanvasInput from '../CanvasInput/CanvasInput';
 
 const URLInputPreview = (props) => {
     const { getBlock, getElement } = useBEMNaming("url-inputs-preview");
-
-    console.log('URLInputPreview props', props)
-
     const { task, index } = props
-    // console.log('urlinputpreview task', task)
-    // console.log('urlinputpreview index', index)
+
     const inputType = task.useMultiInput ? task.inputs[index].inputType : task.inputType;
 
     return (
         <>
             {/* Delete later */}
-            <p>URL Input preview</p>
+            {/* <p>URL Input preview</p>
             <p>Index: {index}</p>
             <p>props.selectedInputs: {props.selectedInputs}</p>
             <p>
                 props?.inputPreviewProps?.URLValidity: {props?.inputPreviewProps?.URLValidity ? "True" : "False"}
-            </p>
+            </p> */}
 
             {!(props.selectedInputs.length === 0 || props.selectedInputs[0] === "") && props?.inputPreviewProps?.URLValidity && 
                 <div className={getBlock()}>
@@ -36,8 +32,7 @@ const URLInputPreview = (props) => {
                                 <audio controls src={props?.inputPreviewProps?.selectedInputSrc} title="Preview" />
                             ) : inputType === TaskInputTypes.ImageCanvas ?
                             (
-                                // TODO: What is selectInput? Need to look at inputPreviewProps and see if we can use setSelectedInputSrc etc
-                                 <DrawRectangle selectInput={props.inputSelected} index={index} url={props?.inputPreviewProps?.selectedInputSrc} {...props} />                                
+                                 <CanvasInput selectInput={props.inputSelected} index={index} url={props?.inputPreviewProps?.selectedInputSrc} {...props} />                                
                             ): 
                             (
                                 <p>Preview not supported for {inputType}</p>
