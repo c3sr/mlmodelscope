@@ -15,7 +15,7 @@ export default function InputSelectors(props) {
         <img
           alt={`Input ${index + 1}`}
           className={getElement("input-selector-img")}
-          src={input}
+          src={input.src}
         />
         Input {index + 1}
       </>
@@ -23,27 +23,26 @@ export default function InputSelectors(props) {
   };
 
   const getTextInputPreviewContent = (input, index) => {
-      let shortened = input.split(" ").slice(0, 5).join(" ");
-      shortened = shortened + (shortened.length < input.length ? "..." : "");
+    let shortened = input.split(" ").slice(0, 5).join(" ");
+    shortened = shortened + (shortened.length < input.length ? "..." : "");
 
-      return (
-          <>
-              <div className={getElement("input-selector-text")}>
-                  <div className={getElement("input-selector-text__text")}>{shortened}</div>
-                  <div className={getElement("input-selector-text__label")}>Input {index + 1}</div>
-              </div>
-          </>
-      )
+    return (
+      <>
+        <div className={getElement("input-selector-text")}>
+          <div className={getElement("input-selector-text__text")}>{shortened}</div>
+          <div className={getElement("input-selector-text__label")}>Input {index + 1}</div>
+        </div>
+      </>
+    );
   };
 
   return (
     <div className={getBlock()}>
       {props.inputs.map((input, idx) => (
         <div
-            key={idx}
+          key={idx}
           className={getElement(
-            `input-selector-btn ${
-              idx === props.selectedIndex && "input-selector-btn-selected"
+            `input-selector-btn ${idx === props.selectedIndex && "input-selector-btn-selected"
             }`
           )}
         >
@@ -56,8 +55,7 @@ export default function InputSelectors(props) {
           <button
             onClick={() => props.showDeleteInputModal(input)}
             className={getElement(
-              `input-selector-delete ${
-                idx === props.selectedIndex && "input-selector-delete-selected"
+              `input-selector-delete ${idx === props.selectedIndex && "input-selector-delete-selected"
               }`
             )}
           >

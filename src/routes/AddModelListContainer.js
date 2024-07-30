@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import ModelListContainer from "./ModelListContainer";
 
 let experimentSubscription = null;
@@ -19,11 +19,11 @@ export default function AddModelListContainer(props) {
                             return [...oldState, trialOutput];
                         }
                         return oldState;
-                    })
+                    });
                 }
             }));
-        })
-    }
+        });
+    };
 
     const getExperiment = (experimentId) => {
         experimentSubscription = api.getExperiment(experimentId).subscribe({
@@ -32,14 +32,14 @@ export default function AddModelListContainer(props) {
                 setExperiment(experiment);
             }
         });
-    }
+    };
 
     const getCurrentTask = () => {
         let trial = trials[0];
         if (trial)
             return trial.model.output.type;
         return "";
-    }
+    };
 
     const runModels = (selectedModels) => {
         const modelsFromTrials = getModelsFromTrials();
@@ -56,15 +56,15 @@ export default function AddModelListContainer(props) {
         Promise.all(trialPromises).then(() => {
             props.history.push(`/experiment/${experiment.id}`);
         });
-    }
+    };
 
     const getInputsFromTrials = () => {
         return trials.filter((t, i, a) => a.findIndex(tr => tr.inputs[0] === t.inputs[0]) === i).map(trial => trial.inputs[0]);
-    }
+    };
 
     const getModelsFromTrials = () => {
         return trials.map(t => t.model);
-    }
+    };
 
     useEffect(() => {
         getExperiment(props.match.params.experimentId);
@@ -79,7 +79,7 @@ export default function AddModelListContainer(props) {
 
     return (
         <ModelListContainer task={getCurrentTask()} hideTaskFilters add={true} runModels={(selectedModels) => {
-            runModels(selectedModels)
-        }} selectedModels={getModelsFromTrials()}/>
-    )
+            runModels(selectedModels);
+        }} selectedModels={getModelsFromTrials()} />
+    );
 }

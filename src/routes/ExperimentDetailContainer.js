@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import ExperimentDetailPage from "../components/ExperimentDetails/ExperimentDetailPage";
 import GetApiHelper from "../helpers/api";
 import Task from "../helpers/Task";
-import {image_classification} from "../helpers/TaskIDs";
+import { image_classification } from "../helpers/TaskIDs";
 import MultipleSort from "../helpers/MultipleSort";
 import { useParams } from "react-router-dom/dist";
 
@@ -14,7 +14,7 @@ export const ExperimentDetailModalTypes = {
     inputCannotBeRemoved: "INPUT_CANNOT_BE_REMOVED",
     confirmDeleteInput: "INPUT_DELETE_CONFIRM",
     addInput: "INPUT_ADD"
-}
+};
 
 const trialSubscriptions = [];
 let experimentSubscription = null;
@@ -33,15 +33,15 @@ export default function ExperimentDetailContainer(props) {
     });
 
     const setState = (newState) => {
-        updateState(s => ({...s, ...newState}));
-    }
+        updateState(s => ({ ...s, ...newState }));
+    };
 
 
     const getTask = () => {
         if (state.trials && state.trials.length > 0)
             return Task.getStaticTask(state.trials[0].model.output.type);
         return Task.getStaticTask(image_classification);
-    }
+    };
 
     useEffect(() => {
         getExperiment();
@@ -51,8 +51,8 @@ export default function ExperimentDetailContainer(props) {
 
             if (experimentSubscription)
                 experimentSubscription.unsubscribe();
-        }
-    }, [])
+        };
+    }, []);
 
     const getSelectedTrials = () => {
         let filtered = state.trials.filter(trial => trial.inputs[0] === state.selectedInput);
@@ -60,26 +60,26 @@ export default function ExperimentDetailContainer(props) {
         const sortingOptions = [
             (a) => a.model.name,
             (a) => a.model.framework.name
-        ]
+        ];
 
         return MultipleSort(filtered, sortingOptions);
-    }
+    };
     const getInputs = () => {
         return state.trials.filter((t, i, a) => a.findIndex(tr => tr.inputs[0] === t.inputs[0]) === i).map(trial => trial.inputs[0]);
-    }
+    };
     const makeExperiment = () => {
         return {
             id: state.experiment ? state.experiment.id : null,
             trials: getSelectedTrials(),
-        }
-    }
-    const updateInput = (newInput) => setState({selectedInput: newInput});
+        };
+    };
+    const updateInput = (newInput) => setState({ selectedInput: newInput });
     const getTrials = (experiment) => {
         experiment.trials.forEach(trial => {
             addTrial(trial.id);
-        })
-    }
-    const showAddInputModal = () => setState({modalType: ExperimentDetailModalTypes.addInput})
+        });
+    };
+    const showAddInputModal = () => setState({ modalType: ExperimentDetailModalTypes.addInput });
     const showDeleteModal = (trial, modalType) => {
         const isForDeletingModel = modalType === ExperimentDetailModalTypes.confirmDeleteModel;
         const canDelete = isForDeletingModel ? getUniqueModels().length > 1 : getInputs().length > 1;
@@ -94,33 +94,33 @@ export default function ExperimentDetailContainer(props) {
                 modalType: isForDeletingModel ?
                     ExperimentDetailModalTypes.modelCannotBeRemoved :
                     ExperimentDetailModalTypes.inputCannotBeRemoved
-            })
+            });
         }
-    }
+    };
     const cancelDeleteTrial = () => {
         setState({
             trialToDelete: null,
             modalType: ExperimentDetailModalTypes.none
         });
-    }
+    };
     const getModelOutputType = () => {
         let modelOutputType = "";
         if (state.trials.length > 0)
             modelOutputType = state.trials[0].model.output.type;
         return modelOutputType;
-    }
+    };
     const getUniqueModels = () => {
         return state.trials.filter((t, i, a) => a.findIndex(tr => tr.model.id === t.model.id) === i).map(trial => trial.model.id);
-    }
-    const runTrial = async (modelId, input, context=null) => {
-        let fauxModel = {id: modelId, output: {type: getModelOutputType()}};
+    };
+    const runTrial = async (modelId, input, context = null) => {
+        let fauxModel = { id: modelId, output: { type: getModelOutputType() } };
 
         // Note: Adding context param for Conversation task; unsure if needed here
         // Check and confirm later - Alex, 4/10/2024
         let trial = await api.runTrial(fauxModel, input, state.experiment.id, context);
 
         addTrial(trial.trialId);
-    }
+    };
     const addTrial = (trialId) => {
         if (!trialSubscriptions[trialId]) {
             trialSubscriptions[trialId] = api.getTrial(trialId).subscribe({
@@ -135,19 +135,23 @@ export default function ExperimentDetailContainer(props) {
                             trials[currentIndex] = trialOutput;
                         }
 
-                        setState({trials, selectedInput: state.selectedInput || trialOutput.inputs[0]});
+                        setState({ trials, selectedInput: state.selectedInput || trialOutput.inputs[0] });
                     }
 
                 }
-            })
+            });
         }
-    }
+    };
     const hasNoInputs = () => {
         const inputs = getInputs();
         return inputs.length === 0 || inputs[0] === "";
-    }
+    };
     const addInput = async (input) => {
         let inputs = Array.isArray(input) ? input : [input];
+
+        inputs = inputs.map(input => {
+            return ([{ src: (input?.[0] ?? input?.src), inputType: input.inputType }]);
+        });
 
         if (props.addInput) {
             props.addInput(inputs);
@@ -163,13 +167,13 @@ export default function ExperimentDetailContainer(props) {
                 modelPromises = models.map(model => runTrial(model, input));
         });
         await Promise.all(modelPromises);
-        setState({selectedInput: inputs[0]});
+        setState({ selectedInput: inputs[0] });
 
         if (hasNoInputs())
             await removeTrials((trial) => !trial.inputs || trial.inputs[0] === "");
-    }
+    };
     const confirmDeleteModel = async () => {
-        setState({trialIsDeleting: true});
+        setState({ trialIsDeleting: true });
         setTimeout(async () => {
             const trial = state.trialToDelete;
             try {
@@ -182,18 +186,18 @@ export default function ExperimentDetailContainer(props) {
                 });
             }
         }, 500);
-    }
+    };
     const showDeleteInputModal = (input) => {
         if (getInputs().length > 1) {
-            const fauxTrial = {inputs: [input]};
-            setState({trialToDelete: fauxTrial, modalType: ExperimentDetailModalTypes.confirmDeleteInput});
+            const fauxTrial = { inputs: [input] };
+            setState({ trialToDelete: fauxTrial, modalType: ExperimentDetailModalTypes.confirmDeleteInput });
         } else {
-            setState({modalType: ExperimentDetailModalTypes.inputCannotBeRemoved})
+            setState({ modalType: ExperimentDetailModalTypes.inputCannotBeRemoved });
         }
 
-    }
+    };
     const deleteInput = async () => {
-        setState({trialIsDeleting: true});
+        setState({ trialIsDeleting: true });
         setTimeout(async () => {
             const trial = state.trialToDelete;
             const input = trial.inputs[0];
@@ -203,7 +207,7 @@ export default function ExperimentDetailContainer(props) {
                     let firstRemainingInput = state.trials.filter(t => t.inputs[0] !== input)[0].inputs[0];
                     setState({
                         selectedInput: firstRemainingInput
-                    })
+                    });
                 }
             } catch (err) {
                 console.error(err);
@@ -212,28 +216,28 @@ export default function ExperimentDetailContainer(props) {
                     trialToDelete: null
                 });
             }
-        }, 500)
-    }
+        }, 500);
+    };
     const confirmModelCannotBeRemoved = () => {
         setState({
             modalType: ExperimentDetailModalTypes.none
         });
-    }
+    };
     const getExperiment = async () => {
         if (props.experiment) {
             setState({
                 trials: props.experiment.trials,
-                experiment: {id: props.experiment.id}
-            })
+                experiment: { id: props.experiment.id }
+            });
         } else {
             experimentSubscription = api.getExperiment(experimentId).subscribe({
                 next: experiment => {
                     getTrials(experiment);
-                    setState({experiment});
+                    setState({ experiment });
                 }
             });
         }
-    }
+    };
     const removeTrials = async (predicate) => {
         const trialsToRemove = state.trials.filter(predicate);
         let promises = trialsToRemove.map(async trial => {
@@ -249,27 +253,27 @@ export default function ExperimentDetailContainer(props) {
             trialToDelete: null,
             modalType: ExperimentDetailModalTypes.none
         });
-    }
+    };
 
     return (
         <ExperimentDetailPage experiment={makeExperiment()}
-                              onDeleteTrial={showDeleteModal}
-                              onCancelDeleteTrial={cancelDeleteTrial}
-                              onConfirmDeleteTrial={confirmDeleteModel}
-                              trialIsDeleting={state.trialIsDeleting}
-                              onConfirmModelCannotBeRemoved={confirmModelCannotBeRemoved}
-                              showModelCannotBeRemoved={state.showModelCannotBeRemoved}
-                              trialToDelete={state.trialToDelete}
-                              inputs={getInputs()}
-                              addInput={addInput}
-                              updateInput={updateInput}
-                              getAddModelsLink={() => `/experiment/${state.experiment?.id}/add-models`}
-                              deleteInput={deleteInput}
-                              modalType={state.modalType}
-                              showAddInputModal={showAddInputModal}
-                              selectedInput={state.selectedInput}
-                              showDeleteInputModal={showDeleteInputModal}
-                              task={getTask()}
+            onDeleteTrial={showDeleteModal}
+            onCancelDeleteTrial={cancelDeleteTrial}
+            onConfirmDeleteTrial={confirmDeleteModel}
+            trialIsDeleting={state.trialIsDeleting}
+            onConfirmModelCannotBeRemoved={confirmModelCannotBeRemoved}
+            showModelCannotBeRemoved={state.showModelCannotBeRemoved}
+            trialToDelete={state.trialToDelete}
+            inputs={getInputs()}
+            addInput={addInput}
+            updateInput={updateInput}
+            getAddModelsLink={() => `/experiment/${state.experiment?.id}/add-models`}
+            deleteInput={deleteInput}
+            modalType={state.modalType}
+            showAddInputModal={showAddInputModal}
+            selectedInput={state.selectedInput}
+            showDeleteInputModal={showDeleteInputModal}
+            task={getTask()}
         />
-    )
+    );
 }
