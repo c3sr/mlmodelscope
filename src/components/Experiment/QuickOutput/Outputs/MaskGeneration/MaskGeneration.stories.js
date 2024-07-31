@@ -12,5 +12,5 @@ const Template = (args) => <MaskGenerationOutput {...args}/>
 
 export const Default = Template.bind({});
 
-// Default.args = {trial: TestMaskGenerationOutput};
-Default.args = {trial: TestInstanceSegmentationOutput};
+Default.args = {trial: TestMaskGenerationOutput};
+// Default.args = {trial: TestInstanceSegmentationOutput};

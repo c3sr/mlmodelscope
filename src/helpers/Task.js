@@ -247,7 +247,7 @@ export default class Task {
     useMultiInput: true,
     inputs: [
       {
-        inputText: 'be identified',
+        inputText: 'identify a selected object.',
         inputType: TaskInputTypes.ImageCanvas,
       },
     ],

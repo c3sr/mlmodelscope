@@ -149,7 +149,7 @@ export default function SampleInputsTab(props) {
                 return "Select a video";
             case QuickInputType.ImageCanvas:
                 // return "Select an image and draw a rectangle over the area";      
-                return "Draw a rectangle over the area";
+                return "Draw a rectangle";
             default:
                 return "Error: no input type set";
         }

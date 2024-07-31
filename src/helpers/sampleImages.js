@@ -2,6 +2,7 @@ import StyleTransferContent from "../resources/taskSample/styleTransferContent.j
 import StyleTransferStyle from "../resources/taskSample/styleTransferStyle.jpg";
 import Chairs from "../resources/taskSample/imageTo3D1.png";
 // import Drums from "../resources/taskSample/imageTo3D2.png";
+import catDog from "../stories/assets/catdog.jpg";
 
 export const SampleImageEnhancementInputs = [
   {
@@ -109,9 +110,9 @@ export const SampleImageTo3DInputs = [
 export const SampleMaskGenerationInputs = [
   [
     {
-      src: "https://s3.amazonaws.com/uploads.staging.mlmodelscope.org/plane-blue.jpg",
-      alt: "airplane",
-    }
+      src: catDog,
+      alt: "cat and dog",
+    },
   ]
 ]
 

@@ -2,6 +2,7 @@ import {useEffect, useRef, useState} from 'react';
 import useBEMNaming from "../../../../../common/useBEMNaming";
 
 import './CanvasInput.scss';
+import { TaskInputTypes } from '../../../../../helpers/TaskInputTypes';
 
 
 
@@ -74,7 +75,7 @@ const CanvasInput = (props) => {
 
         const context = canvas.getContext("2d");
         context.lineCap = "round";
-        context.strokeStyle = "black";
+        context.strokeStyle = "#5FA9FF";
         context.lineWidth = 5;
         contextRef.current = context;
 
@@ -133,9 +134,14 @@ const CanvasInput = (props) => {
 
     return (
         <div className={getBlock()}>
-            <p className={getElement("help-text")}>
-                Tip: Click and drag to draw a rectangle around the object you wish to identify.
-            </p>
+            {
+                props.tab.id !== "sample-input" && (
+                    <p className={getElement("help-text")}>
+                        Click and drag to draw a rectangle around the object you wish to identify.
+                    </p>
+                )
+            }
+
             <div className={getElement("canvas-container")}>
                 <img 
                     className={getElement("canvas-background")}
