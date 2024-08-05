@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ModelListContainer from "./ModelListContainer";
+import { useLocation, useNavigate } from "react-router-dom";
+import getExperimentId from "../helpers/getExperimentId";
+import GetApiHelper from "../helpers/api";
 
 let experimentSubscription = null;
 let trialSubscriptions = [];
@@ -7,6 +10,11 @@ let trialSubscriptions = [];
 export default function AddModelListContainer(props) {
     const [trials, setTrials] = useState([]);
     const [experiment, setExperiment] = useState(null);
+    const location = useLocation();
+    const experimentID = getExperimentId(location);
+    const api = GetApiHelper();
+    const navigate = useNavigate();
+
 
     const getTrials = (experiment) => {
         experiment.trials.forEach(trial => {
@@ -54,7 +62,7 @@ export default function AddModelListContainer(props) {
         }).flat();
 
         Promise.all(trialPromises).then(() => {
-            props.history.push(`/experiment/${experiment.id}`);
+            navigate(`/experiment/${experimentID}`);
         });
     };
 
@@ -67,7 +75,7 @@ export default function AddModelListContainer(props) {
     };
 
     useEffect(() => {
-        getExperiment(props.match.params.experimentId);
+        getExperiment(experimentID);
 
         return () => {
             trialSubscriptions.forEach(s => s.unsubscribe());
