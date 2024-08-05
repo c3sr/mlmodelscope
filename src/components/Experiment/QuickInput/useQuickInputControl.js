@@ -15,7 +15,6 @@ export default function useQuickInputControl(props) {
   const [selectedInputs, setSelectedInputs] = useState([""]);
   const [selectedInputData, setSelectedInputData] = useState([{ src: "", inputType: "" }]);
   const [selectedTab, setSelectedTab] = useState(0);
-  // const [selectedTab, setSelectedTab] = useState(2);  // TODO: change this back
 
   // Note: Uncomment for debugging
   useEffect(() => {
@@ -198,9 +197,9 @@ export default function useQuickInputControl(props) {
   const tabIsSelected = (index) => selectedTab === index;
 
   const submitButtonIsDisabled = () => {
-    // console.log('submitButtonIsDisabled task', task)
     if (task.id === maskGeneration && (selectedInputData[0].src === '' || selectedInputData[0].xmin === null)) {
-      console.log('button should be disabled')
+      // Keep the button disabled if the Mask Generation task has an 
+      // image uploaded but no rectangle has been drawn yet
       return true;
     }
 

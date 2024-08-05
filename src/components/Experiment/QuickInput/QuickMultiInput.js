@@ -8,7 +8,6 @@ import { QuickInputTabTitle } from "./QuickInputTabTitle";
 // import { QuickInputType } from "./quickInputType";
 
 export default function QuickMultiInput(props) {
-  console.log('QuickMultiInput props', props)
   const {
     tabIsSelected,
     selectedInputs,
@@ -20,6 +19,7 @@ export default function QuickMultiInput(props) {
     runModel,
     submitButtonIsDisabled
   } = useQuickInputControl(props);
+  
   const { getBlock, getElement } = useBEMNaming("quick-image-input");
 
   const task = Task.getStaticTask(props.model.output.type);

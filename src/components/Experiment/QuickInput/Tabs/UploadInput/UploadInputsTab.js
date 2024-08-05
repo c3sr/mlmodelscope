@@ -12,9 +12,6 @@ import CanvasInput from '../CanvasInput/CanvasInput';
 import { QuickInputType } from '../../quickInputType';
 
 export default function UploadInputsTab(props) {
-
-  console.log('UploadInputsTab props', props)
-
   const {getBlock, getElement} = useBEMNaming("upload-inputs");
 
   const allowedFileTypes = getAllowedFileTypes(props.task);

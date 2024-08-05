@@ -24,7 +24,6 @@ export default class ImageVerifier {
       img.onload = loadHandler;
 
       img.src = this.url;
-      console.log('img')
 
       this._timer = this._timeoutHandler(img, res);
     })

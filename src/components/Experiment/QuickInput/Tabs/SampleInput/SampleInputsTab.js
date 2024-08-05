@@ -11,11 +11,11 @@ import { TaskInputTypes } from '../../../../../helpers/TaskInputTypes';
 import CanvasInput from '../CanvasInput/CanvasInput';
 
 
-
 export default function SampleInputsTab(props) {
     // Note: This is the content for the Sample Input Tab, below the header
     const { getBlock, getElement } = useBEMNaming("sample-inputs");
     const { isUnselected, isSelected, selectInput, type,  sampleInputType } = useSampleInputControl(props);
+    
     const task = Task.getStaticTask(props.task);
 
     const getInputClassName = (url) => {
@@ -35,8 +35,6 @@ export default function SampleInputsTab(props) {
     };
 
     const makeSampleInput = (url, index) => {
-        // console.log('task: ', task)
-        // console.log('sampleInputType', sampleInputType)
         switch (sampleInputType) {
             case QuickInputType.Image:
                 return makeSampleImageInput(url, index);
@@ -148,7 +146,6 @@ export default function SampleInputsTab(props) {
             case QuickInputType.Video:
                 return "Select a video";
             case QuickInputType.ImageCanvas:
-                // return "Select an image and draw a rectangle over the area";      
                 return "Draw a rectangle";
             default:
                 return "Error: no input type set";

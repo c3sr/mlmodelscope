@@ -107,6 +107,9 @@ The project is structured as follows:
 - If the task requires new input types, you will need to add those
   - Add the new input type to `TaskInputTypes` and `QuickInputType`
   - Update `SampleInputsTab` as necessary
+  - Update `UploadInputsTab` as necessary
+  - Update `URLInputsTab` as necessary
+    - Be sure to read the `IMPORTANT` comment before editing the inputs
 - ...to be continued
 - Additional Notes:
   - To test the upload dashboard in storybook, open `useUploadInputControl` and:

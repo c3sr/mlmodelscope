@@ -56,7 +56,7 @@ import {
   DefaultObjectDetectionModel,
   DefaultSemanticSegmentationModel,
   DefaultStyleTransferModel,
-  // DefaultMaskGenerationModel,
+  DefaultMaskGenerationModel,
   DefaultImageTo3DModel,
   DefaultTextModel,
   DefaultAudioToTextModel,
@@ -81,7 +81,7 @@ import {
   SampleObjectDetectionInputs,
   SampleSegmentationInputs,
   SampleStyleTransferInputs,
-  // SampleMaskGenerationModel,
+  SampleMaskGenerationInputs,
   SampleTextGuidedImageToImageInputs,
   SampleVisualQuestionAnsweringInputs,
   SampleDocumentQuestionAnsweringInputs,
@@ -105,7 +105,7 @@ import { TestTextToAudioOutput } from "../components/Experiment/QuickOutput/Outp
 import { TestTextConversationOutput } from "../components/Experiment/QuickOutput/Outputs/TextConversation/testData/testTextConversationOutput";
 import { TaskInputTypes } from "./TaskInputTypes";
 import { TestStyleTransferOutput } from "../components/Experiment/QuickOutput/Outputs/StyleTransfer/testData/testStyleTransferOutput";
-// 
+import { TestMaskGenerationOutput } from "../components/Experiment/QuickOutput/Outputs/MaskGeneration/testData/testMaskGenerationOutput"; 
 import TextInputTab from "../components/Experiment/QuickInput/Tabs/TextInput/TextInputTab";
 import { TestVisualQuestionAnswering } from "../components/Experiment/QuickOutput/Outputs/VisualQuestionAnswering/testData/testVisualQuestionAnsweringOutput";
 import { TestDocumentQuestionAnswering } from "../components/Experiment/QuickOutput/Outputs/DocumentQuestionAnswering/testData/testDocumentQuestionAnsweringOuput";
@@ -253,7 +253,7 @@ export default class Task {
     ],
     outputText: "Identification of object",
     icon: (props) => <MaskGeneration {...props} />,
-    sampleInputs: [],
+    sampleInputs: SampleMaskGenerationInputs,
     tutorialDescription: "blah blah.",
   });  
   static text_to_text = new Task({
@@ -607,8 +607,8 @@ export default class Task {
         return DefaultStyleTransferModel;
       case imageTo3D:
         return DefaultImageTo3DModel;
-      // case maskGeneration:
-      //   
+      case maskGeneration:
+        return DefaultMaskGenerationModel; 
       case textToText:
         return DefaultTextModel;
       case textToCode:
@@ -663,8 +663,8 @@ export default class Task {
         return TestStyleTransferOutput;
       case imageTo3D:
         return TestImageTo3DOutput;
-      // case maskGeneration: 
-      //
+      case maskGeneration:
+        return TestMaskGenerationOutput;
       case textToText:
         return TestTextOutput;
       case audioToText:

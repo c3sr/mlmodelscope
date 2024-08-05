@@ -12,9 +12,7 @@ import QuickMultiInput from "./QuickMultiInput";
 // TODO: QuickText/Image/Audio/VideoInput should be refactored into a single component
 
 export default function QuickInput(props) {
-  console.log('QuickInputProps', props)
   const task = Task.getStaticTask(props.model.output.type);
-  console.log('QuickInputProps task', task)
   
   const [URLValidity, setURLValidity] = useState(false);
   const [selectedInputSrc, setSelectedInputSrc] = useState("");

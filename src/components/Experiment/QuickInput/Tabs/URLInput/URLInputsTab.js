@@ -12,11 +12,14 @@ import { QuickInputType } from '../../quickInputType';
 
 export default function URLInputsTab(props) {
   const { getBlock, getElement } = useBEMNaming("url-inputs");
+
   const { urlChanged, getUrlValidity, task, values } = useURLInputControl(props);
+
   const taskName = task.id === maskGeneration ? QuickInputType.Image : (task.useMultiInput ? (Task.getStaticTask(props.task).inputs[props.inputIndex]?.inputType) : Task.getStaticTask(props.task).inputType || '').toLowerCase();
   const longTaskName = "aeiou".includes(taskName[0]?.toLowerCase()) ? `an ${taskName}` : `a ${taskName}`;
   // Note: Currently using both new and old way of handling inputs but should refactor in the future
   const inputText = task.inputText || props.input.inputText;
+  
   const getInputClassName = (index) => getElement(getUrlValidity(index) ? "url url-error" : "url");
 
   const inputHandlerForPreview = (e, index) => {
@@ -28,8 +31,6 @@ export default function URLInputsTab(props) {
       props?.inputPreviewProps?.setSelectedInputSrc(e.target.value);
     }, 500);
   };
-
-  console.log(props)
 
   // IMPORTANT - When updating the code below, any changes to one <input> will (probably) need to be applied to all of them
   // We have three <input>s below, for regular Tasks, Tasks that use .multiple, and tasks that use .useMultiInput
