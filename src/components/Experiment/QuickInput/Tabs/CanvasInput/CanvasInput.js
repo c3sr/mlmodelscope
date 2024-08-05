@@ -2,8 +2,6 @@ import {useEffect, useRef, useState} from 'react';
 import useBEMNaming from "../../../../../common/useBEMNaming";
 
 import './CanvasInput.scss';
-import { TaskInputTypes } from '../../../../../helpers/TaskInputTypes';
-
 
 
 const loadImage = (setImageDimensions, imageUrl) => {
@@ -25,12 +23,8 @@ const loadImage = (setImageDimensions, imageUrl) => {
 const CanvasInput = (props) => {
     const { getBlock, getElement } = useBEMNaming("canvas-input");
 
-
-    console.log('CanvasInput props', props)
     const inputIndex = props.index;
-    console.log('CanvasInput url', props.url)
     const imageUrl = props.url.src ?? props.url;
-    // console.log('inputUrl', inputUrl)
 
     const imageRef = useRef(null);
     const canvasRef = useRef(null);
@@ -46,8 +40,6 @@ const CanvasInput = (props) => {
     const [rectangleWidth, setRectangleWidth] = useState(0);
     const [rectangleHeight, setRectangleHeight] = useState(0);
 
-    // const imageUrl = "https://s3.amazonaws.com/uploads.staging.mlmodelscope.org/plane-blue.jpg";
-    // const imageUrl = props.url.src;
     const [imageDimensions, setImageDimensions] = useState({});  // Prob could change this to a boolean?
 
     useEffect(() => {
@@ -59,19 +51,10 @@ const CanvasInput = (props) => {
         // This useEffect fires once, when imageDimensions is set, then we use imageRef to get the
         // size of the image as-displayed (rather than )
         const image = imageRef.current;
-        console.log('imageRef', image, image.width, image.height)
 
         const canvas = canvasRef.current;
-        // canvas.width = 500;
-        // canvas.height = 500;
-        // canvas.width = imageDimensions.width;
-        // canvas.height = imageDimensions.height;  
         canvas.width = image.width;
         canvas.height = image.height;   
-
-        // console.log('imageDimensions', imageDimensions)
-        // console.log('canvas width', canvas.width)
-        // console.log('canvas height', canvas.height)
 
         const context = canvas.getContext("2d");
         context.lineCap = "round";
@@ -88,8 +71,6 @@ const CanvasInput = (props) => {
         nativeEvent.preventDefault();
         nativeEvent.stopPropagation();
 
-        // startX.current = nativeEvent.clientX - canvasOffSetX.current;
-        // startY.current = nativeEvent.clientY - canvasOffSetY.current;
         startX.current = nativeEvent.offsetX;
         startY.current = nativeEvent.offsetY;        
 
@@ -104,8 +85,6 @@ const CanvasInput = (props) => {
         nativeEvent.preventDefault();
         nativeEvent.stopPropagation();
 
-        // const newMouseX = nativeEvent.clientX - canvasOffSetX.current;
-        // const newMouseY = nativeEvent.clientY - canvasOffSetY.current;
         const newMouseX = nativeEvent.offsetX;
         const newMouseY = nativeEvent.offsetY;        
 
@@ -120,7 +99,6 @@ const CanvasInput = (props) => {
 
     const stopDrawingRectangle = () => {
         setIsDrawing(false);
-        console.log('rectangle dimensions', startX.current, startY.current, rectangleWidth, rectangleHeight)
         
         const dimensions = {
             xmin: startX.current,
