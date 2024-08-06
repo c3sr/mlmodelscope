@@ -20,8 +20,8 @@ export default function useQuickInputControl(props) {
   useEffect(() => {
     // Because of how hooks/timing works with react, if you print these 
     // variables out below, such as in `selectInput`, you may see incorrect values
-    console.log('selectedInputs', selectedInputs)
-    console.log('selectedInputData', selectedInputData)
+    // console.log('selectedInputs', selectedInputs)
+    // console.log('selectedInputData', selectedInputData)
   }, [selectedInputs, selectedInputData]);
 
   const getTabs = (type = QuickInputType.Image) => {  // TODO: Remove this default
