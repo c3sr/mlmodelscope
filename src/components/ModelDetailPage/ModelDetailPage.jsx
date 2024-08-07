@@ -56,6 +56,8 @@ import {
 const ModelDetailPage = (props) => {
   const jumpRef = useRef();
 
+  console.log('ModelDetailPage props', props);
+
   const outputType = props.model?.output?.type || "";
 
   const getSampleInputs = () => {
@@ -160,6 +162,7 @@ const ModelDetailPage = (props) => {
           trialOutput={props.trialOutput}
           inputType={getInputType()}
           outputType={outputType}
+          runTrial={props.onRunModelClicked}
         />
       );
     }
