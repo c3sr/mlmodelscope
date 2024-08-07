@@ -159,6 +159,7 @@ const ModelDetailPage = (props) => {
           compare={props.compare}
           trialOutput={props.trialOutput}
           inputType={getInputType()}
+          outputType={outputType}
         />
       );
     }

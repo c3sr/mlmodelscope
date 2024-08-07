@@ -266,7 +266,7 @@ export default function QuickOutput(givenProps) {
       return (
         <>
           {preview}
-          <PendingOutput />
+          <PendingOutput outputType={props.outputType} />
         </>
       );
     }
