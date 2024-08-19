@@ -3,17 +3,15 @@ import React from "react";
 import useBEMNaming from "../../../../../common/useBEMNaming";
 import Task from "../../../../../helpers/Task";
 
-// import MultiInputPreview from "../../MultiInputPreview";
+import InputPreview from "../../InputPreview";
+import { QuickInputType } from "../../../QuickInput/quickInputType";
 import Rating from "../Classification/Rating";
 import OutputDuration from "../_Common/components/OutputDuration";
 import { tableEditing } from "../../../../../helpers/TaskIDs";
 import CsvPreview from "../../../QuickInput/Tabs/CsvInput/CsvPreview";
 import CsvIcon from "../../../../../../src/resources/icons/icon-csv-file.svg";
-// import { tableEditing } from "../../../../../../helpers/TaskIDs";
 
 import "./TableEditing.scss";
-import InputPreview from "../../InputPreview";
-import { QuickInputType } from "../../../QuickInput/quickInputType";
 
 
 export default function TableEditingOutput(props) {
@@ -25,8 +23,6 @@ export default function TableEditingOutput(props) {
     const output = props.trial?.results?.responses[0]?.features[0] ?? {};
     const duration = props.trial?.results?.duration_for_inference ?? "0s";
 
-    console.log('table editing output props', props)
-
     return (
         <div className={getBlock()}>
             <div className={getElement("header")}>
@@ -37,7 +33,6 @@ export default function TableEditingOutput(props) {
 
             <div className={getElement("content")}>
                 <InputPreview onBackClicked={props.onBackClicked} input={inputs} inputType={QuickInputType.Csv} />
-                {/* <MultiInputPreview inputs={inputs} onBackClicked={props.onBackClicked} /> */}
 
                 <div className={getElement("output")}>
                     <div className={getElement("output-title-row")}>

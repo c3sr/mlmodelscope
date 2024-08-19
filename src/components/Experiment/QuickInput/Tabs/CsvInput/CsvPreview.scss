@@ -25,24 +25,9 @@
         border-bottom: none;
     }
     &__cell {
-        // display: flex;
-        // flex-grow: 1;
         border-right: 1px solid $charcoalLightest;
-
-
-        // flex-grow: 1;
-        // flex-shrink: 1;
-        // flex-basis: 0px;
-        // min-width: 80px;
-        // max-width: 80px;
         padding: 5px;
-        // flex: 1 1 0px;
-
         width: 90px;
-
-        // text-overflow: ellipsis; 
-        // overflow: hidden;
-        // white-space: nowrap;
     }
     &__cell:last-of-type {
         border-right: none;
@@ -58,20 +43,15 @@
     }
     .tooltip-text {
         visibility: hidden;
-        // width: 120px;
         min-width: 120px;
         background-color: $charcoalLightest;
         color: #fff;
-        // text-align: center;
         padding: 5px;
         border-radius: 6px;
         position: absolute;
         z-index: 1; 
-        
-        // width: 120px;
         bottom: 100%;
         left: 50%;
-        // margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
     }
     &__cell:hover .tooltip-text {
         visibility: visible;

@@ -24,8 +24,6 @@ export default function InputPreview(givenProps) {
     csv: "CSV"
   };
 
-  console.log('input preview props', props)
-
   const getInput = () => {
     switch (props.inputType) {
       case "text":

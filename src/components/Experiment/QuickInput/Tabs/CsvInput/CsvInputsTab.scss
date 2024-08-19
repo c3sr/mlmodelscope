@@ -12,7 +12,6 @@ $csv-label-size: 18px;
   }
 
   &__container {
-    // background: $white;
     margin-top: 24px;
     padding: 20px;
     width: 100%;
@@ -22,14 +21,6 @@ $csv-label-size: 18px;
     &::placeholder {
       opacity: .9;
     }
-
-    // &-error {
-    //   border-color: $darkRed;
-
-    //   &:focus {
-    //     border-color: $pink;
-    //   }
-    // }
   }
 
   &__csv-header {
@@ -41,12 +32,10 @@ $csv-label-size: 18px;
   &__col-header {
     width: 151px;
     padding-left: 5px;
-    // border: 1px solid red;
     border-top: 1px solid $charcoalLightest;
     border-left: 1px solid $charcoalLightest;
     background-color: $smokeDarkest;
     font-weight: 800;
-    // color: red;
   }
   &__col-header:last-of-type {
     width: 152px;
@@ -56,23 +45,15 @@ $csv-label-size: 18px;
   &__table {
     display: flex;
     flex-direction: column;
-    // border: 1px solid red;
-    // border-top: 1px solid $charcoalLightest;
-    // border-left: 1px solid $charcoalLightest;
-    // border-bottom: 1px solid $charcoalLightest;
     font-size: 13px;
   }
 
   &__row {
-    // border-bottom: 1px solid $charcoalLightest;
-
     display: flex;
     flex-direction: row;
   }
   &__row:first-child {
-    // border: 1px solid red;
     p:first-of-type {
-        // color: green;
         border-top: 1px solid $charcoalLightest;
     }
   }
@@ -83,7 +64,6 @@ $csv-label-size: 18px;
     border-bottom: none;
   }
   &__row-label {
-    // color: blue;
     width: $csv-label-size;
     background-color: $smokeDarkest;
     font-weight: 800;
@@ -93,10 +73,6 @@ $csv-label-size: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
-    // padding-right: 5px;
-  }
-  &__row-label:first-of-type {
-    // border-top: 1px solid $charcoalLightest;
   }
 
   &__cell {
@@ -110,10 +86,6 @@ $csv-label-size: 18px;
   }
   &__cell:first-of-type {
     border-left: 1px solid $charcoalLightest;
-  }
-  &__cell:last-of-type {
-    // border-bottom: 1px solid $charcoalLightest;
-    // border-right: none;
   }
 
   &__download-csv-button {
@@ -129,40 +101,6 @@ $csv-label-size: 18px;
     p {
         margin-top: 5px;
         font-size: 12px;
-    }
-  }
-
-  .download-audio-icon {
-    background: rgb(224,224,224);
-    border-radius: 11%;
-    padding: 6px;
-  }  
-
-//   &__error-text {
-//     @include bodySmall;
-//     color: $darkRed;
-//     margin-top: 16px;
-//   }
-
-  &__add-btn {
-    background-color: $smokeDarker;
-    border-radius: 5px;
-    @include headline6;
-    color: $charcoalLightest;
-    float: left;
-    margin-top: 16px;
-    width: 170px;
-    padding: 16px 8px;
-    transition: 0.25s;
-
-    &:hover {
-      background-color: $smokeDarkest;
-    }
-
-    &-icon {
-      path {
-        fill: $charcoalLightest;
-      }
     }
   }
 }

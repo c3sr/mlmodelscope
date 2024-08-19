@@ -12,4 +12,3 @@ const Template = (args) => <TableEditingOutput {...args}/>
 export const Default = Template.bind({});
 
 Default.args = {trial: TestTableEditingOutput};
-

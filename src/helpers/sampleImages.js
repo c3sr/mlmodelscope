@@ -288,14 +288,9 @@ export const SampleVideoClassificationInputs = [
 
 export const SampleTableEditingInputs = [
   [
-    // TODO: Add more?
     {
       src: tableEditing,
       description: "Client List"
     },
-    // {
-    //   src: tableEditing,
-    //   description: "Client List 2"
-    // },
   ]
 ];

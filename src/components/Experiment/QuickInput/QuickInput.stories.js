@@ -47,7 +47,7 @@ import {
   SampleMaskGenerationInputs,
   SampleTableEditingInputs
 } from "../../../helpers/sampleImages";
-// import { QuickInputType } from "./quickInputType";
+
 import { TaskInputTypes } from "../../../helpers/TaskInputTypes";
 
 export default {

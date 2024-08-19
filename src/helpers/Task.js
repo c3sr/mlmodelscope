@@ -96,6 +96,7 @@ import {
   SampleAudioToAudioInputs,
   SampleAudioClassificationInputs,
   SampleVideoClassificationInputs,
+  SampleTableEditingInputs,
   // SampleTableEditingInputs
 } from "./sampleImages";
 import { TestImageClassificationResult } from "../components/Experiment/QuickOutput/Outputs/Classification/Features";
@@ -123,7 +124,7 @@ import { TestTextClassificationOutput } from "../components/Experiment/QuickOutp
 import { TestAudioToAudioOutput } from "../components/Experiment/QuickOutput/Outputs/AudioToAudio/testData/testAudioToAudio";
 import { TestAudioClassificationOutput } from "../components/Experiment/QuickOutput/Outputs/AudioClassification/testData/testAudioClassification";
 import { TestVideoClassificationOutput } from "../components/Experiment/QuickOutput/Outputs/VideoClassification/testData/testVideoClassification";
-// TestTableEditingOutput
+import { TestTableEditingOutput } from "../components/Experiment/QuickOutput/Outputs/TableEditing/testData/testTableEditingOutput";
 
 export default class Task {
   static image_classification = new Task({
@@ -527,7 +528,7 @@ export default class Task {
     ], 
     outputText: "Summarized CSV file",
     icon: (props) => <TableEditing {...props} />,
-    sampleInputs: [],  // SampleTableEditingInputs
+    sampleInputs: SampleTableEditingInputs,
     tutorialDescription: "blah blah.",
   });    
 
@@ -722,7 +723,7 @@ export default class Task {
       case videoClassification:
         return TestVideoClassificationOutput;
       case tableEditing:
-        // return TestTableEditingOutput
+        return TestTableEditingOutput;
       default:
         return undefined;
     }

@@ -40,7 +40,7 @@
     flex-grow: 1;
     border: 1px solid $gray;
     gap: 10px;
-    padding: 7.5px 8px;
+    padding: 7px 8px;
     text-align: start;
 
     &:not(:first-child) {
@@ -64,11 +64,6 @@
     margin: 0 auto;
     text-decoration: none;
     display: inline-block;
-    // height: 81px;
-    // a {
-    //   text-decoration: none;
-    //   color: $charcoalLightest;
-    // }
     img {
         height: 50px;
     }

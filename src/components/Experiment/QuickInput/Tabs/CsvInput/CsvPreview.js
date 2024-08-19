@@ -2,15 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Papa from 'papaparse';
 
 import useBEMNaming from "../../../../../common/useBEMNaming";
-import sampleCsv from '../../../../../resources/taskSample/tableEditing.csv'; 
 
 import "./CsvPreview.scss";
 
 const columnLimit = 10;
 
 export default function CsvPreview(props) {
-    const url = props.url;
-    console.log('csvPreview url', url)
+    const csvUrl = props.url;
 
     const { getElement, getBlock } = useBEMNaming('csv-preview');
 
@@ -24,36 +22,23 @@ export default function CsvPreview(props) {
         dynamicTyping: true,
         preview: 10,  // Only parse (and display) the first 10 rows of the csv file
         complete: function(results) {
-            console.log('results', results);
             const { errors, meta, data } = results;
+            const fields = meta.fields;
 
+            setCsvHeaders(fields)
+            setCsvData(data);
+            setIsTruncated(meta.truncated || (fields.length > columnLimit));            
+            
             if (errors.length > 0) { 
                 // Per PapaParse documentation, errors don't necessarily mean that parsing failed
                 // https://www.papaparse.com/docs#errors
-            }
-
-            const fields = meta.fields;
-            setCsvHeaders(fields)
-
-            // console.log('data: ', data)
-            setCsvData(data);
-
-            setIsTruncated(meta.truncated || (fields.length > columnLimit));            
+            }        
         }
     }    
 
     useEffect(() => {
-        // console.log('samplecsv: ', sampleCsv)
-        // Papa.parse(sampleCsv, config);
-
-        console.log('urlcsv', url)
-        Papa.parse(url, config);
-    }, [])
-
-    useEffect(() => {
-        console.log('csvHeaders', csvHeaders);
-        console.log('csvData', csvData)
-    }, [csvData])
+        Papa.parse(csvUrl, config);
+    }, []);
 
     return (
         <div className={getBlock()}>
@@ -61,7 +46,6 @@ export default function CsvPreview(props) {
                 { csvData.length > 0 ? (
                     <div className={getElement("table")}>
                         <div className={getElement("header")}>
-                            {/* { Object.keys(csvData[0]).map((header, index) => { */}
                             { csvHeaders.map((header, index) => {
                                 if (index < columnLimit) {
                                     return (
@@ -70,14 +54,12 @@ export default function CsvPreview(props) {
                                         </div>
                                     )
                                 }
-
                             })}
                         </div>
                         { csvData.map((item, rowIndex) => {
                             return (
                                 <div className={getElement("row")} key={`row-${rowIndex}`}>
                                     { Object.entries(item).map(([key, val], colIndex) => {
-                                        // console.log(val)
                                         if (colIndex < columnLimit) {
                                             const cellText = !(val instanceof Date) ? val : val.toDateString();
                                             return (
@@ -92,14 +74,10 @@ export default function CsvPreview(props) {
                                                         </div>
                                                     </div>
                                             )
-                                        }
-
-                                        })
+                                        }})
                                     }
                                 </div>
-
                             )
-                            
                         })}
                         { isTruncated && (
                             <div className={getElement("row")}>
