@@ -12,11 +12,7 @@ const defaultProps = {
   onBackClicked: () => { },
 };
 
-const inputTypes = {
-  image: "Image",
-  audio: "Audio",
-  text: "Text",
-};
+
 export default function MultiInputPreview(givenProps) {
   const props = { ...defaultProps, ...givenProps };
   const { getBlock, getElement } = useBEMNaming(props.className);
@@ -45,6 +41,7 @@ export default function MultiInputPreview(givenProps) {
           />
         );
       case TaskInputTypes.Audio:
+      case TaskInputTypes.Csv:
       default:
         return (
           <p className={getElement("error")}>Unable to display input</p>

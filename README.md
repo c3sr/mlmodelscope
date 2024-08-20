@@ -85,32 +85,54 @@ The project is structured as follows:
 
 ## Recommended Workflow for creating new Tasks (WIP)
 - Add the task name to `TaskIDs.js`. Use camelcase for the variable and snakecase for the string
+
+- Create a new `Task` in `Task.js`
+  - Search svgrepo.com for a suitable icon and add it to the `icons` folder (see below for more instructions)
+  - Add the new task to:
+    - `getStaticTasks`
+    - `getDefaultModel`
+      -  Open `DefaultModels.js` and copy/paste one of the existing models (editing where appropriate)
+    - `getSampleOutput` 
+      - Return the `Test[Task Name]Output` that you created in `testData` (see next bullet point)  
+
 - Make a new directory in `Outputs` and create:
   - `testData` subdirectory
     - `testTaskNameOutput.js`
   - `TaskNameOutput.js`
   - `TaskName.stories.js`
   - `TaskName.scss`
-- Create a new `Task` in `Task.js`
-  - Search svgrepo.com for a suitable icon and add it to the `icons` folder (see below for more instructions)
-  - Add the new task to:
-    - `getStaticTask`
-    - `getDefaultModel`
-      -  Open `DefaultModels.js` and copy/paste one of the existing models (editing where appropriate)
-    - `getSampleOutput` 
-      - Return the `Test[Task Name]Output` that you created in `testData` above 
-      - Return the `Test[Task Name]Output` that you created in `testData` above 
-    - `getStaticTasks`
+
 - Create a new story for the task in `QuickInput.stories.js`
-- If the user is able to upload files for this task, add the task to `UppyFileTypeCheckerPlugin`
-- Add the new task to `ModelDetailPage` in `getSampleInputs` and `getInputType`
-- If the task requires new input types, you will need to add those
+
+- If the task requires new input type(s), you will need to add those:
   - Add the new input type to `TaskInputTypes` and `QuickInputType`
-  - Update `SampleInputsTab` as necessary
+  - Open `useQuickInputControl.js` 
+    - Update `getInputTabType` and `getUploadTabType` with the new `QuickInputType`
+    - Create a new `[InputType]InputTab` file
+      - You can look at the closed/merged Pull Requests for tasks like Table Editing or  Audio to Text for examples of new Input Tabs.
+    - You can temporarily switch the default state for `selectedTab` to the index of your new tab, so that you don't need to repeatedly switch tabs through page refreshes
+  - Update `SampleInputsTab`:
+    - Open `sampleImages.js` and add `Sample[TaskName]Inputs`. If your task is using `useMultiInput` then you will need to make a parent array, and then for each input type another array of sample input objects.
+    - Add the new input type to `makeSampleInput`
+    - Create a `makeSample[input type]Input` function
+    - Add the new input type with appropriate text to `makeTaskTitle`
+    - Update the `SampleInputsTab.scss` file with styling for what the selected/unselected states of the new input type should look like
   - Update `UploadInputsTab` as necessary
+    - If the user is able to upload files for this task, add the task ID to `getAllowedFileTypes` in `UppyFileTypeCheckerPlugin` so that Uppy will only allow the correct file types to be selected/sent to the server
   - Update `URLInputsTab` as necessary
     - Be sure to read the `IMPORTANT` comment before editing the inputs
+      - There are multiple paths in the render function depending on if your input is a `useMultipleInput`, `multiple`, etc. - if you change one, you will likely need to update all of them.
+      ...WIP?
+
+- Add the new task to `ModelDetailPage` in `getSampleInputs` and `getInputType`
+
+- If you haven't already done so, create the various `Output` files above, then:
+  - Update `QuickOutput` with your new Output
+    - In the `makeOutput` function, add a new case statement for your new Output
+      - Generally you will only need to pass through the `trialOutput` and `onBackClicked` but if you need to be able to re-run the trial on the same page (for example with Conversations) then you would also add a prop here for `runTrial`.
+
 - ...to be continued
+
 - Additional Notes:
   - To test the upload dashboard in storybook, open `useUploadInputControl` and:
     - Find the text `COMMENT THIS OUT BEFORE COMMITTING` and uncomment it.

@@ -6,7 +6,7 @@ import CanvasInput from '../CanvasInput/CanvasInput';
 
 const URLInputPreview = (props) => {
     const { getBlock, getElement } = useBEMNaming("url-inputs-preview");
-    const { task, index } = props
+    const { task, index } = props;
 
     const inputType = task.useMultiInput ? task.inputs[index].inputType : task.inputType;
 

@@ -27,6 +27,7 @@ import {
   textToImage,
   audioToAudio,
   videoClassification,
+  tableEditing
 } from "../../../helpers/TaskIDs";
 import ObjectDetection from "./Outputs/ObjectDetection/ObjectDetection";
 import ImageEnhancement from "./Outputs/ImageEnhancement/ImageEnhancement";
@@ -53,7 +54,8 @@ import TextToAudioOutput from "./Outputs/TextToAudio/TextToAudioOutput";
 import AudioClassificationOutput from "./Outputs/AudioClassification/AudioClassificationOutput";
 import AudioToAudioOutput from "./Outputs/AudioToAudio/AudioToAudioOutput";
 import VideoClassificationOutput from "./Outputs/VideoClassification/VideoClassificationOutput";
-// import MultiInputPreview from "./MultiInputPreview";
+import TableEditingOutput from "./Outputs/TableEditing/TableEditingOutput";
+
 
 const defaultProps = {
   className: "quick-output",
@@ -67,8 +69,6 @@ const defaultProps = {
 export default function QuickOutput(givenProps) {
   const props = { ...defaultProps, ...givenProps };
   const { getElement, getBlock } = useBEMNaming(props.className);
-
-  console.log('QuickOutput props', props);
 
   const preview = props?.trialOutput?.inputs.length > 1 ? <MultiInputPreview inputs={props.trialOutput.inputs} onBackClicked={props.onBackClicked} /> : (
     <InputPreview
@@ -256,6 +256,13 @@ export default function QuickOutput(givenProps) {
               />
             </>
           );
+        case tableEditing:
+          return (
+            <TableEditingOutput 
+              onBackClicked={props.onBackClicked}
+              trial={props.trialOutput}              
+            />
+          )
         default:
           return (
             <>

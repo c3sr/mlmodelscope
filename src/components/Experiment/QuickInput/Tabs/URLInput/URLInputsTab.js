@@ -15,7 +15,7 @@ export default function URLInputsTab(props) {
 
   const { urlChanged, getUrlValidity, task, values } = useURLInputControl(props);
 
-  const taskName = task.id === maskGeneration ? QuickInputType.Image : (task.useMultiInput ? (Task.getStaticTask(props.task).inputs[props.inputIndex]?.inputType) : Task.getStaticTask(props.task).inputType || '').toLowerCase();
+  const taskName = task.id === maskGeneration ? QuickInputType.Image : (task.useMultiInput ? (task.inputs[props.inputIndex]?.inputType) : task.inputType || '').toLowerCase();
   const longTaskName = "aeiou".includes(taskName[0]?.toLowerCase()) ? `an ${taskName}` : `a ${taskName}`;
   // Note: Currently using both new and old way of handling inputs but should refactor in the future
   const inputText = task.inputText || props.input.inputText;
