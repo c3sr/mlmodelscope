@@ -111,6 +111,7 @@ export default function SampleInputsTab(props) {
         return (
             <button onClick={() => onSampleInputClickPreview(index, url)} key={index} className={getElement(getInputClassName(url))}>
                 <video src={url.src} alt={url.alt} autoPlay muted={true} loop className={getElement("sample-video-content")} />
+                <URLInputPreview task={task} index={index} inputPreviewProps={props.inputPreviewProps} inputType={TaskInputTypes.Video} selectedInputs={props.values} />
             </button>
         );
     }
@@ -146,9 +147,6 @@ export default function SampleInputsTab(props) {
             <div className={getElement('list')}>
                 {sampleInputs.map(makeSampleInput)}
             </div>
-            {sampleInputType === QuickInputType.Video &&
-                <URLInputPreview inputPreviewProps={props.inputPreviewProps} inputType={TaskInputTypes.Video} selectedInputs={props.values} />
-            }
         </div>
     );
 
