@@ -22,7 +22,7 @@ export default function CsvInputsTab(props) {
 
     const { getElement, getBlock } = useBEMNaming('csv-inputs');
 
-    const taskName = (task.useMultiInput ? (Task.getStaticTask(props.task).inputs[props.inputIndex]?.inputType) : Task.getStaticTask(props.task).inputType || '').toLowerCase();
+    const taskName = (task.useMultiInput ? (task.inputs[props.inputIndex]?.inputType) : task.inputType || '').toLowerCase();
     // Note: Currently using both new and old way of handling inputs but should refactor in the future
     const inputText = task.inputText || props.input.inputText;
     
