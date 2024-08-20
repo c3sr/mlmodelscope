@@ -97,7 +97,6 @@ import {
   SampleAudioClassificationInputs,
   SampleVideoClassificationInputs,
   SampleTableEditingInputs,
-  // SampleTableEditingInputs
 } from "./sampleImages";
 import { TestImageClassificationResult } from "../components/Experiment/QuickOutput/Outputs/Classification/Features";
 import { TestImageEnhancementData } from "../components/Experiment/QuickOutput/Outputs/ImageEnhancement/testData/TestFeatures";
