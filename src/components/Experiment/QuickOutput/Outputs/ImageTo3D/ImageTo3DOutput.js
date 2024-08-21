@@ -12,6 +12,8 @@ import Rating from "../Classification/Rating";
 import OutputDuration from "../_Common/components/OutputDuration";
 import OBJComponent from "./OBJComponent";
 
+import directions from "../../../../../resources/img/3d-model-guide.png";
+
 import "./ImageTo3D.scss";
 
 // Uncomment these to try out other 3D examples
@@ -53,9 +55,10 @@ export default function ImageTo3DOutput(props) {
                     <p className={getElement("output-subtitle")}>
                         {task.outputText}
                     </p>
-                    <p className={getElement("output-help-text")}>
-                        Hover over the model and scroll to zoom, click-and-hold to rotate, right-click-and-hold to drag
-                    </p>                        
+                    <div className={getElement('output-model-controls')}>
+                        <img src={directions} alt="guide for viewing the 3d model" />
+                    </div>     
+
                     <div className={getElement("output-model")}>
                         <Canvas>
                             {/* Very basic 3D Box that can be rotated with OrbitControls */}

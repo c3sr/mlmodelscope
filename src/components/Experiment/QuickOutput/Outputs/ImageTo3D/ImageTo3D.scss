@@ -72,18 +72,20 @@
         &-subtitle {
             @include body;
             border-bottom: 1px solid $smokeDarkest;
-            margin-bottom: 24px;
             padding-bottom: 16px;
         
             @include mobileWidth-lg {
               @include bodySmall;
             }
         }   
-        &-help-text {
-            @include bodySmall;
-            font-size: 14px;
-            margin-bottom: 12px;
-        }        
+        &-model-controls {
+            display: flex;
+            justify-content: center;
+            
+            img {
+                max-width: 300px;
+            }
+        }     
         &-model {
             border: 1px solid $smokeDarkest;
             border-radius: 5px;
