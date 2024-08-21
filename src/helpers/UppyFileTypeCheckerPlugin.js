@@ -53,7 +53,7 @@ export const getAllowedFileTypes = (task) => {
       // Some file types are unfortunately not supported by the file checker
       return {
         fileTypes: ['*'],
-        mimeTypes: '*/*'
+        mimeTypes: ['*/*']
       };
   }
 };
@@ -73,6 +73,10 @@ export default class UppyFileTypeCheckerPlugin extends BasePlugin {
   }
 
   confirmFileType = async (fileIDs) => {
+    if (Array.isArray(this.allowedFileTypes) && this.allowedFileTypes[0] === '*') {
+      return Promise.resolve();
+    }
+
     // Note: This will break if we ever allow multiple uploads
     const file = this.uppy.getFile(fileIDs[0]);
     const blob = new Blob([file.data]);
