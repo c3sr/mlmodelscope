@@ -5,6 +5,7 @@ import { ReactComponent as DocumentIcon } from "../../../resources/icons/icon-do
 
 import "./MultiInput.scss";
 import { TaskInputTypes } from "../../../helpers/TaskInputTypes";
+import { QuickInputType } from "../QuickInput/quickInputType";
 
 const defaultProps = {
   className: "multi-input-preview",
@@ -19,11 +20,11 @@ export default function MultiInputPreview(givenProps) {
 
   const getInputs = (input) => {
     switch (input.inputType) {
-      case TaskInputTypes.Text:
+      case QuickInputType.Text:
         return (
           <p className={getElement("text")}>{input.src}</p>
         );
-      case TaskInputTypes.Document:
+      case QuickInputType.Document:
         return (
           <button className={getElement("document")}>
             <DocumentIcon className='icon' />
@@ -32,7 +33,7 @@ export default function MultiInputPreview(givenProps) {
             </a>
           </button>
         );
-      case TaskInputTypes.Image:
+      case QuickInputType.Image:
         return (
           <img
             className={getElement("image")}
@@ -40,8 +41,8 @@ export default function MultiInputPreview(givenProps) {
             alt={input.description ?? "Input Image"}
           />
         );
-      case TaskInputTypes.Audio:
-      case TaskInputTypes.Csv:
+      case QuickInputType.Audio:
+      case QuickInputType.Csv:
       default:
         return (
           <p className={getElement("error")}>Unable to display input</p>

@@ -229,7 +229,7 @@ export const SampleImageToTextInputs = [
 ];
 
 export const SampleTextTo3DInputs = [
-  "a cool drum set"
+  { src: "a cool drum set" }
 ];
 
 export const SampleTextClassificationInputs = [

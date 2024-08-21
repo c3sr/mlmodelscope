@@ -122,7 +122,6 @@ The project is structured as follows:
   - Update `URLInputsTab` as necessary
     - Be sure to read the `IMPORTANT` comment before editing the inputs
       - There are multiple paths in the render function depending on if your input is a `useMultipleInput`, `multiple`, etc. - if you change one, you will likely need to update all of them.
-      ...WIP?
 
 - Add the new task to `ModelDetailPage` in `getSampleInputs` and `getInputType`
 
@@ -130,8 +129,6 @@ The project is structured as follows:
   - Update `QuickOutput` with your new Output
     - In the `makeOutput` function, add a new case statement for your new Output
       - Generally you will only need to pass through the `trialOutput` and `onBackClicked` but if you need to be able to re-run the trial on the same page (for example with Conversations) then you would also add a prop here for `runTrial`.
-
-- ...to be continued
 
 - Additional Notes:
   - To test the upload dashboard in storybook, open `useUploadInputControl` and:
