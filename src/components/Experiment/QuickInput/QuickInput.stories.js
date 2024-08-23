@@ -45,7 +45,11 @@ import {
   SampleAudioClassificationInputs,
   SampleVideoClassificationInputs,
   SampleMaskGenerationInputs,
-  SampleTableEditingInputs
+  SampleTableEditingInputs,
+  SampleTextToAudio,
+  SampleTextConversationInputs,
+  SampleTextToCodeInputs,
+  SampleTextInputs
 } from "../../../helpers/sampleImages";
 
 import { TaskInputTypes } from "../../../helpers/TaskInputTypes";
@@ -132,11 +136,7 @@ MaskGeneration.args = {
 
 export const Text = Template.bind({});
 Text.args = {
-  sampleInputs: [
-    "The quick brown fox jumps over the lazy dog",
-    "The five boxing wizards jump quickly",
-    "look at the dog",
-  ],
+  sampleInputs: SampleTextInputs,
   model: {
     output: {
       type: textToText,
@@ -146,11 +146,7 @@ Text.args = {
 
 export const TextToCode = Template.bind({});
 TextToCode.args = {
-  sampleInputs: [
-    "The quick brown fox jumps over the lazy dog",
-    "The five boxing wizards jump quickly",
-    "look at the dog",
-  ],
+  sampleInputs: SampleTextToCodeInputs,
   model: {
     output: {
       type: textToCode,
@@ -186,9 +182,7 @@ AudioToText.args = {
 
 export const TextToAudio = Template.bind({});
 TextToAudio.args = {
-  sampleInputs: [
-    "a chill song with influences from lofi, chillstep and downtempo",
-  ],
+  sampleInputs: SampleTextToAudio,
   model: {
     output: {
       type: textToAudio,
@@ -198,11 +192,7 @@ TextToAudio.args = {
 
 export const TextConversation = Template.bind({});
 TextConversation.args = {
-  sampleInputs: [
-    "Show me a recipe for pizza",
-    "What is the weather tomorrow?",
-    "What is the meaning of life?",
-  ],
+  sampleInputs: SampleTextConversationInputs,
   model: {
     output: {
       type: textConversation,

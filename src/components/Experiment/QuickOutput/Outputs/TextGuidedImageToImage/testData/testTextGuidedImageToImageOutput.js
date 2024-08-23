@@ -13,7 +13,7 @@ export const TestTextGuidedImageToImage = {
             inputType: "image"
         },
         {
-            description: "Hello World",
+            src: "Hello World",
             inputType: "text"
         }
     ],

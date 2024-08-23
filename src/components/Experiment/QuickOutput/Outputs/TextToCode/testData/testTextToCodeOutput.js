@@ -3,7 +3,7 @@ import { textToCode } from "../../../../../../helpers/TaskIDs";
 export const TestTextToCodeOutput = {
   id: "9d52d414-cc78-4cd5-a292-afdc0b9332ec",
   inputs: [
-    "write an iterator that squares each element of a list of numbers and returns an iterator of the squares.",
+    { src: "write an iterator that squares each element of a list of numbers and returns an iterator of the squares." },
   ],
   completed_at: "2022-06-03T18:17:14.513854Z",
   results: {

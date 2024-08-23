@@ -74,7 +74,7 @@ export default function SampleInputsTab(props) {
     function makeSampleTextInput(text, index) {
         return (
             <button onClick={() => { selectInput(index); }} key={index} className={getElement(getInputClassName(text))}>
-                <div>{text}</div>
+                <div>{text.src}</div>
             </button>
         );
     }

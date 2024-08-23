@@ -97,6 +97,7 @@ import {
   SampleAudioClassificationInputs,
   SampleVideoClassificationInputs,
   SampleTableEditingInputs,
+  SampleTextToAudio,
 } from "./sampleImages";
 import { TestImageClassificationResult } from "../components/Experiment/QuickOutput/Outputs/Classification/Features";
 import { TestImageEnhancementData } from "../components/Experiment/QuickOutput/Outputs/ImageEnhancement/testData/TestFeatures";
@@ -304,7 +305,7 @@ export default class Task {
     inputText: "See how well this model can generate audio from inputted text.",
     outputText: "Play the file below to listen to the generated audio file.",
     icon: (props) => <TextToAudio {...props} />,
-    sampleInputs: [],
+    sampleInputs: SampleTextToAudio,
     tutorialDescription:
       "Text to audio models bring your written words to life.",
     inputType: TaskInputTypes.Text,

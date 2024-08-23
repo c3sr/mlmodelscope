@@ -103,6 +103,7 @@ The project is structured as follows:
   - `TaskName.scss`
 
 - Create a new story for the task in `QuickInput.stories.js`
+  - For the sample inputs, you'll create them below. Come back and import them here once you have.
 
 - If the task requires new input type(s), you will need to add those:
   - Add the new input type to `TaskInputTypes` and `QuickInputType`
@@ -113,6 +114,7 @@ The project is structured as follows:
     - You can temporarily switch the default state for `selectedTab` to the index of your new tab, so that you don't need to repeatedly switch tabs through page refreshes
   - Update `SampleInputsTab`:
     - Open `sampleImages.js` and add `Sample[TaskName]Inputs`. If your task is using `useMultiInput` then you will need to make a parent array, and then for each input type another array of sample input objects.
+    - Go back to `QuickInput.stories.js` and update the sample inputs
     - Add the new input type to `makeSampleInput`
     - Create a `makeSample[input type]Input` function
     - Add the new input type with appropriate text to `makeTaskTitle`

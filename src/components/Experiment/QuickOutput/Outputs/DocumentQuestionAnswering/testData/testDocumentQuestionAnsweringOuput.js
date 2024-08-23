@@ -11,7 +11,7 @@ export const TestDocumentQuestionAnswering = {
             inputType:"document"
         },
         {
-            description: "Hello  World",
+            src: "Hello World",
             inputType:"text"
         }
     ],
