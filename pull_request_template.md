@@ -7,6 +7,6 @@
 - [ ] Reviewed and approved by a peer
 - [ ] Squash and merge changes
 
-#### Notes:
+#### Notes (can delete these lines before creating PR):
 - As much as possible, try to stick to one medium/large task per pull request
 - Base repository/branch can be changed in the Repository Settings, and then you can remove the first two checkboxes
