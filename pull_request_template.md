@@ -1,0 +1,12 @@
+#### Pull Request Checklist
+- [ ] Base Repository changed to `c3sr/mlmodelscope`
+- [ ] Base changed from `master` to `develop`
+- [ ] Pull Request name accurately reflects the work contained within
+- [ ] Bulleted list of changes included in the Pull Request
+- [ ] Screenshots/gifs of visual changes, if necessary
+- [ ] Reviewed and approved by a peer
+- [ ] Squash and merge changes
+
+#### Notes:
+- As much as possible, try to stick to one medium/large task per pull request
+- Base repository/branch can be changed in the Repository Settings, and then you can remove the first two checkboxes
