@@ -5,7 +5,7 @@ export const TestTextToAudioOutputGeneratedToken = {
 export const TestTextToAudioOutput = {
     id: "sampletesttexttoaudiooutputidhere",
     inputs: [
-        'a chill song with influences from lofi, chillstep and downtempo',
+        { src: 'a chill song with influences from lofi, chillstep and downtempo' },
     ],
     completed_at: "2023-06-03T18:17:14.513854Z",
     results: { 
