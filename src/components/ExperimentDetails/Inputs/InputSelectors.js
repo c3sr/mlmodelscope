@@ -15,7 +15,7 @@ export default function InputSelectors(props) {
         <img
           alt={`Input ${index + 1}`}
           className={getElement("input-selector-img")}
-          src={input.src}
+          src={input}
         />
         Input {index + 1}
       </>
@@ -35,10 +35,10 @@ export default function InputSelectors(props) {
       </>
     );
   };
-
+  console.log(props.inputs?.[0]);
   return (
     <div className={getBlock()}>
-      {props.inputs.map((input, idx) => (
+      {props.inputs?.[0] && props.inputs.map((input, idx) => (
         <div
           key={idx}
           className={getElement(

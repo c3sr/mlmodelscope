@@ -3,7 +3,6 @@ import React from "react";
 
 export function InputPreviewImage(props) {
   const { getElement } = useBEMNaming("input-preview");
-
   return (
     <button
       className={getElement(
