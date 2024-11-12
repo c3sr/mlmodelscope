@@ -15,13 +15,20 @@
 
 ### First-time setup
 
-1. Install dependencies
+1. Clone the repository
+
+    ```bash
+    git clone https://github.com/c3sr/mlmodelscope.git
+    cd mlmodelscope
+    ```
+
+2. Install dependencies
 
     ```bash
     npm install
     ```
 
-2. Copy `.env.example` to `.env`. The default values in `.env.example` should be suitable for local development.
+3. Copy `.env.example` to `.env`. The default values in `.env.example` should be suitable for local development.
 
     ```bash
     cp .env.example .env
@@ -33,7 +40,7 @@ In order to run the app completely, make sure the backend services are running (
 following command:
 
 ```bash
-npm start
+npm run start
 ```
 
 This will start the frontend app in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in
