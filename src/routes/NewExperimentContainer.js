@@ -36,7 +36,7 @@ export default function NewExperimentContainer(props) {
 
   const fabricateExperiment = () => ({
     id: "i'm not real",
-    trials: models.map(fabricateModel)
+    // trials: models.map(fabricateModel)
   });
 
   const runModels = async (inputs) => {

@@ -24,7 +24,7 @@ export default function ExperimentDetailPage(props) {
     return "33%";
   };
 
-  let trialComponents = props.experiment.trials.map((trial, trialIndex) => (
+  let trialComponents = props.experiment.trials?.map((trial, trialIndex) => (
     <div
       style={{ width: calculateCardWidth() }}
       key={trialIndex}

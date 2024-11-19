@@ -55,7 +55,7 @@ export default function ExperimentDetailContainer(props) {
     }, []);
 
     const getSelectedTrials = () => {
-        let filtered = state.trials.filter(trial => trial.inputs[0] === state.selectedInput);
+        let filtered = state?.trials?.filter(trial => trial.inputs[0] === state.selectedInput);
 
         const sortingOptions = [
             (a) => a.model.name,
@@ -65,7 +65,7 @@ export default function ExperimentDetailContainer(props) {
         return MultipleSort(filtered, sortingOptions);
     };
     const getInputs = () => {
-        return state.trials.filter((t, i, a) => a.findIndex(tr => tr.inputs[0].src === t.inputs[0].src) === i).map(trial => trial.inputs[0].src);
+        return state?.trials?.filter((t, i, a) => a.findIndex(tr => tr.inputs[0].src === t.inputs[0].src) === i).map(trial => trial.inputs[0].src);
     };
     const makeExperiment = () => {
         return {

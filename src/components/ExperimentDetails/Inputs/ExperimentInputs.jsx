@@ -27,9 +27,9 @@ export const ExperimentInputs = (props) => {
     };
   }, [isOpen]);
 
-  const selectedIndex = props.inputs.indexOf(props.selectedInput);
+  const selectedIndex = props.selectedInput && props.inputs.indexOf(props.selectedInput);
 
-  const hasNoInputs = props.inputs.length === 0 || props.inputs[0] === "";
+  const hasNoInputs = !props.inputs || props.inputs.length === 0 || props.inputs[0] === "";
 
   const handleSelect = (input) => {
     setIsOpen(false);
