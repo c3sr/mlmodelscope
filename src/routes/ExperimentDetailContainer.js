@@ -55,7 +55,9 @@ export default function ExperimentDetailContainer(props) {
     }, []);
 
     const getSelectedTrials = () => {
-        let filtered = state?.trials?.filter(trial => trial.inputs[0] === state.selectedInput);
+        let filtered = state?.trials?.filter(trial => {
+            return trial.inputs[0].src === state.selectedInput.src;
+        });
 
         const sortingOptions = [
             (a) => a.model.name,
@@ -75,6 +77,7 @@ export default function ExperimentDetailContainer(props) {
     };
     const updateInput = (newInput) => setState({ selectedInput: newInput });
     const getTrials = (experiment) => {
+        console.log("getTrials", experiment);
         experiment.trials.forEach(trial => {
             addTrial(trial.id);
         });
@@ -133,6 +136,7 @@ export default function ExperimentDetailContainer(props) {
                             trials.push(trialOutput);
                         } else {
                             trials[currentIndex] = trialOutput;
+                            console.log("Trial updated", trials);
                         }
 
                         setState({ trials, selectedInput: state.selectedInput || trialOutput.inputs[0] });
