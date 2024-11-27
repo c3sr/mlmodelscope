@@ -13,7 +13,7 @@ export function InputPreviewImage(props) {
       <img
         className={getElement(`selection-btn-img`)}
         alt={"selection"}
-        src={props.selectedInput.src}
+        src={props.selectedInput}
       />{" "}
       Input {props.selectedIndex + 1}
     </button>

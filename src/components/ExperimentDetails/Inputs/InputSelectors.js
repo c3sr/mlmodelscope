@@ -35,7 +35,6 @@ export default function InputSelectors(props) {
       </>
     );
   };
-  console.log(props.inputs?.[0]);
   return (
     <div className={getBlock()}>
       {props.inputs?.[0] && props.inputs.map((input, idx) => (
@@ -47,7 +46,7 @@ export default function InputSelectors(props) {
           )}
         >
           <button
-            onClick={() => props.handleSelect(input.src)}
+            onClick={() => props.handleSelect(input)}
             className={getElement("input-selector-btn-content")}
           >
             {getInputPreviewContent(input, idx)}

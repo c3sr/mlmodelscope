@@ -275,7 +275,7 @@ export default function ExperimentDetailContainer(props) {
             deleteInput={deleteInput}
             modalType={state.modalType}
             showAddInputModal={showAddInputModal}
-            selectedInput={state.selectedInput}
+            selectedInput={state.selectedInput?.src ?? state.selectedInput} // TODO: Fix this hacky workaround
             showDeleteInputModal={showDeleteInputModal}
             task={getTask()}
         />
