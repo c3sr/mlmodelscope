@@ -56,7 +56,7 @@ export default function ExperimentDetailContainer(props) {
 
     const getSelectedTrials = () => {
         let filtered = state?.trials?.filter(trial => {
-            return trial.inputs[0].src === state.selectedInput.src;
+            return trial.inputs[0].src === (state.selectedInput?.src ?? state.selectedInput);
         });
 
         const sortingOptions = [
