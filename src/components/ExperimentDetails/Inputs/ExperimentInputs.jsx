@@ -31,9 +31,9 @@ export const ExperimentInputs = (props) => {
 
   const hasNoInputs = !props.inputs || props.inputs.length === 0 || props.inputs[0] === "";
 
-  const handleSelect = (input) => {
+  const handleSelect = (input, idx) => {
     setIsOpen(false);
-    props.selectInput(input);
+    props.selectInput(input, idx);
   };
 
   if (hasNoInputs)

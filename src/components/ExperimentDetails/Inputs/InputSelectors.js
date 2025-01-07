@@ -46,7 +46,7 @@ export default function InputSelectors(props) {
           )}
         >
           <button
-            onClick={() => props.handleSelect(input)}
+            onClick={() => props.handleSelect(input, idx)}
             className={getElement("input-selector-btn-content")}
           >
             {getInputPreviewContent(input, idx)}

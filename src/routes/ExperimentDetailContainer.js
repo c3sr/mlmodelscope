@@ -77,7 +77,6 @@ export default function ExperimentDetailContainer(props) {
     };
     const updateInput = (newInput) => setState({ selectedInput: newInput });
     const getTrials = (experiment) => {
-        console.log("getTrials", experiment);
         experiment.trials.forEach(trial => {
             addTrial(trial.id);
         });
@@ -136,7 +135,6 @@ export default function ExperimentDetailContainer(props) {
                             trials.push(trialOutput);
                         } else {
                             trials[currentIndex] = trialOutput;
-                            console.log("Trial updated", trials);
                         }
 
                         setState({ trials, selectedInput: state.selectedInput || trialOutput.inputs[0] });
@@ -152,9 +150,17 @@ export default function ExperimentDetailContainer(props) {
     };
     const addInput = async (input) => {
         let inputs = Array.isArray(input) ? input : [input];
+        const input_type = getTask().inputType;
+        if (inputs?.[0] && typeof inputs?.[0] === "object") {
+            inputs = Object.keys(inputs[0]).map(key => {
+                if (inputs[0][key] && inputs[0][key] != input_type)
+                    return ({ src: inputs[0][key], inputType: input_type });
 
+            });
+        }
+        inputs = inputs.filter(input => input);
         inputs = inputs.map(input => {
-            return ([{ src: (input?.[0] ?? input?.src), inputType: input.inputType }]);
+            return ([{ src: (input?.[0] ?? input?.src), inputType: input_type }]);
         });
 
         if (props.addInput) {
