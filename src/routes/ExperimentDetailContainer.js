@@ -5,6 +5,7 @@ import Task from "../helpers/Task";
 import { image_classification } from "../helpers/TaskIDs";
 import MultipleSort from "../helpers/MultipleSort";
 import { useParams } from "react-router-dom/dist";
+import { getTaskFromQueryString } from "../helpers/QueryParsers";
 
 
 export const ExperimentDetailModalTypes = {
@@ -22,6 +23,7 @@ let experimentSubscription = null;
 export default function ExperimentDetailContainer(props) {
     const api = GetApiHelper();
     const { experimentId } = useParams();
+    const task = getTaskFromQueryString(window.location.search);
 
     const [state, updateState] = useState({
         experiment: null,
@@ -37,11 +39,8 @@ export default function ExperimentDetailContainer(props) {
     };
 
 
-    const getTask = () => {
-        if (state.trials && state.trials.length > 0)
-            return Task.getStaticTask(state.trials[0].model.output.type);
-        return Task.getStaticTask(image_classification);
-    };
+    const getTask = () => Task.getStaticTask(task);
+
 
     useEffect(() => {
         getExperiment();

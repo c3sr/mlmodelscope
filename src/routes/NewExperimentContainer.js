@@ -55,7 +55,7 @@ export default function NewExperimentContainer(props) {
 
     Promise.all(flattenedPromises).then(final => {
       if (history)
-        history(`/experiment/${experimentId}`);
+        history(`/experiment/${experimentId}/?task=${task}`);
     });
   };
 
