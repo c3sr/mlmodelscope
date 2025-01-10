@@ -123,7 +123,11 @@ export default function useQuickInputControl(props) {
       // Data to be sent to API
       if (typeof url !== 'object') {
         selectedData = [{ src: url, inputType: task.inputType }];
-      } else {
+      } else if (Array.isArray(url)) {
+        console.log('url', url);
+        selectedData = url.map(u => ({ inputType: task.inputType, src: u }));
+      }
+      else {
         selectedData = [{ inputType: task.inputType, ...url }];
       }
     }

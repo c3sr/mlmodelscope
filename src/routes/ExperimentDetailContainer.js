@@ -149,24 +149,21 @@ export default function ExperimentDetailContainer(props) {
     };
     const addInput = async (input) => {
         let inputs = Array.isArray(input) ? input : [input];
-        const input_type = getTask().inputType;
-        if (inputs?.[0] && typeof inputs?.[0] === "object") {
-            inputs = Object.keys(inputs[0]).map(key => {
-                if (inputs[0][key] && inputs[0][key] != input_type)
-                    return ({ src: inputs[0][key], inputType: input_type });
 
-            });
-        }
-        inputs = inputs.filter(input => input);
+        // formatting inputs to object format
         inputs = inputs.map(input => {
-            return ([{ src: (input?.[0] ?? input?.src), inputType: input_type }]);
+            return ({ src: input.src, inputType: input.inputType });
         });
+
+        // single input and multiple inputs have different formats
+        if (Array.isArray(getTask()?.inputs)) inputs = [inputs];
+        else
+            inputs = inputs.map(input => [input]);
 
         if (props.addInput) {
             props.addInput(inputs);
             return;
         }
-
 
         const models = getUniqueModels();
         const storedInputs = getInputs();
