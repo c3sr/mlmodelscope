@@ -11,7 +11,7 @@ export default function InputSelectors(props) {
     return (
       <>
         {props.task?.inputs?.length > 1 ?
-          <MultiInputPreview inputs={inputs} experimentInputPreview={true} />
+          <MultiInputPreview inputs={inputs} experimentInputPreview={true} className={getElement("input-preview")} />
           :
           <InputPreview
             input={inputs}
