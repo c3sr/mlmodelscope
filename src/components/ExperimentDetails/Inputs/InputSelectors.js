@@ -2,66 +2,59 @@ import React from "react";
 import { ReactComponent as DeleteIcon } from "../../../resources/icons/delete.svg";
 import "./InputSelectors.scss";
 import useBEMNaming from "../../../common/useBEMNaming";
-import { TaskInputTypes } from "../../../helpers/TaskInputTypes";
+import InputPreview from "../../Experiment/QuickOutput/InputPreview";
+import MultiInputPreview from "../../Experiment/QuickOutput/MultiInputPreview";
 
 export default function InputSelectors(props) {
   const { getBlock, getElement } = useBEMNaming("input-selector");
-
-  const getInputPreviewContent = (input, index) => {
-    if (props.task.inputType === TaskInputTypes.Text) return getTextInputPreviewContent(input, index);
-
+  const getInputPreviewContent = (inputs, index) => {
     return (
       <>
-        <img
-          alt={`Input ${index + 1}`}
-          className={getElement("input-selector-img")}
-          src={input}
-        />
+        {props.task?.inputs?.length > 1 ?
+          <MultiInputPreview inputs={inputs} experimentInputPreview={true} />
+          :
+          <InputPreview
+            input={inputs}
+            inputType={inputs.inputType.toLowerCase()}
+            experimentInputPreview={true}
+            className={getElement("input-preview")}
+          />
+        }
         Input {index + 1}
       </>
     );
   };
 
-  const getTextInputPreviewContent = (input, index) => {
-    let shortened = input.split(" ").slice(0, 5).join(" ");
-    shortened = shortened + (shortened.length < input.length ? "..." : "");
-
-    return (
-      <>
-        <div className={getElement("input-selector-text")}>
-          <div className={getElement("input-selector-text__text")}>{shortened}</div>
-          <div className={getElement("input-selector-text__label")}>Input {index + 1}</div>
-        </div>
-      </>
-    );
-  };
   return (
     <div className={getBlock()}>
-      {props.inputs?.[0] && props.inputs.map((input, idx) => (
-        <div
-          key={idx}
-          className={getElement(
-            `input-selector-btn ${idx === props.selectedIndex && "input-selector-btn-selected"
-            }`
-          )}
-        >
-          <button
-            onClick={() => props.handleSelect(input, idx)}
-            className={getElement("input-selector-btn-content")}
-          >
-            {getInputPreviewContent(input, idx)}
-          </button>
-          <button
-            onClick={() => props.showDeleteInputModal(input)}
+      <div className={getElement("input-selector-container")}>
+        {props.inputs && props.inputs.map((input, idx) => (
+          <div
+            key={idx}
             className={getElement(
-              `input-selector-delete ${idx === props.selectedIndex && "input-selector-delete-selected"
+              `input-selector-btn ${idx === props.selectedIndex && "input-selector-btn-selected"
               }`
             )}
           >
-            <DeleteIcon />
-          </button>
-        </div>
-      ))}
+            <button
+              onClick={() => props.handleSelect(input, idx)}
+              className={getElement("input-selector-btn-content")}
+            >
+
+              {getInputPreviewContent(input, idx)}
+            </button>
+            <button
+              onClick={() => props.showDeleteInputModal(input)}
+              className={getElement(
+                `input-selector-delete ${idx === props.selectedIndex && "input-selector-delete-selected"
+                }`
+              )}
+            >
+              <DeleteIcon />
+            </button>
+          </div>
+        ))}
+      </div>
       <div className={getElement("add-input-area")}>
         <button
           onClick={props.showAddInputModal}

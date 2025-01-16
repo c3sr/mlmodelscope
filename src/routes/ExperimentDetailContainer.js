@@ -54,10 +54,14 @@ export default function ExperimentDetailContainer(props) {
     }, []);
 
     const getSelectedTrials = () => {
-        let filtered = state?.trials?.filter(trial => {
-            return trial.inputs[0].src === (state.selectedInput?.src ?? state.selectedInput);
-        });
 
+        let filtered = state?.trials;
+        if (getTask()?.inputs?.length > 1)
+            filtered = filtered?.filter(trial => {
+                return trial.inputs === state.selectedInput;
+            });
+        else
+            filtered = filtered?.filter(trial => trial.inputs[0].src === state.selectedInput.src);
         const sortingOptions = [
             (a) => a.model.name,
             (a) => a.model.framework.name
@@ -66,7 +70,11 @@ export default function ExperimentDetailContainer(props) {
         return MultipleSort(filtered, sortingOptions);
     };
     const getInputs = () => {
-        return state?.trials?.filter((t, i, a) => a.findIndex(tr => tr.inputs[0].src === t.inputs[0].src) === i).map(trial => trial.inputs[0].src);
+        if (getTask()?.inputs?.length > 1)
+            return state?.trials?.map(trial => trial.inputs);
+        const allInputs = state?.trials?.map(trial => trial.inputs).flat();
+        const uniqueInputs = allInputs?.filter((input, i, a) => a.findIndex(t => t.src === input.src) === i);
+        return uniqueInputs;
     };
     const makeExperiment = () => {
         return {
@@ -136,7 +144,7 @@ export default function ExperimentDetailContainer(props) {
                             trials[currentIndex] = trialOutput;
                         }
 
-                        setState({ trials, selectedInput: state.selectedInput || trialOutput.inputs[0] });
+                        setState({ trials, selectedInput: state.selectedInput || getTask()?.inputs?.length > 1 ? trialOutput.inputs : trialOutput.inputs[0] });
                     }
 
                 }
@@ -156,7 +164,8 @@ export default function ExperimentDetailContainer(props) {
         });
 
         // single input and multiple inputs have different formats
-        if (Array.isArray(getTask()?.inputs)) inputs = [inputs];
+        if (getTask()?.inputs?.length > 1)
+            inputs = [inputs];
         else
             inputs = inputs.map(input => [input]);
 
@@ -277,9 +286,10 @@ export default function ExperimentDetailContainer(props) {
             deleteInput={deleteInput}
             modalType={state.modalType}
             showAddInputModal={showAddInputModal}
-            selectedInput={state.selectedInput?.src ?? state.selectedInput} // TODO: Fix this hacky workaround
+            selectedInput={state.selectedInput}
             showDeleteInputModal={showDeleteInputModal}
             task={getTask()}
+            hasMultipleInputs={getTask()?.inputs?.length > 1}
         />
     );
-}
+};

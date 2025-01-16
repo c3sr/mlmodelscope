@@ -1,9 +1,7 @@
 import useBEMNaming from "../../../common/useBEMNaming";
 import React, { useEffect, useRef, useState } from "react";
 import "./ExperimentInputs.scss";
-import Button from "../../Buttons/Button";
-import NoInputs from "./NoInputs";
-import InputPreview from "./InputPreview";
+import Button from "../../Buttons/Button"; import NoInputs from "./NoInputs";
 import InputSelectors from "./InputSelectors";
 
 export const ExperimentInputs = (props) => {
@@ -27,7 +25,7 @@ export const ExperimentInputs = (props) => {
     };
   }, [isOpen]);
 
-  const selectedIndex = props.selectedInput && props.inputs.indexOf(props.selectedInput);
+  const selectedIndex = props.selectedInput && (props.hasMultipleInputs ? props.inputs.indexOf(props.selectedInput) : props.inputs.findIndex(input => input.src === props.selectedInput.src));
 
   const hasNoInputs = !props.inputs || props.inputs.length === 0 || props.inputs[0] === "";
 
@@ -42,33 +40,27 @@ export const ExperimentInputs = (props) => {
   return (
     <div className={getBlock()}>
       <div ref={handlerRef} className={getElement("selection-area")}>
-        <InputPreview
-          toggleOpen={() => setIsOpen(!isOpen)}
-          selectedInput={props.selectedInput}
+
+        <Button
+          content={"Add model"}
+          icon="plus"
+          isPrimary={false}
+          isSmall={false}
+          link={props.getAddModelsLink(props)}
+        />
+
+        <InputSelectors
+          inputs={props.inputs}
           selectedIndex={selectedIndex}
-          isOpen={isOpen}
+          handleSelect={handleSelect}
+          showAddInputModal={props.showAddInputModal}
+          showDeleteInputModal={props.showDeleteInputModal}
           task={props.task}
         />
 
-        {isOpen && (
-          <InputSelectors
-            inputs={props.inputs}
-            selectedIndex={selectedIndex}
-            handleSelect={handleSelect}
-            showAddInputModal={props.showAddInputModal}
-            showDeleteInputModal={props.showDeleteInputModal}
-            task={props.task}
-          />
-        )}
       </div>
 
-      <Button
-        content={"Add model"}
-        icon="plus"
-        isPrimary={false}
-        isSmall={false}
-        link={props.getAddModelsLink(props)}
-      />
+
     </div>
   );
 };

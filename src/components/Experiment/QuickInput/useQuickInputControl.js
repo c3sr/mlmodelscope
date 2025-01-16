@@ -124,7 +124,6 @@ export default function useQuickInputControl(props) {
       if (typeof url !== 'object') {
         selectedData = [{ src: url, inputType: task.inputType }];
       } else if (Array.isArray(url)) {
-        console.log('url', url);
         selectedData = url.map(u => ({ inputType: task.inputType, src: u }));
       }
       else {

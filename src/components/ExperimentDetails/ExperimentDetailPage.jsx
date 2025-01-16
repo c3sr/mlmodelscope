@@ -57,6 +57,7 @@ export default function ExperimentDetailPage(props) {
           selectInput={props.updateInput}
           getAddModelsLink={props.getAddModelsLink}
           task={props.task}
+          hasMultipleInputs={props.hasMultipleInputs}
         />
         <div className={getElement("scroll-container")}>
           <div className={getElement("trial-cards")}>{trialComponents}</div>
