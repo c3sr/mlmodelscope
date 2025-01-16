@@ -282,7 +282,7 @@ export default function ExperimentDetailContainer(props) {
             inputs={getInputs()}
             addInput={addInput}
             updateInput={updateInput}
-            getAddModelsLink={() => `/experiment/${state.experiment?.id}/add-models`}
+            getAddModelsLink={() => `/experiment/${state.experiment?.id}/add-models/?task=${task}`}
             deleteInput={deleteInput}
             modalType={state.modalType}
             showAddInputModal={showAddInputModal}

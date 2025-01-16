@@ -3,6 +3,8 @@ import ModelListContainer from "./ModelListContainer";
 import { useLocation, useNavigate } from "react-router-dom";
 import getExperimentId from "../helpers/getExperimentId";
 import GetApiHelper from "../helpers/api";
+import Task from "../helpers/Task";
+import { getTaskFromQueryString } from "../helpers/QueryParsers";
 
 let experimentSubscription = null;
 let trialSubscriptions = [];
@@ -42,12 +44,8 @@ export default function AddModelListContainer(props) {
         });
     };
 
-    const getCurrentTask = () => {
-        let trial = trials[0];
-        if (trial)
-            return trial.model.output.type;
-        return "";
-    };
+
+    const getCurrentTask = () => getTaskFromQueryString(window.location.search);
 
     const runModels = (selectedModels) => {
         const modelsFromTrials = getModelsFromTrials();
@@ -56,18 +54,20 @@ export default function AddModelListContainer(props) {
         });
 
         const inputs = getInputsFromTrials();
-
         const trialPromises = filteredSelectedModels.map((model) => {
-            return inputs.map(inputUrl => api.runTrial(model, inputUrl, experiment.id));
+            return api.runTrial(model, inputs, experiment.id);
         }).flat();
-
         Promise.all(trialPromises).then(() => {
-            navigate(`/experiment/${experimentID}`);
+            navigate(`/experiment/${experimentID}/?task=${getCurrentTask()}`);
         });
     };
 
     const getInputsFromTrials = () => {
-        return trials.filter((t, i, a) => a.findIndex(tr => tr.inputs[0] === t.inputs[0]) === i).map(trial => trial.inputs[0]);
+        if (Task.getStaticTask(getCurrentTask())?.inputs?.length > 1)
+            return trials?.map(trial => trial.inputs);
+        const allInputs = trials?.map(trial => trial.inputs).flat();
+        const uniqueInputs = allInputs?.filter((input, i, a) => a.findIndex(t => t.src === input.src) === i);
+        return uniqueInputs;
     };
 
     const getModelsFromTrials = () => {
