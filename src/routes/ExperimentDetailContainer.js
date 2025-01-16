@@ -40,7 +40,7 @@ export default function ExperimentDetailContainer(props) {
 
 
     const getTask = () => Task.getStaticTask(task);
-
+    const hasMultipleInputs = getTask()?.inputs?.length > 1;
 
     useEffect(() => {
         getExperiment();
@@ -54,9 +54,8 @@ export default function ExperimentDetailContainer(props) {
     }, []);
 
     const getSelectedTrials = () => {
-
         let filtered = state?.trials;
-        if (getTask()?.inputs?.length > 1)
+        if (hasMultipleInputs)
             filtered = filtered?.filter(trial => {
                 return trial.inputs === state.selectedInput;
             });
@@ -70,7 +69,7 @@ export default function ExperimentDetailContainer(props) {
         return MultipleSort(filtered, sortingOptions);
     };
     const getInputs = () => {
-        if (getTask()?.inputs?.length > 1)
+        if (hasMultipleInputs)
             return state?.trials?.map(trial => trial.inputs);
         const allInputs = state?.trials?.map(trial => trial.inputs).flat();
         const uniqueInputs = allInputs?.filter((input, i, a) => a.findIndex(t => t.src === input.src) === i);
@@ -122,6 +121,7 @@ export default function ExperimentDetailContainer(props) {
         return state.trials.filter((t, i, a) => a.findIndex(tr => tr.model.id === t.model.id) === i).map(trial => trial.model.id);
     };
     const runTrial = async (modelId, input, context = null) => {
+
         let fauxModel = { id: modelId, output: { type: getModelOutputType() } };
 
         // Note: Adding context param for Conversation task; unsure if needed here
@@ -144,7 +144,7 @@ export default function ExperimentDetailContainer(props) {
                             trials[currentIndex] = trialOutput;
                         }
 
-                        setState({ trials, selectedInput: state.selectedInput || getTask()?.inputs?.length > 1 ? trialOutput.inputs : trialOutput.inputs[0] });
+                        setState({ trials, selectedInput: state.selectedInput || (hasMultipleInputs ? trialOutput.inputs : trialOutput.inputs.flat()[0]) });
                     }
 
                 }
@@ -157,14 +157,26 @@ export default function ExperimentDetailContainer(props) {
     };
     const addInput = async (input) => {
         let inputs = Array.isArray(input) ? input : [input];
+        if (input.some(i => !i.src)) {
+            console.log("Invalid input");
+            return;
+        }
 
-        // formatting inputs to object format
-        inputs = inputs.map(input => {
-            return ({ src: input.src, inputType: input.inputType });
-        });
+        // removing inputs that are already in the experiment
+        if (!hasMultipleInputs) {
+            inputs = inputs.filter(input => !getInputs()?.some(i => i.src === input.src));
+            if (inputs.length === 0) {
+                setState({ modalType: ExperimentDetailModalTypes.none });
+                return;
+            }
+        }
+        else if (hasMultipleInputs && getInputs()?.some(i => i.every((v, i) => v.src === input[i].src && v.inputType === input[i].inputType))) {
+            return;
+        }
+
 
         // single input and multiple inputs have different formats
-        if (getTask()?.inputs?.length > 1)
+        if (hasMultipleInputs)
             inputs = [inputs];
         else
             inputs = inputs.map(input => [input]);
@@ -182,7 +194,7 @@ export default function ExperimentDetailContainer(props) {
                 modelPromises = models.map(model => runTrial(model, input));
         });
         await Promise.all(modelPromises);
-        setState({ selectedInput: inputs[0] });
+        setState({ selectedInput: hasMultipleInputs ? inputs[0] : inputs.flat()[0] });
 
         if (hasNoInputs())
             await removeTrials((trial) => !trial.inputs || trial.inputs[0] === "");
@@ -289,7 +301,7 @@ export default function ExperimentDetailContainer(props) {
             selectedInput={state.selectedInput}
             showDeleteInputModal={showDeleteInputModal}
             task={getTask()}
-            hasMultipleInputs={getTask()?.inputs?.length > 1}
+            hasMultipleInputs={hasMultipleInputs}
         />
     );
 };
