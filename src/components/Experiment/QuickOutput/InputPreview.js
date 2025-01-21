@@ -28,7 +28,7 @@ export default function InputPreview(givenProps) {
       case "text":
         let shortened = props.input.src.split(" ").slice(0, 5).join(" ");
         shortened = shortened + (shortened.length < props.input.src.length ? "..." : "");
-        return <p className={getElement("text")}>{shortened}</p>;
+        return <p className={getElement("text")} title={props.input.src}>{shortened}</p>;
       case "audio":
         return props.input?.src?.title ? <audio className={getElement("audio")} controls src={props.input.src.src} title={props.input.src.title} /> : <audio className={getElement("audio")} controls src={props.input.src} />;
       case "image":
