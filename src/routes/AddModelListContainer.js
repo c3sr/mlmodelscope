@@ -46,6 +46,7 @@ export default function AddModelListContainer(props) {
 
 
     const getCurrentTask = () => getTaskFromQueryString(window.location.search);
+    const hasMultipleInputs = getCurrentTask()?.inputs?.length > 1;
 
     const runModels = (selectedModels) => {
         const modelsFromTrials = getModelsFromTrials();
@@ -55,7 +56,7 @@ export default function AddModelListContainer(props) {
 
         const inputs = getInputsFromTrials();
         const trialPromises = filteredSelectedModels.map((model) => {
-            return api.runTrial(model, inputs, experiment.id);
+            inputs.forEach(input => api.runTrial(model, hasMultipleInputs ? input : [input], experimentID));
         }).flat();
         Promise.all(trialPromises).then(() => {
             navigate(`/experiment/${experimentID}/?task=${getCurrentTask()}`);
