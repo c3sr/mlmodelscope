@@ -83,8 +83,12 @@
           background: $azulDarkest;
         }
 
-        .input-selector__input-selector-btn-content {
+        .input-selector__input-selector-btn-content,
+        .input-selector__input-preview__document a {
           color: $white;
+        }
+        .input-selector__input-preview__document svg {
+          fill: $white;
         }
 
         .multi-input-preview__text {
