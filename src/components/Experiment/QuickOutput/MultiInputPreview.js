@@ -20,11 +20,11 @@ export default function MultiInputPreview(givenProps) {
 
   const getInputs = (input) => {
     switch (input.inputType) {
-      case QuickInputType.Text:
-        return (
-          <p className={getElement("text")}>{input.src}</p>
-        );
-      case QuickInputType.Document:
+      case TaskInputTypes.Text:
+        let shortened = input.src.split(" ").slice(0, 5).join(" ");
+        shortened = shortened + (shortened.length < input.src.length ? "..." : "");
+        return <p className={getElement("text")} title={input.src}>{shortened}</p>;
+      case TaskInputTypes.Document:
         return (
           <button className={getElement("document")}>
             <DocumentIcon className='icon' />
@@ -52,9 +52,9 @@ export default function MultiInputPreview(givenProps) {
 
   return (
     <div className={getBlock()}>
-      <h3 className={getElement("title")}>
+      {props.experimentInputPreview || <h3 className={getElement("title")}>
         Inputs
-      </h3>
+      </h3>}
       <div className={getElement("container")}>
         {
           props.inputs.length > 2 ? (
@@ -90,12 +90,13 @@ export default function MultiInputPreview(givenProps) {
         }
       </div>
 
-      <button
+      {props.experimentInputPreview || <button
         className={getElement("back-button")}
         onClick={props.onBackClicked}
       >
         Try different inputs
-      </button>
+      </button>}
     </div>
   );
+
 }

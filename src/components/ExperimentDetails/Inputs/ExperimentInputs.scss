@@ -3,6 +3,7 @@
 .experiment-inputs {
   align-items: center;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   width: 100%;
 
@@ -14,12 +15,13 @@
 
   .secondary-button {
     height: 48px;
+    margin-left: auto;
+    margin-bottom: 20px;
   }
 
   &__selection-area {
     margin-bottom: 32px;
-    position: relative;
-    width: clamp(200px, 500px, 400px);
+    width: 100%;
 
     @include tabletWidth {
       max-width: 300px;

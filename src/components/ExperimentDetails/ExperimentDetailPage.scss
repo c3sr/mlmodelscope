@@ -1,7 +1,6 @@
 @import "../../App";
 
 .experiment-detail-page {
-
   &__sticky-bar {
     position: fixed;
     bottom: 0;
@@ -24,13 +23,12 @@
     }
   }
 
-
   &__trial-cards {
     display: flex;
     flex-direction: row-reverse;
     width: 100%;
     max-width: 100%;
-    overflow-x: scroll;
+    overflow-x: auto;
     background: $white;
     padding: 20px 12px;
     transform: rotate(180deg);
@@ -40,16 +38,12 @@
       transform: none;
       overflow-x: hidden;
       align-items: center;
-
-
     }
 
     @include maxWidth(550px) {
       padding-left: 0;
       padding-right: 0;
     }
-
-
   }
 
   &__trials-header {
@@ -90,7 +84,6 @@
     &:last-child {
       margin-left: 0;
     }
-
 
     @include tabletWidth {
       transform: none;

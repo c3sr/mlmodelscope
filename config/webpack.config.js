@@ -757,3 +757,19 @@ module.exports = function (webpackEnv) {
     performance: false,
   };
 };
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.mjs$/,
+        resolve: {
+          fullySpecified: false,
+        },
+        ...(isEnvDevelopment && {
+          use: ['source-map-loader'],
+        }),
+        exclude: /node_modules\/@mediapipe\/tasks-vision/,
+      },
+    ],
+  },
+};

@@ -1,18 +1,40 @@
 @import "../../../App";
 
 .input-selector {
-
   background-color: $white;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   box-shadow: 0px 0px 15px -2px #00000040;
   margin-top: 4px;
-  position: absolute;
-  top: 100%;
   width: 100%;
   z-index: 5;
+  display: flex;
+  overflow-x: auto;
+  padding: 0px 20px;
+  align-items: center;
+  justify-content: center;
+
+  &__input-selector-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 16px 0;
+    width: 80%;
+    overflow-x: auto;
+  }
 
   &__input-selector {
+    &-delete:hover {
+      svg {
+        rect {
+          fill: rgb(180, 2, 2);
+        }
+
+        path {
+          fill: $white;
+        }
+      }
+    }
     &-delete {
       margin-right: 8px;
 
@@ -28,20 +50,6 @@
           fill: $white;
         }
       }
-
-    }
-
-    &-img {
-      margin-right: 20px;
-      max-height: 60px;
-      max-width: 110px;
-    }
-
-    &-text {
-      display: flex;
-      flex: 1 1;
-      justify-content: space-between;
-      margin-right: 16px;
     }
 
     &-btn {
@@ -50,8 +58,9 @@
       display: flex;
       justify-content: space-between;
       padding: 8px;
-
-
+      flex-direction: column;
+      gap: 10px;
+      margin: 0 20px;
       &:hover {
         background: rgba($azul, 0.15);
       }
@@ -61,9 +70,10 @@
         color: $charcoalLightest;
         @include headline6;
         display: flex;
+        flex-direction: column;
         width: 100%;
+        gap: 10px;
       }
-
 
       &-selected {
         background-color: $azulDarkest;
@@ -73,8 +83,16 @@
           background: $azulDarkest;
         }
 
-        .input-selector__input-selector-btn-content {
+        .input-selector__input-selector-btn-content,
+        .input-selector__input-preview__document a {
           color: $white;
+        }
+        .input-selector__input-preview__document svg {
+          fill: $white;
+        }
+
+        .multi-input-preview__text {
+          color: black;
         }
 
         .input_selector__input-selector-delete {
@@ -94,14 +112,32 @@
     }
   }
 
-
   &__add-input-area {
     display: flex;
     justify-content: center;
-    margin: 16px auto;
+    margin-left: auto;
 
     &-btn {
       @include secondaryButtonWithIconAfter("plus-sign.svg");
+    }
+  }
+
+  &__input-preview {
+    &__image {
+      max-height: 60px;
+      max-width: 110px;
+    }
+
+    &__text {
+      display: flex;
+      flex: 1 1;
+      justify-content: space-between;
+      margin-right: 16px;
+    }
+    &__document {
+      a {
+        text-decoration: none;
+      }
     }
   }
 }

@@ -1,8 +1,8 @@
 import React from "react";
 import "./InputPreview.scss";
 import useBEMNaming from "../../../common/useBEMNaming";
+import { ReactComponent as DocumentIcon } from "../../../resources/icons/icon-document.svg";
 import CsvIcon from "../../../../src/resources/icons/icon-csv-file.svg";
-
 
 const defaultProps = {
   className: "input-preview",
@@ -27,28 +27,26 @@ export default function InputPreview(givenProps) {
   const getInput = () => {
     switch (props.inputType) {
       case "text":
-        return <p className={getElement("text")}>{props.input.src}</p>;
+        let shortened = props.input.src.split(" ").slice(0, 5).join(" ");
+        shortened = shortened + (shortened.length < props.input.src.length ? "..." : "");
+        return <p className={getElement("text")} title={props.input.src}>{shortened}</p>;
       case "audio":
-        return <audio className={getElement("audio")} controls src={props.input.src} />;
+        return props.input?.src?.title ? <audio className={getElement("audio")} controls src={props.input.src.src} title={props.input.src.title} /> : <audio className={getElement("audio")} controls src={props.input.src} />;
       case "image":
         return <img className={getElement("image")} src={props.input.src} />;
       case "video":
         return <video className={getElement("video")} src={props.input.src} controls />;
+      case "document":
+        return <button className={getElement("document")}><DocumentIcon className='icon' /><a href={props.input.src} target='_blank' ><span>{props.input.description ?? "Document"}</span></a></button>;
       case "csv":
         return (
           <>
-            <a 
-              download="input.csv"
-              href={props.input[0].src}
-              className={getElement('csv')}
-            >
+            <a download="input.csv" href={props.input[0].src} className={getElement('csv')}>
               <img src={CsvIcon} alt="download-csv-icon" />
-              <p>
-                Download
-              </p>
-            </a>            
-          </>          
-        )
+              <p>Download</p>
+            </a>
+          </>
+        );
       default:
         return <p>Not currently supported</p>;
     }
@@ -56,16 +54,19 @@ export default function InputPreview(givenProps) {
 
   return (
     <div className={getBlock()}>
-      <h3 className={getElement("title")}>
-        Input {inputTypes[props.inputType]}
-      </h3>
+      {props?.experimentInputPreview ||
+        <h3 className={getElement("title")}>
+          Input {inputTypes[props.inputType]}
+        </h3>
+      }
       {getInput()}
-      <button
-        className={getElement("back-button")}
-        onClick={props.onBackClicked}
-      >
-        Try a different {inputTypes[props.inputType]?.toLowerCase()}
-      </button>
+      {props?.experimentInputPreview ||
+        <button
+          className={getElement("back-button")}
+          onClick={props.onBackClicked}
+        >
+          Try a different {inputTypes[props.inputType]?.toLowerCase()}
+        </button>}
     </div>
   );
 }

@@ -1,5 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import ModelListContainer from "./ModelListContainer";
+import { useLocation, useNavigate } from "react-router-dom";
+import getExperimentId from "../helpers/getExperimentId";
+import GetApiHelper from "../helpers/api";
+import Task from "../helpers/Task";
+import { getTaskFromQueryString } from "../helpers/QueryParsers";
 
 let experimentSubscription = null;
 let trialSubscriptions = [];
@@ -7,6 +12,11 @@ let trialSubscriptions = [];
 export default function AddModelListContainer(props) {
     const [trials, setTrials] = useState([]);
     const [experiment, setExperiment] = useState(null);
+    const location = useLocation();
+    const experimentID = getExperimentId(location);
+    const api = GetApiHelper();
+    const navigate = useNavigate();
+
 
     const getTrials = (experiment) => {
         experiment.trials.forEach(trial => {
@@ -19,11 +29,11 @@ export default function AddModelListContainer(props) {
                             return [...oldState, trialOutput];
                         }
                         return oldState;
-                    })
+                    });
                 }
             }));
-        })
-    }
+        });
+    };
 
     const getExperiment = (experimentId) => {
         experimentSubscription = api.getExperiment(experimentId).subscribe({
@@ -32,14 +42,11 @@ export default function AddModelListContainer(props) {
                 setExperiment(experiment);
             }
         });
-    }
+    };
 
-    const getCurrentTask = () => {
-        let trial = trials[0];
-        if (trial)
-            return trial.model.output.type;
-        return "";
-    }
+
+    const getCurrentTask = () => getTaskFromQueryString(window.location.search);
+    const hasMultipleInputs = getCurrentTask()?.inputs?.length > 1;
 
     const runModels = (selectedModels) => {
         const modelsFromTrials = getModelsFromTrials();
@@ -48,26 +55,28 @@ export default function AddModelListContainer(props) {
         });
 
         const inputs = getInputsFromTrials();
-
         const trialPromises = filteredSelectedModels.map((model) => {
-            return inputs.map(inputUrl => api.runTrial(model, inputUrl, experiment.id));
+            inputs.forEach(input => api.runTrial(model, hasMultipleInputs ? input : [input], experimentID));
         }).flat();
-
         Promise.all(trialPromises).then(() => {
-            props.history.push(`/experiment/${experiment.id}`);
+            navigate(`/experiment/${experimentID}?task=${getCurrentTask()}`);
         });
-    }
+    };
 
     const getInputsFromTrials = () => {
-        return trials.filter((t, i, a) => a.findIndex(tr => tr.inputs[0] === t.inputs[0]) === i).map(trial => trial.inputs[0]);
-    }
+        if (Task.getStaticTask(getCurrentTask())?.inputs?.length > 1)
+            return trials?.map(trial => trial.inputs);
+        const allInputs = trials?.map(trial => trial.inputs).flat();
+        const uniqueInputs = allInputs?.filter((input, i, a) => a.findIndex(t => t.src === input.src) === i);
+        return uniqueInputs;
+    };
 
     const getModelsFromTrials = () => {
         return trials.map(t => t.model);
-    }
+    };
 
     useEffect(() => {
-        getExperiment(props.match.params.experimentId);
+        getExperiment(experimentID);
 
         return () => {
             trialSubscriptions.forEach(s => s.unsubscribe());
@@ -79,7 +88,7 @@ export default function AddModelListContainer(props) {
 
     return (
         <ModelListContainer task={getCurrentTask()} hideTaskFilters add={true} runModels={(selectedModels) => {
-            runModels(selectedModels)
-        }} selectedModels={getModelsFromTrials()}/>
-    )
+            runModels(selectedModels);
+        }} selectedModels={getModelsFromTrials()} />
+    );
 }
