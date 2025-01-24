@@ -5,15 +5,19 @@ import useSampleInputControl from "./useSampleInputControl";
 import useBEMNaming from "../../../../../common/useBEMNaming";
 import { QuickInputType } from "../../quickInputType";
 import { ReactComponent as DocumentIcon } from "../../../../../resources/icons/icon-document.svg";
+import { ReactComponent as CsvIcon } from "../../../../../resources/icons/icon-csv-file.svg";
 import { imageTo3D } from '../../../../../helpers/TaskIDs';
 import URLInputPreview from '../URLInput/URLInputPreview';
 import { TaskInputTypes } from '../../../../../helpers/TaskInputTypes';
+import CanvasInput from '../CanvasInput/CanvasInput';
+import CsvPreview from '../CsvInput/CsvPreview';
 
 
 export default function SampleInputsTab(props) {
     // Note: This is the content for the Sample Input Tab, below the header
     const { getBlock, getElement } = useBEMNaming("sample-inputs");
-    const { isUnselected, isSelected, selectInput, type, sampleInputType } = useSampleInputControl(props);
+    const { isUnselected, isSelected, selectInput, type,  sampleInputType } = useSampleInputControl(props);
+    
     const task = Task.getStaticTask(props.task);
 
     const getInputClassName = (url) => {
@@ -44,6 +48,10 @@ export default function SampleInputsTab(props) {
                 return makeSampleDocumentInput(url, index);
             case QuickInputType.Video:
                 return makeSampleVideoInput(url, index);
+            case QuickInputType.ImageCanvas:
+                return makeSampleImageCanvasInput(url, index);
+            case QuickInputType.Csv:
+                return makeSampleCsvInput(url, index);
             default:
                 return makeDefaultErrorInput();
         }
@@ -54,7 +62,7 @@ export default function SampleInputsTab(props) {
         inputHandlerForPreview(url.src);
     };
 
-    // TODO: Rename "url" to "input" or similar
+    // TODO: Should we rename "url" to "input" or similar
     function makeSampleImageInput(url, index) {
         return (
             <button onClick={() => selectInput(index)} key={index} className={getElement(getInputClassName(url))}>
@@ -66,7 +74,7 @@ export default function SampleInputsTab(props) {
     function makeSampleTextInput(text, index) {
         return (
             <button onClick={() => { selectInput(index); }} key={index} className={getElement(getInputClassName(text))}>
-                <div>{text}</div>
+                <div>{text.src}</div>
             </button>
         );
     }
@@ -91,14 +99,37 @@ export default function SampleInputsTab(props) {
         );
     }
 
+    function makeSampleImageCanvasInput(url, index) {
+        return (
+            <div key={index} className={getElement(getInputClassName(url))}>
+                <CanvasInput selectInput={selectInput} index={index} url={url} {...props} />
+            </div>
+        );
+    }    
+
     function makeSampleVideoInput(url, index) {
         return (
             <button onClick={() => onSampleInputClickPreview(index, url)} key={index} className={getElement(getInputClassName(url))}>
                 <video src={url.src} alt={url.alt} autoPlay muted={true} loop className={getElement("sample-video-content")} />
-
+                <URLInputPreview task={task} index={index} inputPreviewProps={props.inputPreviewProps} inputType={TaskInputTypes.Video} selectedInputs={props.values} />
             </button>
         );
     }
+
+    function makeSampleCsvInput(url, index) {
+        return (
+            <button onClick={() => selectInput(index)} key={index} className={getElement(getInputClassName(url))}>
+                <div className='csv-file-container'>
+                    <CsvIcon className='icon' />
+                    <a href={url.src} target='_blank' >
+                        <span>{url.description ?? "CSV File"}</span>
+                    </a>
+                </div>
+
+                <CsvPreview url={url.src} />
+            </button>
+        );
+    }    
 
     function makeDefaultErrorInput() {
         return (
@@ -116,9 +147,6 @@ export default function SampleInputsTab(props) {
             <div className={getElement('list')}>
                 {sampleInputs.map(makeSampleInput)}
             </div>
-            {sampleInputType === QuickInputType.Video &&
-                <URLInputPreview inputPreviewProps={props.inputPreviewProps} inputType={TaskInputTypes.Video} selectedInputs={props.values} />
-            }
         </div>
     );
 
@@ -134,6 +162,10 @@ export default function SampleInputsTab(props) {
                 return "Select a document";
             case QuickInputType.Video:
                 return "Select a video";
+            case QuickInputType.ImageCanvas:
+                return "Draw a rectangle";
+            case QuickInputType.Csv:
+                return "Select a csv file";
             default:
                 return "Error: no input type set";
         }

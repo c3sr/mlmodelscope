@@ -4,7 +4,7 @@ export const TestTextClassificationOutputGeneratedToken = {
 
 export const TestTextClassificationOutput = {
   id: "sampletesttextclassificationoutputidhere",
-  inputs: ["The weather is very pleasant today."],
+  inputs: [{ src: "The weather is very pleasant today." }],
   completed_at: "2023-06-03T18:17:14.513854Z",
   results: {
     'duration': "9.216154124s",

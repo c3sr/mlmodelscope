@@ -2,6 +2,7 @@ import React from "react";
 import "./InputPreview.scss";
 import useBEMNaming from "../../../common/useBEMNaming";
 import { ReactComponent as DocumentIcon } from "../../../resources/icons/icon-document.svg";
+import CsvIcon from "../../../../src/resources/icons/icon-csv-file.svg";
 
 const defaultProps = {
   className: "input-preview",
@@ -20,8 +21,8 @@ export default function InputPreview(givenProps) {
     text: "Text",
     document: "Document",
     video: "Video",
+    csv: "CSV"
   };
-
 
   const getInput = () => {
     switch (props.inputType) {
@@ -37,7 +38,15 @@ export default function InputPreview(givenProps) {
         return <video className={getElement("video")} src={props.input.src} controls />;
       case "document":
         return <button className={getElement("document")}><DocumentIcon className='icon' /><a href={props.input.src} target='_blank' ><span>{props.input.description ?? "Document"}</span></a></button>;
-
+      case "csv":
+        return (
+          <>
+            <a download="input.csv" href={props.input[0].src} className={getElement('csv')}>
+              <img src={CsvIcon} alt="download-csv-icon" />
+              <p>Download</p>
+            </a>
+          </>
+        );
       default:
         return <p>Not currently supported</p>;
     }

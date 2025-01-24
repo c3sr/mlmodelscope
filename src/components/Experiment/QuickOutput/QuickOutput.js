@@ -27,6 +27,7 @@ import {
   textToImage,
   audioToAudio,
   videoClassification,
+  tableEditing
 } from "../../../helpers/TaskIDs";
 import ObjectDetection from "./Outputs/ObjectDetection/ObjectDetection";
 import ImageEnhancement from "./Outputs/ImageEnhancement/ImageEnhancement";
@@ -53,7 +54,8 @@ import TextToAudioOutput from "./Outputs/TextToAudio/TextToAudioOutput";
 import AudioClassificationOutput from "./Outputs/AudioClassification/AudioClassificationOutput";
 import AudioToAudioOutput from "./Outputs/AudioToAudio/AudioToAudioOutput";
 import VideoClassificationOutput from "./Outputs/VideoClassification/VideoClassificationOutput";
-// import MultiInputPreview from "./MultiInputPreview";
+import TableEditingOutput from "./Outputs/TableEditing/TableEditingOutput";
+
 
 const defaultProps = {
   className: "quick-output",
@@ -254,6 +256,13 @@ export default function QuickOutput(givenProps) {
               />
             </>
           );
+        case tableEditing:
+          return (
+            <TableEditingOutput 
+              onBackClicked={props.onBackClicked}
+              trial={props.trialOutput}              
+            />
+          )
         default:
           return (
             <>
@@ -266,7 +275,7 @@ export default function QuickOutput(givenProps) {
       return (
         <>
           {preview}
-          <PendingOutput />
+          <PendingOutput outputType={props.outputType} />
         </>
       );
     }

@@ -1,0 +1,110 @@
+@import "src/App";
+
+.csv-preview {
+    width: 902px;  // 90px per cell * 10 cells per row + 2px border
+
+    &__table-container {
+        display: flex;
+        flex-direction: row;
+    }
+    &__table {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid $charcoalLightest;
+        font-size: 13px;
+    }
+    &__max-header {
+        display: flex;
+        flex-direction: row;
+    }
+    &__header {
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px solid $charcoalLightest;
+        font-weight: 800;
+        background-color: $smokeDarkest;
+    }
+    &__row {
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px solid $charcoalLightest;
+    }
+    &__row:last-of-type {
+        border-bottom: none;
+    }
+    &__cell {
+        border-right: 1px solid $charcoalLightest;
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        width: 90px;
+        height: 42px;
+    }
+    &__cell:last-of-type {
+        border-right: none;
+    }
+    &__cell-text {
+        text-overflow: ellipsis; 
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    &__cell-tooltip {
+        position: relative;
+        display: inline-block;
+    }
+    .tooltip-text {
+        visibility: hidden;
+        min-width: 120px;
+        background-color: $charcoalLightest;
+        color: #fff;
+        padding: 5px;
+        border-radius: 6px;
+        position: absolute;
+        z-index: 1; 
+        bottom: 100%;
+        left: 50%;
+    }
+    &__cell:hover .tooltip-text {
+        visibility: visible;
+    }
+    &__warning {
+        color: $darkRed;
+        padding-bottom: 20px;
+    }
+    &__truncated-table {
+        color: $darkRed;
+        border-top: 1px solid $charcoalLightest;
+        border-right: 1px solid $charcoalLightest;
+        border-bottom: 1px solid $charcoalLightest;
+    }
+    &__truncated-header {
+        color: $darkRed;
+        background-color: $smokeDarkest;
+        border-bottom: 1px solid $charcoalLightest;
+        display: flex;
+        align-items: center;
+        height: 43px;
+        padding: 5px;
+    }
+    &__truncated-header, &__truncated-row-cell {
+        font-size: 20px;
+        letter-spacing: 2px;
+    }
+    &__truncated-col-cell, &__truncated-row-cell {
+        padding: 5px;
+        display: flex;
+        align-items: center;
+    }
+    &__truncated-row-cell {
+        width: 90px;
+        border-right: 1px solid $charcoalLightest;
+        color: $darkRed;
+    }
+    &__truncated-row-cell:last-of-type {
+        border-right: none;
+    }
+    &__truncated-col-cell {
+        height: 43px;     
+        border-bottom: 1px solid $charcoalLightest;
+    }
+}

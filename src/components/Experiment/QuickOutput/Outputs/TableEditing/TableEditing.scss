@@ -1,0 +1,67 @@
+@import "../../../../../App";
+
+.table-editing {
+    &__content {
+        display: flex;
+        flex-direction: column;
+    }
+    &__output {
+        flex-grow: 1;
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 0 0 15px -2px rgba(0, 0, 0, 0.25);
+        display: flex;
+        flex-direction: column;
+        margin-top: 16px;
+        padding: 32px;
+      
+        @include maxWidth(700px) {
+          margin-left: 0;
+        }     
+        
+        &-title-row {
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+    
+            @include maxWidth(575px) {
+                h3 {
+                    margin-top: 8px;
+                }
+            }
+        }
+        &-subtitle {
+            @include body;
+            border-bottom: 1px solid $smokeDarkest;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+        
+            @include mobileWidth-lg {
+              @include bodySmall;
+            }
+        }
+
+        &-download {
+            border: 1px solid $charcoalLightest;
+            border-radius: 5px;
+            margin-top: 20px;
+            padding: 5px;
+            width: 69px;
+            a {
+                text-decoration: none;
+            }
+            img {
+                height: 50px;
+            }
+            p {
+                margin-top: 5px;
+                font-size: 12px;
+                color: $charcoalLightest;
+                font-weight: 600;
+            }            
+        }       
+    }      
+}

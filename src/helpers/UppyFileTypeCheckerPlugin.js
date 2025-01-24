@@ -13,7 +13,9 @@ import {
   textGuidedImageToImage,
   visualQuestionAnswering,
   imageToText,
-  audioClassification
+  audioClassification,
+  maskGeneration,
+  tableEditing
 } from './TaskIDs';
 
 import fileTypeChecker from "file-type-checker";
@@ -35,6 +37,7 @@ export const getAllowedFileTypes = (task) => {
     case imageTo3D:
     case instance_segmentation:
     case imageToText:
+    case maskGeneration:  
       return {
         fileTypes: ['bmp', 'gif', 'ico', 'jpeg', 'pdf', 'png', 'psd'],
         mimeTypes: ['image/*']
@@ -44,12 +47,13 @@ export const getAllowedFileTypes = (task) => {
         fileTypes: ['bmp', 'gif', 'ico', 'jpeg', 'pdf', 'png', 'psd', 'mp4', 'm4a', 'wav', 'webm'],
         mimeTypes: ['image/*', 'video/*']
       };
+    case tableEditing:
     case documentQuestionAnswering:
     default:
-      // Allow all file types? Or disallow all file types?
+      // Some file types are unfortunately not supported by the file checker
       return {
         fileTypes: ['*'],
-        mimeTypes: '*/*'
+        mimeTypes: ['*/*']
       };
   }
 };
@@ -69,6 +73,10 @@ export default class UppyFileTypeCheckerPlugin extends BasePlugin {
   }
 
   confirmFileType = async (fileIDs) => {
+    if (Array.isArray(this.allowedFileTypes) && this.allowedFileTypes[0] === '*') {
+      return Promise.resolve();
+    }
+
     // Note: This will break if we ever allow multiple uploads
     const file = this.uppy.getFile(fileIDs[0]);
     const blob = new Blob([file.data]);

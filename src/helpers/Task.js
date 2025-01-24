@@ -5,6 +5,7 @@ import {
   object_detection,
   semantic_segmentation,
   styleTransfer,
+  maskGeneration,
   imageTo3D,
   textToText,
   textToCode,
@@ -22,6 +23,7 @@ import {
   audioToAudio,
   audioClassification,
   videoClassification,
+  tableEditing
 } from "./TaskIDs";
 import React from "react";
 import { ReactComponent as ImageClassification } from "../resources/icons/icon-imageClassification.svg";
@@ -31,6 +33,7 @@ import { ReactComponent as InstanceSegmentation } from "../resources/icons/icon-
 import { ReactComponent as ImageEnhancement } from "../resources/icons/icon-imageEnhancement.svg";
 import { ReactComponent as StyleTransfer } from "../resources/icons/icon-styleTransfer.svg";
 import { ReactComponent as ImageTo3D } from "../resources/icons/icon-imageTo3D.svg";
+import { ReactComponent as MaskGeneration } from "../resources/icons/icon-maskGeneration.svg";
 import { ReactComponent as TextToText } from "../resources/icons/icon-textToText.svg";
 import { ReactComponent as TextToCode } from "../resources/icons/icon-textToCode.svg";
 import { ReactComponent as AudioToText } from "../resources/icons/icon-audioToText.svg";
@@ -46,6 +49,7 @@ import { ReactComponent as TextClassification } from "../resources/icons/icon-te
 import { ReactComponent as AudioToAudio } from "../resources/icons/icon-audioToAudio.svg";
 import { ReactComponent as AudioClassification } from "../resources/icons/icon-audioClassification.svg";
 import { ReactComponent as VideoClassification } from "../resources/icons/icon-videoClassification.svg";
+import { ReactComponent as TableEditing } from "../resources/icons/icon-tableEditing.svg";
 
 import {
   DefaultImageClassificationModel,
@@ -54,6 +58,7 @@ import {
   DefaultObjectDetectionModel,
   DefaultSemanticSegmentationModel,
   DefaultStyleTransferModel,
+  DefaultMaskGenerationModel,
   DefaultImageTo3DModel,
   DefaultTextModel,
   DefaultAudioToTextModel,
@@ -70,6 +75,7 @@ import {
   DefaultAudioToAudioModel,
   DefaultAudioClassificationModel,
   DefaultVideoClassificationModel,
+  DefaultTableEditingModel
 } from "./DefaultModels";
 import {
   SampleAudioToTextInputs,
@@ -78,6 +84,7 @@ import {
   SampleObjectDetectionInputs,
   SampleSegmentationInputs,
   SampleStyleTransferInputs,
+  SampleMaskGenerationInputs,
   SampleTextGuidedImageToImageInputs,
   SampleVisualQuestionAnsweringInputs,
   SampleDocumentQuestionAnsweringInputs,
@@ -89,6 +96,8 @@ import {
   SampleAudioToAudioInputs,
   SampleAudioClassificationInputs,
   SampleVideoClassificationInputs,
+  SampleTableEditingInputs,
+  SampleTextToAudio,
 } from "./sampleImages";
 import { TestImageClassificationResult } from "../components/Experiment/QuickOutput/Outputs/Classification/Features";
 import { TestImageEnhancementData } from "../components/Experiment/QuickOutput/Outputs/ImageEnhancement/testData/TestFeatures";
@@ -101,6 +110,7 @@ import { TestTextToAudioOutput } from "../components/Experiment/QuickOutput/Outp
 import { TestTextConversationOutput } from "../components/Experiment/QuickOutput/Outputs/TextConversation/testData/testTextConversationOutput";
 import { TaskInputTypes } from "./TaskInputTypes";
 import { TestStyleTransferOutput } from "../components/Experiment/QuickOutput/Outputs/StyleTransfer/testData/testStyleTransferOutput";
+import { TestMaskGenerationOutput } from "../components/Experiment/QuickOutput/Outputs/MaskGeneration/testData/testMaskGenerationOutput"; 
 import TextInputTab from "../components/Experiment/QuickInput/Tabs/TextInput/TextInputTab";
 import { TestVisualQuestionAnswering } from "../components/Experiment/QuickOutput/Outputs/VisualQuestionAnswering/testData/testVisualQuestionAnsweringOutput";
 import { TestDocumentQuestionAnswering } from "../components/Experiment/QuickOutput/Outputs/DocumentQuestionAnswering/testData/testDocumentQuestionAnsweringOuput";
@@ -114,6 +124,7 @@ import { TestTextClassificationOutput } from "../components/Experiment/QuickOutp
 import { TestAudioToAudioOutput } from "../components/Experiment/QuickOutput/Outputs/AudioToAudio/testData/testAudioToAudio";
 import { TestAudioClassificationOutput } from "../components/Experiment/QuickOutput/Outputs/AudioClassification/testData/testAudioClassification";
 import { TestVideoClassificationOutput } from "../components/Experiment/QuickOutput/Outputs/VideoClassification/testData/testVideoClassification";
+import { TestTableEditingOutput } from "../components/Experiment/QuickOutput/Outputs/TableEditing/testData/testTableEditingOutput";
 
 export default class Task {
   static image_classification = new Task({
@@ -235,13 +246,28 @@ export default class Task {
     tutorialDescription:
       "3D conversion models produce a 3D version of the user's input.",
   });
+  static mask_generation = new Task({
+    name: "Mask Generation",
+    description: "Highlight an object in a picture and request identification of it",
+    id: maskGeneration,
+    useMultiInput: true,
+    inputs: [
+      {
+        inputText: 'identify a selected object.',
+        inputType: TaskInputTypes.ImageCanvas,
+      },
+    ],
+    outputText: "Identification of object",
+    icon: (props) => <MaskGeneration {...props} />,
+    sampleInputs: SampleMaskGenerationInputs,
+    tutorialDescription: "blah blah.",
+  });  
   static text_to_text = new Task({
     name: "Text to Text",
     description: "[insert text description here]",
     id: textToText,
     inputText: "[insert text input help text here]",
     outputText: "[insert text output help text here]",
-    icon: (props) => <TextToText {...props} />,
     icon: (props) => <TextToText {...props} />,
     sampleInputs: [],
     tutorialDescription: "[insert text tutorial page description here]",
@@ -253,7 +279,6 @@ export default class Task {
     id: textToCode,
     inputText: "[insert text to code input help text here]",
     outputText: "[insert text to code output help text here]",
-    icon: (props) => <TextToCode {...props} />,
     icon: (props) => <TextToCode {...props} />,
     sampleInputs: [],
     tutorialDescription: "[insert text to code tutorial page description here]",
@@ -280,7 +305,7 @@ export default class Task {
     inputText: "See how well this model can generate audio from inputted text.",
     outputText: "Play the file below to listen to the generated audio file.",
     icon: (props) => <TextToAudio {...props} />,
-    sampleInputs: [],
+    sampleInputs: SampleTextToAudio,
     tutorialDescription:
       "Text to audio models bring your written words to life.",
     inputType: TaskInputTypes.Text,
@@ -490,6 +515,23 @@ export default class Task {
     inputType: TaskInputTypes.Video,
   });
 
+  static table_editing = new Task({
+    name: "Table Editing",
+    description: "Submit a CSV and get an edited version of it",
+    id: tableEditing,
+    useMultiInput: true,
+    inputs: [
+      {
+        inputText: 'get a new version of the csv',
+        inputType: TaskInputTypes.Csv,
+      },
+    ], 
+    outputText: "Summarized CSV file",
+    icon: (props) => <TableEditing {...props} />,
+    sampleInputs: SampleTableEditingInputs,
+    tutorialDescription: "blah blah.",
+  });    
+
   constructor(options) {
     this.name = options.name ?? "";
     this.id = options.id ?? this.name;
@@ -533,6 +575,8 @@ export default class Task {
         return Task.style_transfer;
       case imageTo3D:
         return Task.image_to_3D;
+      case maskGeneration:
+        return Task.mask_generation;
       case textToText:
         return Task.text_to_text;
       case textToCode:
@@ -565,6 +609,8 @@ export default class Task {
         return Task.audio_classification;
       case videoClassification:
         return Task.video_classification;
+      case tableEditing:
+        return Task.table_editing;
       default:
         return new Task({ name: "unknown", description: "unknown task name" });
     }
@@ -586,6 +632,8 @@ export default class Task {
         return DefaultStyleTransferModel;
       case imageTo3D:
         return DefaultImageTo3DModel;
+      case maskGeneration:
+        return DefaultMaskGenerationModel; 
       case textToText:
         return DefaultTextModel;
       case textToCode:
@@ -619,6 +667,8 @@ export default class Task {
         return DefaultAudioClassificationModel;
       case videoClassification:
         return DefaultVideoClassificationModel;
+      case tableEditing:
+        return DefaultTableEditingModel
       default:
         return undefined;
     }
@@ -640,6 +690,8 @@ export default class Task {
         return TestStyleTransferOutput;
       case imageTo3D:
         return TestImageTo3DOutput;
+      case maskGeneration:
+        return TestMaskGenerationOutput;
       case textToText:
         return TestTextOutput;
       case audioToText:
@@ -670,6 +722,8 @@ export default class Task {
         return TestAudioClassificationOutput;
       case videoClassification:
         return TestVideoClassificationOutput;
+      case tableEditing:
+        return TestTableEditingOutput;
       default:
         return undefined;
     }
@@ -684,6 +738,7 @@ export default class Task {
       this.getStaticTask(instance_segmentation),
       this.getStaticTask(styleTransfer),
       this.getStaticTask(imageTo3D),
+      this.getStaticTask(maskGeneration),
       this.getStaticTask(textToText),
       this.getStaticTask(textToCode),
       this.getStaticTask(textConversation),
@@ -700,6 +755,7 @@ export default class Task {
       this.getStaticTask(audioToAudio),
       this.getStaticTask(audioClassification),
       this.getStaticTask(videoClassification),
+      this.getStaticTask(tableEditing),
     ];
   }
 

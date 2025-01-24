@@ -23,6 +23,8 @@ import {
   audioToAudio,
   audioClassification,
   videoClassification,
+  maskGeneration,
+  tableEditing
 } from "../../../helpers/TaskIDs";
 import {
   SampleImageClassificationInputs,
@@ -42,8 +44,14 @@ import {
   SampleAudioToAudioInputs,
   SampleAudioClassificationInputs,
   SampleVideoClassificationInputs,
+  SampleMaskGenerationInputs,
+  SampleTableEditingInputs,
+  SampleTextToAudio,
+  SampleTextConversationInputs,
+  SampleTextToCodeInputs,
+  SampleTextInputs
 } from "../../../helpers/sampleImages";
-import { QuickInputType } from "./quickInputType";
+
 import { TaskInputTypes } from "../../../helpers/TaskInputTypes";
 
 export default {
@@ -116,13 +124,19 @@ ImageTo3D.args = {
   }
 };
 
+export const MaskGeneration = Template.bind({});
+MaskGeneration.args = {
+  sampleInputs: SampleMaskGenerationInputs,
+  model: {
+    output: {
+      type: maskGeneration,
+    },
+  },
+};
+
 export const Text = Template.bind({});
 Text.args = {
-  sampleInputs: [
-    "The quick brown fox jumps over the lazy dog",
-    "The five boxing wizards jump quickly",
-    "look at the dog",
-  ],
+  sampleInputs: SampleTextInputs,
   model: {
     output: {
       type: textToText,
@@ -132,11 +146,7 @@ Text.args = {
 
 export const TextToCode = Template.bind({});
 TextToCode.args = {
-  sampleInputs: [
-    "The quick brown fox jumps over the lazy dog",
-    "The five boxing wizards jump quickly",
-    "look at the dog",
-  ],
+  sampleInputs: SampleTextToCodeInputs,
   model: {
     output: {
       type: textToCode,
@@ -172,9 +182,7 @@ AudioToText.args = {
 
 export const TextToAudio = Template.bind({});
 TextToAudio.args = {
-  sampleInputs: [
-    "a chill song with influences from lofi, chillstep and downtempo",
-  ],
+  sampleInputs: SampleTextToAudio,
   model: {
     output: {
       type: textToAudio,
@@ -184,11 +192,7 @@ TextToAudio.args = {
 
 export const TextConversation = Template.bind({});
 TextConversation.args = {
-  sampleInputs: [
-    "Show me a recipe for pizza",
-    "What is the weather tomorrow?",
-    "What is the meaning of life?",
-  ],
+  sampleInputs: SampleTextConversationInputs,
   model: {
     output: {
       type: textConversation,
@@ -303,6 +307,16 @@ VideoClassification.args = {
   model: {
     output: {
       type: videoClassification,
+    },
+  },
+};
+
+export const TableEditing = Template.bind({});
+TableEditing.args = {
+  sampleInputs: SampleTableEditingInputs,
+  model: {
+    output: {
+      type: tableEditing,
     },
   },
 };

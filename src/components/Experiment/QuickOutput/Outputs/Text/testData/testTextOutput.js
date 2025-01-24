@@ -106,7 +106,7 @@ export const TestTextOutputGeneratedToken = {
 export const TestTextOutput = {
   id: "9d52d414-cc78-4cd5-a292-afdc0b9332ec",
   inputs: [
-    'translate English to German: "Luigi often said to me that he never wanted the brothers to end up in court," she wrote.',
+    { src: 'translate English to German: "Luigi often said to me that he never wanted the brothers to end up in court," she wrote.' },
   ],
   completed_at: "2022-06-03T18:17:14.513854Z",
   results: {

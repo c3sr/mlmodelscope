@@ -9,8 +9,6 @@ import { TextOutputBox } from "../Text/TextOutputBox";
 import { audioToText } from "../../../../../helpers/TaskIDs";
 
 export default function AudioToTextOutput(props) {
-    console.log("AudioToTextOutput", props)
-
     const { getBlock } = useBEMNaming("audio-to-text-output");
     const { output, inferenceDuration, input, setInput } = useTextOutput(
         props.trial

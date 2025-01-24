@@ -2,6 +2,8 @@ import StyleTransferContent from "../resources/taskSample/styleTransferContent.j
 import StyleTransferStyle from "../resources/taskSample/styleTransferStyle.jpg";
 import Chairs from "../resources/taskSample/imageTo3D1.png";
 // import Drums from "../resources/taskSample/imageTo3D2.png";
+import catDog from "../stories/assets/catdog.jpg";
+import tableEditing from "../../src/resources/taskSample/tableEditing.csv";
 
 export const SampleImageEnhancementInputs = [
   {
@@ -106,16 +108,25 @@ export const SampleImageTo3DInputs = [
   ],
 ];
 
+export const SampleMaskGenerationInputs = [
+  [
+    {
+      src: catDog,
+      alt: "cat and dog",
+    },
+  ]
+]
+
 export const SampleTextInputs = [
-  "Lorem ipsum dolor sit amet",
-  "Consectetur adipiscing elit",
-  "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+  { src: "Lorem ipsum dolor sit amet" },
+  { src: "Consectetur adipiscing elit" },
+  { src: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua" },
 ];
 
 export const SampleTextToCodeInputs = [
-  "Lorem ipsum dolor sit amet",
-  "Consectetur adipiscing elit",
-  "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+  { src: "Lorem ipsum dolor sit amet" },
+  { src: "Consectetur adipiscing elit" },
+  { src: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua" },
 ];
 
 export const SampleAudioToTextInputs = [
@@ -126,9 +137,9 @@ export const SampleAudioToTextInputs = [
 ];
 
 export const SampleTextConversationInputs = [
-  "Show me a recipe for pizza",
-  "What is the weather tomorrow?",
-  "What is the meaning of life?",
+  { src: "Show me a recipe for pizza" },
+  { src: "What is the weather tomorrow?" },
+  { src: "What is the meaning of life?", }
 ];
 export const SampleVisualQuestionAnsweringInputs = [
   [{
@@ -145,9 +156,9 @@ export const SampleVisualQuestionAnsweringInputs = [
   }
   ],
   [
-    "What is the color of the bird?",
-    "What is the animal in the image?",
-    "Where is the crab?"
+    { src: "What is the color of the bird?" },
+    { src: "What is the animal in the image?" },
+    { src: "Where is the crab?" }
   ]
 ];
 export const SampleTextGuidedImageToImageInputs = [
@@ -165,9 +176,9 @@ export const SampleTextGuidedImageToImageInputs = [
   }
   ],
   [
-    "Replace the background with a beach.",
-    "Make the animal look like a cartoon.",
-    "Make the image look like a painting."
+    { src: "Replace the background with a beach." },
+    { src: "Make the animal look like a cartoon." },
+    { src: "Make the image look like a painting." }
   ]
 ];
 export const SampleDocumentQuestionAnsweringInputs = [
@@ -185,21 +196,21 @@ export const SampleDocumentQuestionAnsweringInputs = [
   }
   ],
   [
-    "What is the color of the bird?",
-    "What is the animal in the image?",
-    "What is the total amount in the invoice?"
+    { src: "What is the color of the bird?" },
+    { src: "What is the animal in the image?" },
+    { src: "What is the total amount in the invoice?" }
   ]
 ];
 
 export const SampleTextToImageInputs = [
-  "Cat and dog playing",
-  "Flower in a garden",
-  "Sunset on a beach"
+  { src: "Cat and dog playing" },
+  { src: "Flower in a garden" },
+  { src: "Sunset on a beach" }
 ];
 export const SampleTextToVideoInputs = [
-  "Cat and dog playing",
-  "Flower in a garden",
-  "Sunset on a beach"
+  { src: "Cat and dog playing" },
+  { src: "Flower in a garden" },
+  { src: "Sunset on a beach" }
 ];
 
 export const SampleImageToTextInputs = [
@@ -218,13 +229,13 @@ export const SampleImageToTextInputs = [
 ];
 
 export const SampleTextTo3DInputs = [
-  "a cool drum set"
+  { src: "a cool drum set" }
 ];
 
 export const SampleTextClassificationInputs = [
-  "The weather is very pleasant today.",
-  "The ending of the movie was sad.",
-  "There is a car parked there."
+  { src: "The weather is very pleasant today." },
+  { src: "The ending of the movie was sad." },
+  { src: "There is a car parked there." },
 ];
 
 export const SampleAudioToAudioInputs = [
@@ -252,9 +263,7 @@ export const SampleAudioClassificationInputs = [
   },
 ];
 export const SampleTextToAudio = [
-  "Waves at a beach",
-  "Traffic noise",
-  "Roar of a tiger"
+  { src: "a chill song with influences from lofi, chillstep and downtempo" },
 ];
 
 export const SampleVideoClassificationInputs = [
@@ -271,6 +280,14 @@ export const SampleVideoClassificationInputs = [
   {
     description: "Video of a flower",
     src: "https://xlab1.netlify.app/samples/video/flower.mp4"
-
   },
+];
+
+export const SampleTableEditingInputs = [
+  [
+    {
+      src: tableEditing,
+      description: "Client List"
+    },
+  ]
 ];

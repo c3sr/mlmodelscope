@@ -40,7 +40,7 @@
     flex-grow: 1;
     border: 1px solid $gray;
     gap: 10px;
-    padding: 7.5px 8px;
+    padding: 7px 8px;
     text-align: start;
 
     &:not(:first-child) {
@@ -53,6 +53,26 @@
       color: $azul;
     }
   }
+
+  &__csv {
+    border: 1px solid $charcoalLightest;
+    border-radius: 5px;
+    margin-top: 20px;
+    padding: 5px;
+    font-weight: 600;
+    color: $charcoalLightest;
+    margin: 0 auto;
+    text-decoration: none;
+    display: inline-block;
+    img {
+        height: 50px;
+    }
+    p {
+        margin-top: 5px;
+        font-size: 12px;
+    }
+  }
+
   &__back-button {
     @include secondaryButtonWithIconBefore("arrow-right.svg");
     align-self: flex-start;
