@@ -24,9 +24,9 @@ export default function MultiInputPreview(givenProps) {
   const getInputs = (input) => {
     switch (input.inputType) {
       case TaskInputTypes.Text:
-        let shortened = props.input.src.split(" ").slice(0, 5).join(" ");
-        shortened = shortened + (shortened.length < props.input.src.length ? "..." : "");
-        return <p className={getElement("text")} title={props.input.src}>{shortened}</p>;
+        let shortened = input.src.split(" ").slice(0, 5).join(" ");
+        shortened = shortened + (shortened.length < input.src.length ? "..." : "");
+        return <p className={getElement("text")} title={input.src}>{shortened}</p>;
       case TaskInputTypes.Document:
         return (
           <button className={getElement("document")}>
