@@ -59,7 +59,7 @@ export default function AddModelListContainer(props) {
             inputs.forEach(input => api.runTrial(model, hasMultipleInputs ? input : [input], experimentID));
         }).flat();
         Promise.all(trialPromises).then(() => {
-            navigate(`/experiment/${experimentID}/?task=${getCurrentTask()}`);
+            navigate(`/experiment/${experimentID}?task=${getCurrentTask()}`);
         });
     };
 
