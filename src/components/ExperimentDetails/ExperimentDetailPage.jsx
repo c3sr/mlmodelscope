@@ -45,7 +45,7 @@ export default function ExperimentDetailPage(props) {
   const Layout = getLayout();
 
   return (
-    <div className={getBlock()}>
+    <div className={getBlock()} style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
       <Header />
       <ExperimentDetailHeader subtitle={"Compare models"} />
 
@@ -60,12 +60,12 @@ export default function ExperimentDetailPage(props) {
           task={props.task}
           hasMultipleInputs={props.hasMultipleInputs}
         />
-        <div className={getElement("scroll-container")}>
+        {trialComponents && <div className={getElement("scroll-container")}>
           <div className={getElement("trial-cards")}>{trialComponents}</div>
-        </div>
+        </div>}
       </Layout>
       {getModal(props)}
-      <SelectedModelsBanner selectedModels={props.selectedModels} doneChoosingModels={true} />
+      {props.selectedModels && <SelectedModelsBanner selectedModels={props.selectedModels} doneChoosingModels={true} />}
     </div>
   );
 

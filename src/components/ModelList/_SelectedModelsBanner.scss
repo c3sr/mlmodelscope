@@ -9,7 +9,7 @@
   position: sticky;
   z-index: 2;
   box-shadow: 0px -4px 4px 0px #00000040;
-
+  margin-top: auto;
   &__red-circle {
     border-radius: 150px;
     padding: 2px 8px;
@@ -46,7 +46,7 @@
     padding-top: 16px;
     padding-bottom: 16px;
     position: relative;
-    transition: box-shadow .3s;
+    transition: box-shadow 0.3s;
     z-index: 1;
     align-items: flex-start;
 
@@ -70,7 +70,6 @@
             margin-top: 8px;
           }
         }
-
       }
     }
 
@@ -83,20 +82,18 @@
     align-items: center;
     display: flex;
     margin-top: 24px;
-
-
   }
 
   &__toggle-icon {
     margin-right: 16px;
-    transition: transform .3s;
+    transition: transform 0.3s;
 
     &--open {
       transform: rotateX(180deg);
     }
 
     & path {
-      transition: fill .3s;
+      transition: fill 0.3s;
     }
   }
 
@@ -105,7 +102,7 @@
     text-decoration: none;
     color: $white;
     margin-right: 64px;
-    transition: color .3s;
+    transition: color 0.3s;
 
     &:hover {
       color: $electricGreen;
@@ -115,9 +112,8 @@
   &__toggle-text {
     @include headline3;
     color: white;
-    transition: color .3s;
+    transition: color 0.3s;
     flex-shrink: 0;
-
   }
 
   &__toggle:hover &__toggle-icon path {
@@ -131,7 +127,7 @@
   &__remove {
     @include linkSmall;
     color: white;
-    transition: color .3s;
+    transition: color 0.3s;
 
     &:hover {
       color: $electricGreen;
@@ -153,7 +149,10 @@
     display: flex;
     overflow-x: hidden;
     max-height: 0;
-    transition: max-height .3s, padding-top .3s, padding-bottom .3s;
+    transition:
+      max-height 0.3s,
+      padding-top 0.3s,
+      padding-bottom 0.3s;
 
     @include mobileWidth-lg {
       flex-direction: column;
