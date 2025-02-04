@@ -12,6 +12,7 @@ import { ExperimentInputs } from "./Inputs/ExperimentInputs";
 import AddInputModal from "./modals/AddInputModal";
 import RemoveInputModal from "./modals/RemoveInputModal";
 import InputCannotBeRemovedModal from "./modals/InputCannotBeRemovedModal";
+import SelectedModelsBanner from "../ModelList/SelectedModelsBanner";
 
 export default function ExperimentDetailPage(props) {
   // const [value, setValue] = useState(-1);
@@ -64,6 +65,7 @@ export default function ExperimentDetailPage(props) {
         </div>
       </Layout>
       {getModal(props)}
+      <SelectedModelsBanner selectedModels={props.selectedModels} doneChoosingModels={true} />
     </div>
   );
 

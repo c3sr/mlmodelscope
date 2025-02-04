@@ -45,9 +45,9 @@ export default function SelectedModelCard(givenProps) {
             </span>
                 </div>
             </div>
-            <button className={getElement('close')} onClick={props.remove}>
-                <CloseIcon/>
-            </button>
+            { !props?.doneChoosingModels && <button className={getElement('close')} onClick={props.remove}>
+                <CloseIcon />
+            </button> }
         </div>
     )
 }

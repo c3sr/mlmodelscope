@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {usePrevious} from "../../common/usePrevious";
 
 export function useSelectedModelBannerControl(props) {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
 
     const hasCards = (props) => props.selectedModels.length > 0;
 
