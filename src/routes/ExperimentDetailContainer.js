@@ -281,7 +281,6 @@ export default function ExperimentDetailContainer(props) {
             modalType: ExperimentDetailModalTypes.none
         });
     };
-
     return (
         <ExperimentDetailPage experiment={makeExperiment()}
             onDeleteTrial={showDeleteModal}
@@ -302,6 +301,7 @@ export default function ExperimentDetailContainer(props) {
             showDeleteInputModal={showDeleteInputModal}
             task={getTask()}
             hasMultipleInputs={hasMultipleInputs}
+            selectedModels={props.selectedModels}
         />
     );
 };
