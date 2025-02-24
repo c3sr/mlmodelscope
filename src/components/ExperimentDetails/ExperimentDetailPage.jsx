@@ -12,6 +12,7 @@ import { ExperimentInputs } from "./Inputs/ExperimentInputs";
 import AddInputModal from "./modals/AddInputModal";
 import RemoveInputModal from "./modals/RemoveInputModal";
 import InputCannotBeRemovedModal from "./modals/InputCannotBeRemovedModal";
+import SelectedModelsBanner from "../ModelList/SelectedModelsBanner";
 
 export default function ExperimentDetailPage(props) {
   // const [value, setValue] = useState(-1);
@@ -44,7 +45,7 @@ export default function ExperimentDetailPage(props) {
   const Layout = getLayout();
 
   return (
-    <div className={getBlock()}>
+    <div className={getBlock()} style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
       <Header />
       <ExperimentDetailHeader subtitle={"Compare models"} />
 
@@ -59,11 +60,12 @@ export default function ExperimentDetailPage(props) {
           task={props.task}
           hasMultipleInputs={props.hasMultipleInputs}
         />
-        <div className={getElement("scroll-container")}>
+        {trialComponents && <div className={getElement("scroll-container")}>
           <div className={getElement("trial-cards")}>{trialComponents}</div>
-        </div>
+        </div>}
       </Layout>
       {getModal(props)}
+      {props.selectedModels && <SelectedModelsBanner selectedModels={props.selectedModels} doneChoosingModels={true} />}
     </div>
   );
 

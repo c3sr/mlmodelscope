@@ -51,7 +51,9 @@ export default function SelectedModelsBanner(givenProps) {
         return props.selectedModels.map(model => <SelectedModelCard key={modelKey++} model={model} remove={() => {
             if (props.deselectModel)
                 props.deselectModel(model);
-        }}/>)
+        }}
+        doneChoosingModels = {props?.doneChoosingModels} 
+        />)
     }
 
 
@@ -71,11 +73,11 @@ export default function SelectedModelsBanner(givenProps) {
             <span className={getElement('toggle-text')}>
               Models added: <span className={getElement("red-circle")}>{props.selectedModels.length}</span>
             </span>
-                    {getRemoveButton()}
-                    <div className={getElement('run')}>
+            {!props?.doneChoosingModels && getRemoveButton()}
+                    {!props?.doneChoosingModels && <div className={getElement('run')}>
                         <Button content="Run models to compare" isPrimary={false} isSmall={true}
-                                onClick={() => props.runModels(props.selectedModels)}/>
-                    </div>
+                            onClick={() => props.runModels(props.selectedModels)} />
+                    </div> }
                 </div>
             </div>
             <div className={getElement(`list ${open && "list--open"}`)}>

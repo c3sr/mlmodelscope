@@ -12,15 +12,16 @@ const experimentPage = "EXPERIMENT";
 export default function NewExperimentContainer(props) {
   const [currentPage, setCurrentPage] = useState(modelListPage);
   const [models, setModels] = useState([]);
-
   const api = useMemo(() => GetApiHelper(), []);
   const history = useNavigate();
   const task = getTaskFromQueryString(window.location.search);
+  const [selectdModelProps, setSelectdModelProps] = useState([]);
 
   const { id: taskId } = Task.getStaticTask(task);
   const selectModels = (selectedModels) => {
-    setCurrentPage(experimentPage);
+    setSelectdModelProps(selectedModels);
     setModels(selectedModels);
+    setCurrentPage(experimentPage);
   };
 
   const runModel = (model, inputs, experimentId, context = null) => {
@@ -64,8 +65,8 @@ export default function NewExperimentContainer(props) {
     return <ExperimentDetailContainer
       addInput={runModels}
       experiment={fabricateExperiment()}
+      selectedModels={selectdModelProps}
     />;
-
   return <ModelListContainer
     add runModels={selectModels} selectedModels={[]}
     hideTaskFilters
