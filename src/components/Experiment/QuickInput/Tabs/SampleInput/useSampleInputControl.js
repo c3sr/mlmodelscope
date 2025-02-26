@@ -1,5 +1,5 @@
-import {useState} from "react";
-import {QuickInputType} from "../../quickInputType";
+import { useState } from "react";
+import { QuickInputType } from "../../quickInputType";
 import Task from "../../../../../helpers/Task";
 
 export default function useSampleInputControl(props) {
@@ -8,14 +8,12 @@ export default function useSampleInputControl(props) {
 
   const [selectedIndex, setSelectedIndex] = useState([]);
 
-  const isSelected = (input) => sampleInputType === QuickInputType.Image ? selectedIndex.indexOf(input.src) > -1 : selectedIndex.indexOf(input) > -1;
+  const isSelected = (input) => input.src ? selectedIndex.indexOf(input.src) > -1 : selectedIndex.indexOf(input) > -1;
   const isUnselected = (input) => selectedIndex.length >= 0 && sampleInputType === QuickInputType.Image ? selectedIndex.indexOf(input.src) === -1 : selectedIndex.indexOf(input) === -1;
-  
+
   const selectMultiInput = (selectedValueIndex) => {
     // Note: Currently using both new and old way of handling inputs but should refactor in the future
-    let input = sampleInputType === QuickInputType.Image ? 
-        props.sampleInputs[props.inputIndex][selectedValueIndex].src : 
-        props.sampleInputs[props.inputIndex][selectedValueIndex];
+    let input = sampleInputType === props.sampleInputs[props.inputIndex][selectedValueIndex].src ?? props.sampleInputs[props.inputIndex][selectedValueIndex];
 
     if (props.multiple) {
       // TODO: This block was directly copied from selectInput
@@ -31,18 +29,16 @@ export default function useSampleInputControl(props) {
       if (typeof (props.inputSelected) === 'function')
         props.inputSelected(selected, props.inputIndex);
     } else {
-       setSelectedIndex([input]);
-       if (typeof(props.inputSelected) === 'function')
-          // Note: props.inputSelected is useQuickInputControl.selectMultiInput
-          props.inputSelected(input, props.inputIndex);
+      setSelectedIndex([input]);
+      if (typeof (props.inputSelected) === 'function')
+        // Note: props.inputSelected is useQuickInputControl.selectMultiInput
+        props.inputSelected(input, props.inputIndex);
     }
-  }
+  };
 
-  const selectInput = (index) => {    
-    const input = sampleInputType === QuickInputType.Image ?
-        props.sampleInputs[index].src :
-      props.sampleInputs[index];
-    
+  const selectInput = (index) => {
+    const input = props.sampleInputs[index].src ?? props.sampleInputs[index];
+
     if (props.multiple) {
       const selected = Array.from(selectedIndex);
       let storedIndex = selected.indexOf(input);
@@ -55,18 +51,18 @@ export default function useSampleInputControl(props) {
       if (typeof (props.inputSelected) === 'function')
         props.inputSelected(selected);
     } else {
-       setSelectedIndex([input]);
-       if (typeof(props.inputSelected) === 'function')
-         props.inputSelected(input, 0);
+      setSelectedIndex([input]);
+      if (typeof (props.inputSelected) === 'function')
+        props.inputSelected(input, 0);
     }
-  }
+  };
 
-  const {type} = props;
+  const { type } = props;
   return {
-    selectedIndex, 
-    selectInput: !task.useMultiInput ? selectInput : selectMultiInput, 
-    isSelected, 
-    isUnselected, 
+    selectedIndex,
+    selectInput: !task.useMultiInput ? selectInput : selectMultiInput,
+    isSelected,
+    isUnselected,
     type,
     sampleInputType
   };

@@ -98,6 +98,7 @@ import {
   SampleVideoClassificationInputs,
   SampleTableEditingInputs,
   SampleTextToAudio,
+  SampleTextConversationInputs,
 } from "./sampleImages";
 import { TestImageClassificationResult } from "../components/Experiment/QuickOutput/Outputs/Classification/Features";
 import { TestImageEnhancementData } from "../components/Experiment/QuickOutput/Outputs/ImageEnhancement/testData/TestFeatures";
@@ -110,7 +111,7 @@ import { TestTextToAudioOutput } from "../components/Experiment/QuickOutput/Outp
 import { TestTextConversationOutput } from "../components/Experiment/QuickOutput/Outputs/TextConversation/testData/testTextConversationOutput";
 import { TaskInputTypes } from "./TaskInputTypes";
 import { TestStyleTransferOutput } from "../components/Experiment/QuickOutput/Outputs/StyleTransfer/testData/testStyleTransferOutput";
-import { TestMaskGenerationOutput } from "../components/Experiment/QuickOutput/Outputs/MaskGeneration/testData/testMaskGenerationOutput"; 
+import { TestMaskGenerationOutput } from "../components/Experiment/QuickOutput/Outputs/MaskGeneration/testData/testMaskGenerationOutput";
 import TextInputTab from "../components/Experiment/QuickInput/Tabs/TextInput/TextInputTab";
 import { TestVisualQuestionAnswering } from "../components/Experiment/QuickOutput/Outputs/VisualQuestionAnswering/testData/testVisualQuestionAnsweringOutput";
 import { TestDocumentQuestionAnswering } from "../components/Experiment/QuickOutput/Outputs/DocumentQuestionAnswering/testData/testDocumentQuestionAnsweringOuput";
@@ -261,7 +262,7 @@ export default class Task {
     icon: (props) => <MaskGeneration {...props} />,
     sampleInputs: SampleMaskGenerationInputs,
     tutorialDescription: "blah blah.",
-  });  
+  });
   static text_to_text = new Task({
     name: "Text to Text",
     description: "[insert text description here]",
@@ -318,7 +319,7 @@ export default class Task {
     inputText: "begin a conversation.",
     outputText: "Conversational responses from the virtual assistant",
     icon: (props) => <TextConversation {...props} />,
-    sampleInputs: [],
+    sampleInputs: SampleTextConversationInputs,
     tutorialDescription:
       "Type a question and receive a response from a virtual assistant",
     inputType: TaskInputTypes.Text,
@@ -525,12 +526,12 @@ export default class Task {
         inputText: 'get a new version of the csv',
         inputType: TaskInputTypes.Csv,
       },
-    ], 
+    ],
     outputText: "Summarized CSV file",
     icon: (props) => <TableEditing {...props} />,
     sampleInputs: SampleTableEditingInputs,
     tutorialDescription: "blah blah.",
-  });    
+  });
 
   constructor(options) {
     this.name = options.name ?? "";
@@ -633,7 +634,7 @@ export default class Task {
       case imageTo3D:
         return DefaultImageTo3DModel;
       case maskGeneration:
-        return DefaultMaskGenerationModel; 
+        return DefaultMaskGenerationModel;
       case textToText:
         return DefaultTextModel;
       case textToCode:
@@ -668,7 +669,7 @@ export default class Task {
       case videoClassification:
         return DefaultVideoClassificationModel;
       case tableEditing:
-        return DefaultTableEditingModel
+        return DefaultTableEditingModel;
       default:
         return undefined;
     }
