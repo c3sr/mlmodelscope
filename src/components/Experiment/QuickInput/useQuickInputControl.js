@@ -111,11 +111,11 @@ export default function useQuickInputControl(props) {
       props.onRunModelClicked(selectedInputData.filter(input => input));
     }
   };
-  const selectInput = (url, index, additionalContext=null) => {
-    let selected = selectedInputs;
-    let selectedData = selectedInputs;
+  const selectInput = (url, index, additionalContext = null) => {
+    let selected = [...selectedInputs];
+    let selectedData = [...selectedInputData];
 
-    if (index) {
+    if (index !== undefined) {
       // Note: This doesn't get selected in audioToText Sample inputs 
       // - does it ever happen? Or do we always go to the else?
 
@@ -144,7 +144,7 @@ export default function useQuickInputControl(props) {
     setSelectedInputs(selected);
     setSelectedInputData(selectedData);
   };
-  const selectMultiInput = (url, inputIndex, additionalContext=null) => {
+  const selectMultiInput = (url, inputIndex, additionalContext = null) => {
     let selected = [...selectedInputs];
     let selectedData = [...selectedInputData];
 
@@ -214,11 +214,11 @@ export default function useQuickInputControl(props) {
     }
 
     if (task.useMultiInput) {
-      return (selectedInputs.length < task.inputs.length || selectedInputs[0] === "")
+      return (selectedInputs.length < task.inputs.length || selectedInputs[0] === "");
     } else {
-      return (selectedInputs.length === 0 || selectedInputs[0] === "")
+      return (selectedInputs.length === 0 || selectedInputs[0] === "");
     }
-  }
+  };
 
   return {
     selectedInputs,
