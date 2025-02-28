@@ -115,7 +115,7 @@ export const SampleMaskGenerationInputs = [
       alt: "cat and dog",
     },
   ]
-]
+];
 
 export const SampleTextInputs = [
   { src: "Lorem ipsum dolor sit amet" },
@@ -133,7 +133,16 @@ export const SampleAudioToTextInputs = [
   {
     title: "automatic-speech-recognition-input.flac",
     src: "https://xlab1.netlify.app/automatic-speech-recognition-input.flac"
-  }
+  },
+  {
+    title: "demo1.mp3",
+    src: "https://samplelib.com/lib/preview/mp3/sample-6s.mp3"
+  },
+  ,
+  {
+    title: "demo2.mp3",
+    src: "https://samplelib.com/lib/preview/mp3/sample-12s.mp3"
+  },
 ];
 
 export const SampleTextConversationInputs = [
@@ -245,14 +254,13 @@ export const SampleAudioToAudioInputs = [
 
   },
   {
-    title: "audio2.flac",
-    src: "https://xlab1.netlify.app/audio-to-audio-input.flac"
-
+    title: "demo1.mp3",
+    src: "https://samplelib.com/lib/preview/mp3/sample-6s.mp3"
   },
+  ,
   {
-    title: "audio3.flac",
-    src: "https://xlab1.netlify.app/audio-to-audio-input.flac"
-
+    title: "demo2.mp3",
+    src: "https://samplelib.com/lib/preview/mp3/sample-12s.mp3"
   },
 ];
 export const SampleAudioClassificationInputs = [
@@ -260,6 +268,15 @@ export const SampleAudioClassificationInputs = [
     title: "audio1.flac",
     src: "https://xlab1.netlify.app/audio-classification-input.flac"
 
+  },
+  {
+    title: "demo1.mp3",
+    src: "https://samplelib.com/lib/preview/mp3/sample-6s.mp3"
+  },
+  ,
+  {
+    title: "demo2.mp3",
+    src: "https://samplelib.com/lib/preview/mp3/sample-12s.mp3"
   },
 ];
 export const SampleTextToAudio = [

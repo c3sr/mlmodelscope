@@ -20,7 +20,6 @@ export default function InputSelectors(props) {
             className={getElement("input-preview")}
           />
         }
-        Input {index + 1}
       </>
     );
   };
@@ -52,6 +51,8 @@ export default function InputSelectors(props) {
             >
               <DeleteIcon />
             </button>
+            <p className={getElement("input-selector-number")}>Input {idx + 1}</p>
+
           </div>
         ))}
       </div>
