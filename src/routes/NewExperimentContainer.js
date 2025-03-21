@@ -42,22 +42,16 @@ export default function NewExperimentContainer(props) {
 
   const runModels = async (inputs) => {
     const [first, ...rest] = models;
-
     const firstResult = await api.runTrial(first, inputs[0]);
     const experimentId = firstResult.experimentId;
-
+    localStorage.setItem('experimentTrial', JSON.stringify({ experimentId: { inputs: inputs, models: models } }));
     let trialPromises = [runModel(first, inputs.slice(1), experimentId)];
 
     trialPromises.push(...rest.map((model) => {
       return runModel(model, inputs, experimentId);
     }));
-
-    let flattenedPromises = trialPromises.flat();
-
-    Promise.all(flattenedPromises).then(final => {
-      if (history)
-        history(`/experiment/${experimentId}?task=${task}`);
-    });
+    if (history)
+      history(`/experiment/${experimentId}?task=${task}`);
   };
 
 
