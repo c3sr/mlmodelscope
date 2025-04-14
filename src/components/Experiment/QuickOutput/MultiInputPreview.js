@@ -19,7 +19,7 @@ export default function MultiInputPreview(givenProps) {
   const { getBlock, getElement } = useBEMNaming(props.className);
 
   const getInputs = (input) => {
-    switch (input.inputType) {
+    switch (input.inputType.toUpperCase()) {
       case TaskInputTypes.Text:
         let shortened = input.src.split(" ").slice(0, 5).join(" ");
         shortened = shortened + (shortened.length < input.src.length ? "..." : "");
@@ -33,7 +33,7 @@ export default function MultiInputPreview(givenProps) {
             </a>
           </button>
         );
-      case QuickInputType.Image:
+      case QuickInputType.Image.toUpperCase():
         return (
           <img
             className={getElement("image")}
