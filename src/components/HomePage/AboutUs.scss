@@ -1,0 +1,54 @@
+@import "src/App";
+
+.about-us-section {
+  padding: 2rem;
+  background-color: #f9fafb;
+
+  &__intro,
+  &__mission {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4rem;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  &__text {
+    flex: 1;
+    min-width: 280px;
+
+    h1,
+    h2 {
+      font-family: Lato, sans-serif;
+      font-size: clamp(32px, 3vw, 48px);
+      font-weight: 800;
+      line-height: clamp(38px, 10.5vw, 48px);
+      letter-spacing: 0;
+      text-align: center;
+      color: #031d60;
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    p {
+      font-size: 20px;
+      font-weight: normal;
+      line-height: 28px;
+      color: #4e4e4e;
+      color: #4e4e4e;
+      margin-bottom: 40px;
+    }
+  }
+
+  &__image {
+    flex: 1;
+    min-width: 280px;
+
+    img {
+      width: 100%;
+      border-radius: 1rem;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
