@@ -25,8 +25,10 @@ export default function ExperimentDetailContainer(props) {
     const { experimentId } = useParams();
     const task = getTaskFromQueryString(window.location.search);
     const hasLocalStorage = experimentId && localStorage.getItem('experimentTrial')?.experimentId !== null;
-    const [inputsProp, setInputsProp] = useState(hasLocalStorage ? JSON.parse(localStorage.getItem('experimentTrial'))?.experimentId?.inputs.flat() : []);
+    const getTask = () => Task.getStaticTask(task);
+    const hasMultipleInputs = getTask()?.useMultiInput ?? getTask()?.inputs?.length > 1;
     const localStorageInput = hasLocalStorage ? JSON.parse(localStorage.getItem('experimentTrial'))?.experimentId?.inputs : [];
+    const [inputsProp, setInputsProp] = useState(hasLocalStorage ? (hasMultipleInputs ? JSON.parse(localStorage.getItem('experimentTrial'))?.experimentId?.inputs : JSON.parse(localStorage.getItem('experimentTrial'))?.experimentId?.inputs.flat()) : []);
     const localStorageModels = hasLocalStorage ? JSON.parse(localStorage.getItem('experimentTrial'))?.experimentId?.models : [];
     const [experimentProp, setExperimentProp] = useState({
         id: experimentId,
@@ -48,8 +50,6 @@ export default function ExperimentDetailContainer(props) {
     };
 
 
-    const getTask = () => Task.getStaticTask(task);
-    const hasMultipleInputs = getTask()?.inputs?.length > 1;
 
     useEffect(() => {
         getExperiment();

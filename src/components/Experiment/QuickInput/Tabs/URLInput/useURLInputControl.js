@@ -10,7 +10,8 @@ export default function useURLInputControl(props) {
   const urlChanged = async (event, index) => {
     if (event.persist)
       event.persist();
-    const inputType = task.useMultiInput ? task.inputs[index].inputType : task.inputType;
+    const inputType = task.useMultiInput ? (task.inputs.length > 1 ? task.inputs[index].inputType : task.inputs[0].inputType) : task.inputType;
+
     let url = event.target.value;
     let tempUrl = event.target.value;
     UrlVerfiy(tempUrl, inputType).then((result) => {

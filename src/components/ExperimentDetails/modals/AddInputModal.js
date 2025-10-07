@@ -1,4 +1,3 @@
-import React from "react";
 import Modal from "../../Common/Modal/Modal";
 import useBEMNaming from "../../../common/useBEMNaming";
 import QuickInput from "../../Experiment/QuickInput/QuickInput";
@@ -21,7 +20,6 @@ export default function AddInputModal(props) {
           hideHeader
           onRunModelClicked={onAdd}
           sampleInputs={props.sampleInputs}
-          multiple
         />
       </div>
     </Modal>

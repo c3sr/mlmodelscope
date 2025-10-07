@@ -56,6 +56,7 @@ export const ExperimentInputs = (props) => {
           showAddInputModal={props.showAddInputModal}
           showDeleteInputModal={props.showDeleteInputModal}
           task={props.task}
+          hasMultipleInputs={props.hasMultipleInputs}
         />
 
       </div>

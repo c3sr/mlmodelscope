@@ -2,26 +2,22 @@ import { useState } from "react";
 import Task from "../../../../../helpers/Task";
 
 export default function useTextInputControl(props) {
-    const [text, setText] = useState(props.values[0]);
     const task = Task.getStaticTask(props.task);
 
-    const textChanged = async (event, index = null) => {
+    const textChanged = async (event, index) => {
         if (event.persist) {
             event.persist();
         }
-
-        setText(event.target.value);
-
-        if (typeof (props.inputSelected) === "function") {
-            if (index !== null) {
-                props.inputSelected(text, index);
-            }
-        }
+        let myText = event.target.value;
+        if (typeof (props.inputSelected) === "function")
+            props.inputSelected(myText, index);
     };
+    let values = props.values;
+    if (!values || values.length === 0) values = [""];
 
     return {
         task,
-        text,
-        textChanged
+        textChanged,
+        values
     };
 }

@@ -29,7 +29,7 @@ export default function MultiInputPreview(givenProps) {
           <button className={getElement("document")}>
             <DocumentIcon className='icon' />
             <a href={input.src} target='_blank' >
-              <span>{input.description ?? "Document"}</span>
+              <span>{input.description ?? input.src.split("/").pop()}</span>
             </a>
           </button>
         );
@@ -49,7 +49,6 @@ export default function MultiInputPreview(givenProps) {
         );
     }
   };
-
   return (
     <div className={getBlock()}>
       {props.experimentInputPreview || <h3 className={getElement("title")}>
@@ -78,6 +77,7 @@ export default function MultiInputPreview(givenProps) {
           ) : (
             <div>
               {
+
                 props.inputs.map((input, index) => (
                   <div className={getElement("single-input")} key={index}>
                     {getInputs(input)}
