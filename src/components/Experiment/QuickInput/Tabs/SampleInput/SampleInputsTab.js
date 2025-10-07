@@ -16,8 +16,8 @@ import CsvPreview from '../CsvInput/CsvPreview';
 export default function SampleInputsTab(props) {
     // Note: This is the content for the Sample Input Tab, below the header
     const { getBlock, getElement } = useBEMNaming("sample-inputs");
-    const { isUnselected, isSelected, selectInput, type,  sampleInputType } = useSampleInputControl(props);
-    
+    const { isUnselected, isSelected, selectInput, type, sampleInputType } = useSampleInputControl(props);
+
     const task = Task.getStaticTask(props.task);
 
     const getInputClassName = (url) => {
@@ -105,7 +105,7 @@ export default function SampleInputsTab(props) {
                 <CanvasInput selectInput={selectInput} index={index} url={url} {...props} />
             </div>
         );
-    }    
+    }
 
     function makeSampleVideoInput(url, index) {
         return (
@@ -129,7 +129,7 @@ export default function SampleInputsTab(props) {
                 <CsvPreview url={url.src} />
             </button>
         );
-    }    
+    }
 
     function makeDefaultErrorInput() {
         return (
@@ -145,7 +145,7 @@ export default function SampleInputsTab(props) {
         <div className={getBlock()}>
             <div className={getElement('title')}><b>{makeTaskTitle(props)}</b> to {inputText.toLowerCase()}</div>
             <div className={getElement('list')}>
-                {sampleInputs.map(makeSampleInput)}
+                {sampleInputs?.map(makeSampleInput) ?? "No sample inputs available"}
             </div>
         </div>
     );

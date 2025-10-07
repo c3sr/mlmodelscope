@@ -1,7 +1,7 @@
 import StyleTransferContent from "../resources/taskSample/styleTransferContent.jpg";
 import StyleTransferStyle from "../resources/taskSample/styleTransferStyle.jpg";
 import Chairs from "../resources/taskSample/imageTo3D1.png";
-// import Drums from "../resources/taskSample/imageTo3D2.png";
+import Drums from "../resources/taskSample/imageTo3D2.png";
 import catDog from "../stories/assets/catdog.jpg";
 import tableEditing from "../../src/resources/taskSample/tableEditing.csv";
 
@@ -101,10 +101,10 @@ export const SampleImageTo3DInputs = [
       src: Chairs,
       alt: "chairs",
     },
-    // {
-    //   src: Drums,
-    //   alt: "drums",
-    // },           
+    {
+      src: Drums,
+      alt: "drums",
+    },           
   ],
 ];
 

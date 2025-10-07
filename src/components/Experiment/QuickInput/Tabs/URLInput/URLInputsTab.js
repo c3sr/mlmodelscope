@@ -95,7 +95,7 @@ export default function URLInputsTab(props) {
                   selectedInputs={props.values}
                   inputSelected={props.inputSelected}
                   tab={props.tab}
-                  inputSrc={values[props.inputIndex] || false}
+                  inputSrc={values[props.inputIndex] || "123"}
                 />
               </div>
             </>
@@ -126,8 +126,8 @@ export default function URLInputsTab(props) {
                 />
               </div>
             ))}
-            {props.multiple && <button onClick={props.addInput} className={getElement("add-btn")}><PlusSign
-              className={getElement("add-btn-icon")} /> Add another URL</button>}
+            {/* {props.multiple && <button onClick={props.addInput} className={getElement("add-btn")}><PlusSign
+              className={getElement("add-btn-icon")} /> Add another URL</button>} */}
           </>
         )
       }

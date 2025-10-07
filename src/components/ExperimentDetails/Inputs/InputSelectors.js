@@ -10,7 +10,7 @@ export default function InputSelectors(props) {
   const getInputPreviewContent = (inputs, index) => {
     return (
       <>
-        {props.task?.inputs?.length > 1 ?
+        {props.hasMultipleInputs ?
           <MultiInputPreview inputs={inputs} experimentInputPreview={true} className={getElement("input-preview")} />
           :
           <InputPreview
@@ -56,14 +56,14 @@ export default function InputSelectors(props) {
           </div>
         ))}
       </div>
-      <div className={getElement("add-input-area")}>
+      {/* <div className={getElement("add-input-area")}>
         <button
           onClick={props.showAddInputModal}
           className={getElement("add-input-area-btn")}
         >
           Add Input
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

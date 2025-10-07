@@ -15,7 +15,7 @@
     padding: 20px;
 
     &::placeholder {
-      opacity: .9;
+      opacity: 0.9;
     }
 
     &-error {
@@ -23,6 +23,27 @@
 
       &:focus {
         border-color: $pink;
+      }
+    }
+  }
+  &__add-btn {
+    background-color: $smokeDarker;
+    border-radius: 5px;
+    @include headline6;
+    color: $charcoalLightest;
+    float: left;
+    margin-top: 16px;
+    width: 170px;
+    padding: 16px 8px;
+    transition: 0.25s;
+
+    &:hover {
+      background-color: $smokeDarkest;
+    }
+
+    &-icon {
+      path {
+        fill: $charcoalLightest;
       }
     }
   }

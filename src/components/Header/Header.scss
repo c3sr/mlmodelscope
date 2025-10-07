@@ -1,6 +1,5 @@
 @import "../../App";
 
-
 @keyframes slideUp {
   0% {
     max-height: unset;
@@ -26,7 +25,7 @@
     display: block;
   }
   to {
-    max-height: unset
+    max-height: unset;
   }
 }
 
@@ -71,13 +70,11 @@
   margin-top: -100px;
   box-shadow: 0px 4px 4px 0px #00000040;
 
-
   &__splash {
     background: transparent;
     box-shadow: none;
 
     .header__responsive-menu-icon {
-
       span {
         background-color: $white;
       }
@@ -130,10 +127,10 @@
       -moz-transform: rotate(0deg);
       -o-transform: rotate(0deg);
       transform: rotate(0deg);
-      -webkit-transition: .5s ease-in-out;
-      -moz-transition: .5s ease-in-out;
-      -o-transition: .5s ease-in-out;
-      transition: .5s ease-in-out;
+      -webkit-transition: 0.5s ease-in-out;
+      -moz-transition: 0.5s ease-in-out;
+      -o-transition: 0.5s ease-in-out;
+      transition: 0.5s ease-in-out;
       cursor: pointer;
       span {
         display: block;
@@ -148,17 +145,17 @@
         -moz-transform: rotate(0deg);
         -o-transform: rotate(0deg);
         transform: rotate(0deg);
-        -webkit-transition: .25s ease-in-out;
-        -moz-transition: .25s ease-in-out;
-        -o-transition: .25s ease-in-out;
-        transition: .25s ease-in-out;
+        -webkit-transition: 0.25s ease-in-out;
+        -moz-transition: 0.25s ease-in-out;
+        -o-transition: 0.25s ease-in-out;
+        transition: 0.25s ease-in-out;
       }
-
 
       span:nth-child(1) {
         top: 0;
       }
-      span:nth-child(2), span:nth-child(3) {
+      span:nth-child(2),
+      span:nth-child(3) {
         top: 7px;
       }
       span:nth-child(4) {
@@ -192,10 +189,7 @@
         }
       }
     }
-
-
   }
-
 
   &__beta {
     @include fitToContent;
@@ -217,13 +211,13 @@
     font-weight: 300;
     line-height: 1;
     text-decoration: none;
-    transition: .3s;
+    transition: 0.3s;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
     &:hover {
       background-position: bottom center;
-      opacity: .8;
+      opacity: 0.8;
     }
 
     &__modelscope {
@@ -299,17 +293,13 @@
         svg {
           transform: rotate(180deg);
         }
-
       }
-
     }
-
   }
 
   &__submenu-item {
     background: $white;
     border: none;
-
   }
 
   &__library-link {
@@ -326,11 +316,9 @@
     @include maxWidth($mobileBreakpoint) {
       fill: $white;
     }
-
   }
 
   &__splash &__library-link-container {
-
     .header__library-link {
       color: white;
     }
@@ -363,8 +351,6 @@
 
       &:hover {
         background-color: $azulDark;
-
-
       }
     }
   }
@@ -384,10 +370,7 @@
     .header__row {
       padding-bottom: 11px;
     }
-
-
   }
-
 
   &__responsive-menu {
     display: none;
@@ -415,7 +398,6 @@
       }
     }
 
-
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
     .header {
@@ -442,12 +424,12 @@
 
       &-open {
         //max-height: 350px;
-
+        max-height: 50vh;
+        overflow: auto;
       }
 
       &-closing {
         max-height: 0;
-
       }
     }
 
@@ -497,7 +479,6 @@
         border-bottom: none;
       }
 
-
       &-expandable {
         justify-content: space-between;
       }
@@ -519,7 +500,8 @@
         color: $purple;
       }
 
-      svg path, .header__arrow-icon path {
+      svg path,
+      .header__arrow-icon path {
         fill: $purple;
       }
     }
@@ -547,7 +529,6 @@
         fill: $azul;
       }
     }
-
   }
 
   &__submenu-icon {
@@ -571,7 +552,6 @@
     &-title {
       @include headline5;
       color: $azulDarkest;
-
     }
 
     &-btn {
@@ -612,13 +592,11 @@
 
         path {
           fill: white !important;
-
         }
 
         &-active {
           path {
             fill: $azul !important;
-
           }
 
           transform: rotate(180deg);
@@ -653,6 +631,8 @@
       display: flex;
       flex-wrap: wrap;
       margin-top: 24px;
+      max-height: 50vh;
+      overflow: auto;
     }
 
     &-task {
@@ -684,10 +664,11 @@
         }
         polyline {
           stroke: $azul !important;
-        } 
+        }
       }
 
-      &:hover, &-selected {
+      &:hover,
+      &-selected {
         background-color: $azul;
         color: $white;
         // Styling for .svg Task icons to make sure they are $white and $azul
@@ -711,11 +692,9 @@
         }
         polyline {
           stroke: $white !important;
-        } 
+        }
       }
     }
-
-
   }
 
   &__library-link-bar {

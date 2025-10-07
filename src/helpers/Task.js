@@ -99,6 +99,7 @@ import {
   SampleTableEditingInputs,
   SampleTextToAudio,
   SampleTextConversationInputs,
+  SampleImageTo3DInputs,
 } from "./sampleImages";
 import { TestImageClassificationResult } from "../components/Experiment/QuickOutput/Outputs/Classification/Features";
 import { TestImageEnhancementData } from "../components/Experiment/QuickOutput/Outputs/ImageEnhancement/testData/TestFeatures";
@@ -242,7 +243,7 @@ export default class Task {
     ],
     outputText: "3D model generated from the uploaded images",
     icon: (props) => <ImageTo3D {...props} />,
-    sampleInputs: [],
+    sampleInputs: SampleImageTo3DInputs,
     useMultiImageSample: true,
     tutorialDescription:
       "3D conversion models produce a 3D version of the user's input.",

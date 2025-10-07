@@ -19,7 +19,7 @@ export default function MultiInputPreview(givenProps) {
   const { getBlock, getElement } = useBEMNaming(props.className);
 
   const getInputs = (input) => {
-    switch (input.inputType) {
+    switch (input.inputType.toUpperCase()) {
       case TaskInputTypes.Text:
         let shortened = input.src.split(" ").slice(0, 5).join(" ");
         shortened = shortened + (shortened.length < input.src.length ? "..." : "");
@@ -29,11 +29,11 @@ export default function MultiInputPreview(givenProps) {
           <button className={getElement("document")}>
             <DocumentIcon className='icon' />
             <a href={input.src} target='_blank' >
-              <span>{input.description ?? "Document"}</span>
+              <span>{input.description ?? input.src.split("/").pop()}</span>
             </a>
           </button>
         );
-      case QuickInputType.Image:
+      case QuickInputType.Image.toUpperCase():
         return (
           <img
             className={getElement("image")}
@@ -49,7 +49,6 @@ export default function MultiInputPreview(givenProps) {
         );
     }
   };
-
   return (
     <div className={getBlock()}>
       {props.experimentInputPreview || <h3 className={getElement("title")}>
@@ -78,6 +77,7 @@ export default function MultiInputPreview(givenProps) {
           ) : (
             <div>
               {
+
                 props.inputs.map((input, index) => (
                   <div className={getElement("single-input")} key={index}>
                     {getInputs(input)}

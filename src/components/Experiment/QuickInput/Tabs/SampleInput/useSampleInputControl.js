@@ -13,8 +13,7 @@ export default function useSampleInputControl(props) {
 
   const selectMultiInput = (selectedValueIndex) => {
     // Note: Currently using both new and old way of handling inputs but should refactor in the future
-    let input = sampleInputType === props.sampleInputs[props.inputIndex][selectedValueIndex].src ?? props.sampleInputs[props.inputIndex][selectedValueIndex];
-
+    let input = props.sampleInputs[props.inputIndex][selectedValueIndex].src ?? props.sampleInputs[props.inputIndex][selectedValueIndex];
     if (props.multiple) {
       // TODO: This block was directly copied from selectInput
       // and may need to be updated for useMultiInput

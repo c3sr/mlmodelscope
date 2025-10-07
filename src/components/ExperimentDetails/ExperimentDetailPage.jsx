@@ -16,7 +16,6 @@ import SelectedModelsBanner from "../ModelList/SelectedModelsBanner";
 
 export default function ExperimentDetailPage(props) {
   // const [value, setValue] = useState(-1);
-
   const { getBlock, getElement } = useBEMNaming("experiment-detail-page");
   const calculateCardWidth = () => {
     let length = props.experiment.trials.length;
@@ -25,22 +24,24 @@ export default function ExperimentDetailPage(props) {
     return "33%";
   };
 
-  let trialComponents = props.experiment.trials?.map((trial, trialIndex) => (
-    <div
-      style={{ width: calculateCardWidth() }}
-      key={trialIndex}
-      className={getElement("trial")}
-    >
-      <TrialOutputWrapper
-        // value={value}
-        trial={trial}
-        onDeleteTrial={props.onDeleteTrial}
-        deletedTrial={props.trialToDelete}
-        trialIsDeleting={props.trialIsDeleting}
-        processFailed={props.failedTrials?.indexOf(trialIndex) > -1}
-      />
-    </div>
-  ));
+  let trialComponents = props.experiment.trials?.map((trial, trialIndex) => {
+    return (
+      trial.inputs && <div
+        style={{ width: calculateCardWidth() }}
+        key={trialIndex}
+        className={getElement("trial")}
+      >
+        <TrialOutputWrapper
+          // value={value}
+          trial={trial}
+          onDeleteTrial={props.onDeleteTrial}
+          deletedTrial={props.trialToDelete}
+          trialIsDeleting={props.trialIsDeleting}
+          processFailed={props.failedTrials?.indexOf(trialIndex) > -1}
+        />
+      </div>
+    );
+  });
 
   const Layout = getLayout();
 

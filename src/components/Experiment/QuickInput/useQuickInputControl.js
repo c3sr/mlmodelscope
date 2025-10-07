@@ -155,12 +155,12 @@ export default function useQuickInputControl(props) {
       if (typeof url !== 'object') {
         selectedData[inputIndex] = {
           src: url,
-          inputType: task.inputs[inputIndex].inputType,
+          inputType: task.useMultiInput ? (task.inputs.length > 1 ? task.inputs[inputIndex].inputType : task.inputs[0].inputType) : task.inputType,
           ...additionalContext
         };
       } else {
         selectedData[inputIndex] = {
-          inputType: task.inputs[inputIndex].inputType,
+          inputType: task.useMultiInput ? (task.inputs.length > 1 ? task.inputs[inputIndex].inputType : task.inputs[0].inputType) : task.inputType,
           ...url,
           ...additionalContext
         };
@@ -177,7 +177,7 @@ export default function useQuickInputControl(props) {
         }];
       } else {
         selectedData[inputIndex] = [{
-          inputType: task.inputs[inputIndex].inputType,
+          inputType: task.useMultiInput ? (task.inputs.length > 1 ? task.inputs[inputIndex].inputType : task.inputs[0].inputType) : task.inputType,
           ...url
         }];
       }
