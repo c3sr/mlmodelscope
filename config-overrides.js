@@ -2,7 +2,6 @@ const {
   override,
   addDecoratorsLegacy,
   fixBabelImports,
-  disableEsLint,
   addWebpackAlias,
   addTslintLoader,
 } = require("customize-cra");
@@ -35,11 +34,51 @@ function rewireSVGR(svgrLoaderOptions) {
   };
 }
 
+function filterBrokenMediaPipeSourceMap(config) {
+  const sourceMapLoader = config.module.rules.find(
+    rule =>
+      rule &&
+      rule.loader === require.resolve("source-map-loader")
+  );
+
+  if (!sourceMapLoader) {
+    return config;
+  }
+
+  const mediaPipeBundle = path.join(
+    "@mediapipe",
+    "tasks-vision",
+    "vision_bundle.mjs"
+  );
+
+  sourceMapLoader.options = {
+    ...sourceMapLoader.options,
+    filterSourceMappingUrl(sourceMappingUrl, resourcePath) {
+      const isBrokenMediaPipeReference =
+        path.normalize(resourcePath).endsWith(mediaPipeBundle) &&
+        sourceMappingUrl === "vision_bundle_mjs.js.map";
+
+      return isBrokenMediaPipeReference ? "remove" : "consume";
+    }
+  };
+
+  return config;
+}
+
+function disableWebpackEslint(config) {
+  config.plugins = config.plugins.filter(
+    plugin => plugin.constructor.name !== "ESLintWebpackPlugin"
+  );
+
+  return config;
+}
+
 const primaryColor = "#19263a";
 
 module.exports = override(
+  filterBrokenMediaPipeSourceMap,
   addDecoratorsLegacy(),
-  disableEsLint(),
+  disableWebpackEslint,
   fixBabelImports("lodash", {
     libraryName: "lodash",
     libraryDirectory: "",
