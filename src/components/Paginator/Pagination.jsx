@@ -1,7 +1,6 @@
 import React, {useEffect} from "react";
 import PageNavigation from "./PageNavigation";
 import PageNavigationSummary from "./PageNavigationSummary";
-import {usePrevious} from "../../common/usePrevious";
 
 export default function withPagination(WrappedComponent, dataPropertyName, searchText) {
 
@@ -14,52 +13,34 @@ export default function withPagination(WrappedComponent, dataPropertyName, searc
 
     function Paginated(givenProps) {
         const props = {...defaultProps, ...givenProps};
-
-        const paginateData = (currentState = null) => {
-            const selectedPage = currentState ? currentState.selectedPage : props.selectedPage;
-            const start = 24 * (selectedPage - 1);
-            const end = 24 * selectedPage;
-            const pageData = props.data.slice(start, end);
-            const pageCount = parseInt(1 + props.data.length / 24);
-
-            return {
-                pageData,
-                pageCount,
-                selectedPage
-            }
-        }
-
-        const [state, setState] = React.useState(paginateData());
-
-        const previousState = usePrevious(state);
+        const [selectedPage, setSelectedPage] = React.useState(props.selectedPage);
+        const pageCount = Math.max(1, Math.ceil(props.data.length / props.itemsPerPage));
+        const currentPage = Math.min(selectedPage, pageCount);
+        const start = props.itemsPerPage * (currentPage - 1);
+        const pageData = props.data.slice(start, start + props.itemsPerPage);
 
         useEffect(() => {
-            if (previousState.data !== state.data || previousState.selectedPage !== state.selectedPage) {
-                setState(paginateData(state));
-            }
-        }, [state])
+            setSelectedPage(1);
+        }, [props.data]);
 
-        const selectPage = (selectedPage) => {
-            setState(s => ({
-                ...s,
-                selectedPage
-            }));
+        const selectPage = (nextPage) => {
+            setSelectedPage(nextPage);
             setTimeout(() => {
                 window.scrollTo(0, document.querySelector(".model-list-page__content").offsetTop);
             }, 250)
         }
 
         let wrappedProps = {}
-        wrappedProps[dataPropertyName] = state.pageData;
+        wrappedProps[dataPropertyName] = pageData;
 
         return (
             <div className="paginated-content">
-                <PageNavigationSummary data={state.pageData} pageCount={state.pageCount}
-                                       selectedPage={state.selectedPage} totalCount={props.data.length}
+                <PageNavigationSummary data={pageData} pageCount={pageCount}
+                                       selectedPage={currentPage} totalCount={props.data.length}
                                        searchText={searchText} selectPage={selectPage}/>
-                <WrappedComponent pageCount={state.pageCount}
-                                  selectedPage={state.selectedPage} {...props} {...wrappedProps} />
-                <PageNavigation pageCount={state.pageCount} selectedPage={state.selectedPage}
+                <WrappedComponent pageCount={pageCount}
+                                  selectedPage={currentPage} {...props} {...wrappedProps} />
+                <PageNavigation pageCount={pageCount} selectedPage={currentPage}
                                 selectPage={selectPage}/>
             </div>
         );

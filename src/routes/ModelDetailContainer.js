@@ -35,55 +35,39 @@ export function ModelDetailContainer(props) {
         history(`/experiment/${experiment.id}`);
     }
 
-    const getTrial = async (trialId) => {
-        trialSubscription = api.getTrial(trialId).subscribe({
-            next: nextTrialOutput => setTrialOutput(nextTrialOutput)
-        });
-    }
+    useEffect(() => {
+        if (!!experimentId) {
+            experimentSubscription = api.getExperiment(experimentId).subscribe({
+                next: nextExperiment => {
+                    trialSubscription = api.getTrial(nextExperiment.trials[0].id).subscribe({
+                        next: nextTrialOutput => setTrialOutput(nextTrialOutput)
+                    });
+                    setExperiment(nextExperiment);
+                }
+            });
+        }
 
-    const getExperiment = async (experimentId) => {
-        experimentSubscription = api.getExperiment(experimentId).subscribe({
-            next: nextExperiment => {
-                getTrial(nextExperiment.trials[0].id);
-                setExperiment(nextExperiment);
-            }
-        });
-    }
+        return () => {
+            if (experimentSubscription)
+                experimentSubscription.unsubscribe();
+            if (trialSubscription)
+                trialSubscription.unsubscribe();
+        }
+    }, [experimentId]);
 
-    const getModel = () => {
+    useEffect(() => {
         modelSubscription = api.ActiveModel.subscribe({
             next: (nextModels) => {
                 setModel(nextModels[0]);
             }
         });
         api.getModel(modelId);
-    }
-
-    useEffect(() => {
-        if (!!experimentId)
-            getExperiment(experimentId);
-
-        return () => {
-            if (experimentSubscription)
-                experimentSubscription.unsubscribe();
-        }
-    });
-
-    useEffect(() => {
-        getModel();
 
         return () => {
             if (modelSubscription)
                 modelSubscription.unsubscribe();
         }
-    }, []);
-
-    useEffect(() => {
-        return () => {
-            if (trialSubscription)
-                trialSubscription.unsubscribe();
-        }
-    }, []);
+    }, [modelId]);
 
     return (
         <ModelDetailPage 

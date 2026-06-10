@@ -16,7 +16,9 @@ export default function useModelListContainer(props) {
                 setModels(apiModels)
             }
         });
-        api.getModels();
+        api.getModels().catch(error => {
+            console.error("Unable to load models:", error);
+        });
     }
 
     const getFrameworks = () => {
@@ -34,7 +36,9 @@ export default function useModelListContainer(props) {
                 setFrameworkOptions(frameworkOptionsFromApi);
             }
         });
-        api.getFrameworks();
+        api.getFrameworks().catch(error => {
+            console.error("Unable to load frameworks:", error);
+        });
     }
 
     useEffect(() => {

@@ -107,8 +107,13 @@ function checkValidServiceWorker(swUrl) {
 
 export function unregister() {
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.ready.then(registration => {
-      registration.unregister();
-    });
+    navigator.serviceWorker
+      .getRegistrations()
+      .then(registrations =>
+        Promise.all(registrations.map(registration => registration.unregister()))
+      )
+      .catch(error => {
+        console.error("Error during service worker unregistration:", error);
+      });
   }
 }

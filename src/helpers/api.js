@@ -1,14 +1,20 @@
-import {BehaviorSubject, Subject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 const AnonymousUserId = 'anonymous';
+const InitialPollDelayMs = 1000;
+const MaxPollDelayMs = 5000;
+const PollBackoffMultiplier = 1.5;
 
 class Api {
-  Models: Subject;
-  Frameworks: Subject;
-  ActiveModel: Subject;
+  Models: BehaviorSubject;
+  Frameworks: BehaviorSubject;
+  ActiveModel: BehaviorSubject;
 
   constructor() {
-    this.apiUrl = process.env.REACT_APP_API_URL;
+    this.apiUrl =
+      process.env.NODE_ENV === "development"
+        ? "/api"
+        : process.env.REACT_APP_API_URL;
     this.Models = new BehaviorSubject([]);
     this.Frameworks = new BehaviorSubject([]);
     this.ActiveModel = new BehaviorSubject([]);
@@ -21,7 +27,13 @@ class Api {
       queries = "?" + Object.keys(filters).map(key => `${key}=${filters[key]}`).join("&");
     }
     let result = await fetch(`${this.apiUrl}/models${queries}`);
+    if (!result.ok)
+      throw new Error(`Unable to fetch models (${result.status})`);
+
     let data = await result.json();
+
+    if (!Array.isArray(data.models))
+      throw new Error("Models response did not contain a models array");
 
     this.Models.next(data.models);
   }
@@ -35,7 +47,13 @@ class Api {
 
   async getFrameworks() {
     let result = await fetch(`${this.apiUrl}/frameworks`);
+    if (!result.ok)
+      throw new Error(`Unable to fetch frameworks (${result.status})`);
+
     let data = await result.json();
+
+    if (!Array.isArray(data.frameworks))
+      throw new Error("Frameworks response did not contain a frameworks array");
 
     this.Frameworks.next(data.frameworks);
   }
@@ -48,17 +66,12 @@ class Api {
    * @param {string} experimentId - The UUID of the experiment to look up
    */
   getExperiment(experimentId) {
-    const experimentSubject = new Subject();
-
-    this.poll({
+    return this.poll({
       fn: this._getExperiment,
       params: experimentId,
       validate: experiment => experiment.trials !== undefined, // how do we really validate?
-      maxAttempts: 10,
-      subject: experimentSubject
+      maxAttempts: 10
     });
-
-    return experimentSubject;
   }
 
 
@@ -92,20 +105,79 @@ class Api {
    *
    * @param {string} trialId - The UUID of the trial to look up
    */
-  getTrial(trialId) {
-    const trialSubject = new Subject();
+  getTrial(trialId, pollingOptions = {}) {
+    return new Observable(subscriber => {
+      let cancelled = false;
+      let pollTimer;
+      let pollDelay = pollingOptions.initialDelayMs ?? InitialPollDelayMs;
+      const maxPollDelay =
+        pollingOptions.maxDelayMs ?? MaxPollDelayMs;
+      const backoffMultiplier =
+        pollingOptions.backoffMultiplier ?? PollBackoffMultiplier;
 
-    this.poll({
-      fn: this._getTrial,
-      params: trialId,
-      validate: trial => trial.completed_at !== undefined,
-      // maxAttempts: 10,  // This should be on, but it totally breaks the page currently
-      subject: trialSubject
+      const scheduleStatusCheck = () => {
+        pollTimer = setTimeout(checkStatus, pollDelay);
+        pollDelay = Math.min(
+          pollDelay * backoffMultiplier,
+          maxPollDelay
+        );
+      };
+
+      const checkStatus = async () => {
+        try {
+          const status = await this._getTrialStatus(trialId);
+          if (cancelled)
+            return;
+
+          if (status.completed_at) {
+            const completedTrial = await this._getTrial(trialId);
+            if (!cancelled) {
+              subscriber.next(completedTrial);
+              subscriber.complete();
+            }
+          } else {
+            scheduleStatusCheck();
+          }
+        } catch (error) {
+          if (!cancelled)
+            subscriber.error(error);
+        }
+      };
+
+      const loadInitialTrial = async () => {
+        try {
+          const trial = await this._getTrial(trialId);
+          if (cancelled)
+            return;
+
+          subscriber.next(trial);
+          if (trial?.completed_at) {
+            subscriber.complete();
+          } else {
+            scheduleStatusCheck();
+          }
+        } catch (error) {
+          if (!cancelled)
+            subscriber.error(error);
+        }
+      };
+
+      loadInitialTrial();
+
+      return () => {
+        cancelled = true;
+        clearTimeout(pollTimer);
+      };
     });
-
-    return trialSubject;
   }
 
+  _getTrialStatus = async (trialId) => {
+    const result = await fetch(`${this.apiUrl}/trial/${trialId}/status`);
+    if (result.status !== 200)
+      throw new Error(`Unable to fetch trial status (${result.status})`);
+
+    return await result.json();
+  }
 
   _getTrial = async (trialId) => {
     let result = await fetch(`${this.apiUrl}/trial/${trialId}`);
@@ -152,36 +224,46 @@ class Api {
     return await response.json();
   }
 
-  async poll({fn, params, validate, maxAttempts, subject}) {
-    let attempts = 0;
-    // let timeout = 250; // This was already commented out
-    // let timeout = 1000;
+  poll({fn, params, validate, maxAttempts}) {
+    return new Observable(subscriber => {
+      let attempts = 0;
+      let cancelled = false;
+      let pollTimer;
+      let pollDelay = InitialPollDelayMs;
 
-    const executePoll = async (resolve, reject) => {
-      const result = await fn(params);
-      attempts++;
-      if (subject && !subject.closed) {
-        subject.next(result);
+      const executePoll = async () => {
+        try {
+          const result = await fn(params);
+          if (cancelled)
+            return;
 
-        if (result && validate(result)) {
-          return resolve(result);
-        } else if (maxAttempts && attempts === maxAttempts) {
-          return reject(new Error('max polling attempts exceeded'));
-        } else if (subject && subject.observers.length > 0) {
-          // 6/6/2024 - Alex - Note: This timeout isn't actually delaying anything and is probably
-          // implemented wrong. Additionally, attempts isn't incrementing correctly
-          // and maxAttempts is sometimes undefined.
+          attempts++;
+          subscriber.next(result);
 
-          // setTimeout(executePoll, timeout, resolve, reject);
-          // timeout += timeout;  // This was already commented out
-        } else {
-          return resolve("Canceled")
+          if (result && validate(result)) {
+            subscriber.complete();
+          } else if (maxAttempts && attempts >= maxAttempts) {
+            subscriber.error(new Error('max polling attempts exceeded'));
+          } else {
+            pollTimer = setTimeout(executePoll, pollDelay);
+            pollDelay = Math.min(
+              pollDelay * PollBackoffMultiplier,
+              MaxPollDelayMs
+            );
+          }
+        } catch (error) {
+          if (!cancelled)
+            subscriber.error(error);
         }
-      }
-    };
+      };
 
+      executePoll();
 
-    return new Promise(executePoll);
+      return () => {
+        cancelled = true;
+        clearTimeout(pollTimer);
+      };
+    });
   }
 }
 

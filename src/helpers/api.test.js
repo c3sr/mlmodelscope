@@ -116,7 +116,7 @@ describe('The API helper', () => {
   });
 
   describe('deleteTrial', () => {
-    beforeEach(fetchMock.reset);
+    beforeEach(() => fetchMock.reset());
 
     it('calls the deletion endpoint', async () => {
       fetchMock.delete(`begin:${ApiRoot}/trial`, {});
@@ -134,15 +134,25 @@ describe('The API helper', () => {
         }
       });
 
-      await expect(api.deleteTrial('test-trial')).rejects.toEqual(TypeError('nope'));
+      try {
+        await api.deleteTrial('test-trial');
+        throw new Error('Expected deleteTrial to reject');
+      } catch (error) {
+        expect(error.message).toBe('nope');
+      }
     });
   });
 
   describe('getTrial', () => {
-    beforeEach(fetchMock.reset);
+    beforeEach(() => {
+      fetchMock.reset();
+    });
 
     it('returns an observable', done => {
-      fetchMock.get(`begin:${ApiRoot}/trial/test-trial`, { results: {} }, {overwriteRoutes: false, repeat: 1});
+      fetchMock.get(`${ApiRoot}/trial/test-trial`, {
+        results: {},
+        completed_at: true
+      });
       const trial = api.getTrial('test-trial');
 
       trial.subscribe({
@@ -152,18 +162,65 @@ describe('The API helper', () => {
       });
     });
 
-    it('that delivers new trial results until completion', done => {
-      fetchMock.get(`begin:${ApiRoot}/trial/test-trial`, { results: {} }, {overwriteRoutes: false, repeat: 1});
-      fetchMock.get(`begin:${ApiRoot}/trial/test-trial`, { results: {}, completed_at: true }, {overwriteRoutes: false});
-
-      const trial = api.getTrial('test-trial');
-
-      trial.subscribe({
-        next: t => {
-          if (t.completed_at)
-            done();
-        }
+    it('that delivers new trial results until completion', async () => {
+      fetchMock.get(`${ApiRoot}/trial/test-trial`, {
+        results: {},
+        completed_at: null
+      }, {overwriteRoutes: false, repeat: 1});
+      fetchMock.get(`${ApiRoot}/trial/test-trial/status`, {
+        status: 'completed',
+        completed_at: true
       });
+      fetchMock.get(`${ApiRoot}/trial/test-trial`, {
+        results: {},
+        completed_at: true
+      }, {overwriteRoutes: false});
+
+      const completedTrial = await new Promise((resolve, reject) => {
+        api.getTrial('test-trial', {
+          initialDelayMs: 1,
+          maxDelayMs: 1,
+          backoffMultiplier: 1
+        }).subscribe({
+          next: trial => {
+            if (trial.completed_at)
+              resolve(trial);
+          },
+          error: reject
+        });
+      });
+
+      expect(completedTrial.completed_at).toBe(true);
+      expect(fetchMock.calls(`${ApiRoot}/trial/test-trial/status`).length).toBe(1);
+      expect(fetchMock.calls(`${ApiRoot}/trial/test-trial`).length).toBe(2);
+    });
+
+    it('stops polling when the subscription is cancelled', async () => {
+      fetchMock.get(`${ApiRoot}/trial/test-trial`, {
+        results: {},
+        completed_at: null
+      });
+      fetchMock.get(`${ApiRoot}/trial/test-trial/status`, {
+        status: 'pending',
+        completed_at: null
+      });
+
+      let subscription;
+      await new Promise((resolve, reject) => {
+        subscription = api.getTrial('test-trial', {
+          initialDelayMs: 20,
+          maxDelayMs: 20,
+          backoffMultiplier: 1
+        }).subscribe({
+          next: resolve,
+          error: reject
+        });
+      });
+
+      subscription.unsubscribe();
+      await new Promise(resolve => setTimeout(resolve, 30));
+
+      expect(fetchMock.called(`${ApiRoot}/trial/test-trial/status`)).toBe(false);
     });
   });
 });
