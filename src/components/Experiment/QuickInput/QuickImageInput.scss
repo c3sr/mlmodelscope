@@ -97,4 +97,25 @@
     line-height: 16px;
     margin-top: 24px;
   }
+
+  &__explanation-option {
+    align-items: flex-start;
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+
+    input {
+      margin-top: 4px;
+    }
+
+    span {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    small {
+      color: $gray;
+    }
+  }
 }

@@ -55,6 +55,7 @@ import AudioClassificationOutput from "./Outputs/AudioClassification/AudioClassi
 import AudioToAudioOutput from "./Outputs/AudioToAudio/AudioToAudioOutput";
 import VideoClassificationOutput from "./Outputs/VideoClassification/VideoClassificationOutput";
 import TableEditingOutput from "./Outputs/TableEditing/TableEditingOutput";
+import ExplanationPanel from "./Outputs/Classification/ExplanationPanel";
 
 
 const defaultProps = {
@@ -69,6 +70,11 @@ const defaultProps = {
 export default function QuickOutput(givenProps) {
   const props = { ...defaultProps, ...givenProps };
   const { getElement, getBlock } = useBEMNaming(props.className);
+  const explanation = props.trialOutput?.results?.explanation;
+  const showExplanation =
+    !props.processFailed &&
+    props.trialOutput?.model?.output?.type === image_classification &&
+    explanation;
 
   const preview = props?.trialOutput?.inputs.length > 1 ? <MultiInputPreview inputs={props.trialOutput.inputs} onBackClicked={props.onBackClicked} /> : (
     <InputPreview
@@ -200,7 +206,7 @@ export default function QuickOutput(givenProps) {
               trial={props.trialOutput}
             />
           );
-        case textToImage:
+        case textToAudio:
           return (
             <TextToAudioOutput
               onBackClicked={props.onBackClicked}
@@ -290,6 +296,11 @@ export default function QuickOutput(givenProps) {
         {/* <button className={element('share-button')}>Share with community</button> Hidden for now */}
       </div>
       <div className={getElement("content")}>{makeOutput()}</div>
+      {showExplanation && (
+        <div className={getElement("explanation")}>
+          <ExplanationPanel explanation={explanation} />
+        </div>
+      )}
       <div className={getElement("footer")}>
         {props.showLearnMoreLink && (
           <a

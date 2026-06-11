@@ -208,6 +208,40 @@ describe("Quick Image Input", () => {
       });
     });
 
+    describe("explanation option", () => {
+      it("is hidden for unsupported models", () => {
+        expect(wrapper.find(".quick-image-input__explanation-option").length).toBe(0);
+      });
+
+      it("sends an opt-in request for supported models", () => {
+        const supportedRun = jest.fn();
+        const supported = mount(
+          <QuickImageInput
+            onRunModelClicked={supportedRun}
+            sampleInputs={SampleInputs}
+            model={{
+              name: "TorchVision.ResNet.18",
+              framework: { name: "PyTorch" },
+              output: { type: image_classification }
+            }}
+          />
+        );
+        supported.find("img").first().simulate("click");
+        supported.find("input[type='checkbox']").simulate("change", {
+          target: { checked: true }
+        });
+        supported.find(".quick-image-input__run-model").simulate("click");
+
+        expect(supportedRun.mock.calls[0][2]).toEqual({
+          explanation: {
+            enabled: true,
+            method: "grad_cam",
+            topK: 2
+          }
+        });
+      });
+    });
+
     describe("a Sample Inputs Tab", () => {
       it("that calls back to selectInput()", () => {
         wrapper.find("img").first().simulate("click");

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./QuickImageInput.scss";
 import Task from "../../../helpers/Task";
 import useQuickInputControl from "./useQuickInputControl";
@@ -6,8 +6,13 @@ import useBEMNaming from "../../../common/useBEMNaming";
 import { QuickInputTabContent } from "./QuickInputTabContent";
 import { QuickInputTabTitle } from "./QuickInputTabTitle";
 import { QuickInputType } from "./quickInputType";
+import {
+  gradCAMRequest,
+  isGradCAMSupportedModel
+} from "../../../helpers/explanation";
 
 export default function QuickImageInput(props) {
+  const [explanationEnabled, setExplanationEnabled] = useState(false);
   const {
     tabIsSelected,
     selectedInputs,
@@ -23,6 +28,7 @@ export default function QuickImageInput(props) {
 
   const task = Task.getStaticTask(props.model.output.type);
   const tabs = getTabs(QuickInputType.Image);
+  const supportsExplanation = isGradCAMSupportedModel(props.model);
   return (
     <div className={getBlock()}>
       {!props.hideHeader && (
@@ -59,10 +65,27 @@ export default function QuickImageInput(props) {
           />
         ))}
       </div>
+      {supportsExplanation && (
+        <label className={getElement("explanation-option")}>
+          <input
+            type="checkbox"
+            checked={explanationEnabled}
+            onChange={(event) => setExplanationEnabled(event.target.checked)}
+          />
+          <span>
+            <strong>Explain this prediction</strong>
+            <small>Generate Grad-CAM evidence for the two highest-ranked classes.</small>
+          </span>
+        </label>
+      )}
       <button
         className={getElement("run-model")}
         disabled={submitButtonIsDisabled()}
-        onClick={() => runModel()}
+        onClick={() =>
+          runModel({
+            explanation: gradCAMRequest(explanationEnabled)
+          })
+        }
       >
         Run model and see results
       </button>

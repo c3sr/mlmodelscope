@@ -24,10 +24,10 @@ export function ModelDetailContainer(props) {
         history(`/model/${modelId}`, { state: { experiment: setExperiment(null), trialOutput: setTrialOutput(undefined) }});
     }
 
-    const runModel = async (inputUrl, context=null) => {
+    const runModel = async (inputUrl, context=null, options={}) => {
         // Note: Adding context param for Conversation task; unsure if needed here
         // Check and confirm later - Alex, 4/10/2024
-        const response = await api.runTrial(model, inputUrl, context);
+        const response = await api.runTrial(model, inputUrl, null, context, options);
         history(`/model/${modelId}/experiment/${response.experimentId}`);
     }
 

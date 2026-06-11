@@ -191,7 +191,7 @@ class Api {
     return trial;
   }
 
-  async runTrial(model, input, experimentId = null, context = null) {
+  async runTrial(model, input, experimentId = null, context = null, options = {}) {
     let inputs = typeof (input) === 'string' ? [input] : input;
     const requestBody = {
       architecture: "amd64",
@@ -209,6 +209,10 @@ class Api {
 
     if (context) {
       requestBody['context'] = context;
+    }
+
+    if (options.explanation?.enabled) {
+      requestBody['explanation'] = options.explanation;
     }
 
     // UNCOMMENT BEFORE COMMITTING

@@ -113,6 +113,24 @@ describe('The API helper', () => {
 
       expect(response.trialId).toBe('test-trial');
     });
+
+    it('includes explanation settings only when enabled', async () => {
+      fetchMock.post(`begin:${ApiRoot}/predict`, {trialId: 'test-trial'});
+      await api.runTrial(
+        {id: 12, output: { type: 'image_classification'}},
+        'test input',
+        null,
+        null,
+        {explanation: {enabled: true, method: 'grad_cam', topK: 2}}
+      );
+
+      const body = JSON.parse(fetchMock.lastOptions().body);
+      expect(body.explanation).toEqual({
+        enabled: true,
+        method: 'grad_cam',
+        topK: 2
+      });
+    });
   });
 
   describe('deleteTrial', () => {

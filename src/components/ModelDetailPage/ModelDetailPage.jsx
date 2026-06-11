@@ -169,6 +169,7 @@ const ModelDetailPage = (props) => {
           inputType={getInputType()}
           outputType={outputType}
           runTrial={props.onRunModelClicked}
+          processFailed={Boolean(props.trialOutput.results?.error)}
         />
       );
     }

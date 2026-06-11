@@ -37,7 +37,10 @@ export default function ExperimentDetailPage(props) {
           onDeleteTrial={props.onDeleteTrial}
           deletedTrial={props.trialToDelete}
           trialIsDeleting={props.trialIsDeleting}
-          processFailed={props.failedTrials?.indexOf(trialIndex) > -1}
+          processFailed={
+            Boolean(trial.results?.error) ||
+            props.failedTrials?.indexOf(trialIndex) > -1
+          }
         />
       </div>
     );

@@ -4,6 +4,7 @@ import { mount, shallow } from "enzyme";
 import QuickOutput from "./QuickOutput";
 import InputPreview from "./InputPreview";
 import ClassificationOutput from "./Outputs/Classification/ClassificationOutput";
+import ExplanationPanel from "./Outputs/Classification/ExplanationPanel";
 import { TestImageClassificationResult } from "./Outputs/Classification/Features";
 import { TestObjectDetectionResult } from "./Outputs/ObjectDetection/testData/TestFeatures";
 import { render } from "@testing-library/react";
@@ -26,6 +27,32 @@ describe("Experiment Quick Output component", () => {
         .text();
 
       expect(prediction_text.includes("bee eater")).toBe(true);
+    });
+
+    it("places model explanation below the input and output row", () => {
+      const explainedTrial = {
+        ...TestImageClassificationResult,
+        results: {
+          ...TestImageClassificationResult.results,
+          explanation: {
+            status: "complete",
+            classes: [
+              { rank: 1, index: 1, label: "winner", probability: 0.7, logit: 4 },
+              { rank: 2, index: 2, label: "runner-up", probability: 0.2, logit: 3 }
+            ]
+          }
+        }
+      };
+      const wrapper = shallow(
+        <QuickOutput
+          input={TestInput}
+          trialOutput={explainedTrial}
+          features={explainedTrial.results.responses[0].features}
+        />
+      );
+
+      expect(wrapper.find(".quick-output__content").find(ExplanationPanel).length).toBe(0);
+      expect(wrapper.find(".quick-output__explanation").find(ExplanationPanel).length).toBe(1);
     });
     it("object detection", () => {
       let wrapper = mount(

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SampleInputsTab from "./Tabs/SampleInput/SampleInputsTab";
 import UploadInputsTab from "./Tabs/UploadInput/UploadInputsTab";
 import AudioInputTab from "./Tabs/AudioInput/AudioInputTab";
@@ -106,9 +106,13 @@ export default function useQuickInputControl(props) {
         return '--error--';
     }
   };
-  const runModel = () => {
+  const runModel = (options = {}) => {
     if (typeof (props.onRunModelClicked) === 'function') {
-      props.onRunModelClicked(selectedInputData.filter(input => input));
+      props.onRunModelClicked(
+        selectedInputData.filter(input => input),
+        null,
+        options
+      );
     }
   };
   const selectInput = (url, index, additionalContext = null) => {
