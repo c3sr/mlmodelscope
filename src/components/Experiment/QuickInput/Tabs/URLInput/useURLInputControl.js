@@ -13,17 +13,17 @@ export default function useURLInputControl(props) {
     const inputType = task.useMultiInput ? (task.inputs.length > 1 ? task.inputs[index].inputType : task.inputs[0].inputType) : task.inputType;
 
     let url = event.target.value;
-    let tempUrl = event.target.value;
-    UrlVerfiy(tempUrl, inputType).then((result) => {
-      tempUrl = result ? tempUrl : "";
-      let currentInvalidUrl = isInvalidUrl;
-      currentInvalidUrl[index] = tempUrl === "" && url !== "";
-      setIsInvalidUrl(currentInvalidUrl);
+    const isValid = await UrlVerfiy(url, inputType);
+    setIsInvalidUrl((currentInvalidUrl) => {
+      const nextInvalidUrl = [...currentInvalidUrl];
+      nextInvalidUrl[index] = !isValid && url !== "";
+      return nextInvalidUrl;
     });
 
-
     if (typeof (props.inputSelected) === 'function')
-      props.inputSelected(url, index);
+      props.inputSelected(isValid ? url : "", index);
+
+    return isValid;
   };
 
   const getUrlValidity = (index) => isInvalidUrl[index];

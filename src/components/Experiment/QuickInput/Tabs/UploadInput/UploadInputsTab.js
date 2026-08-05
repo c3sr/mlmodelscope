@@ -11,6 +11,14 @@ import { maskGeneration } from '../../../../../helpers/TaskIDs';
 import CanvasInput from '../CanvasInput/CanvasInput';
 import { QuickInputType } from '../../quickInputType';
 
+const getSelectedInputSrc = (value) => {
+  if (!value)
+    return "";
+  if (typeof value === "string")
+    return value;
+  return value.src || "";
+};
+
 export default function UploadInputsTab(props) {
   const {getBlock, getElement} = useBEMNaming("upload-inputs");
 
@@ -23,11 +31,40 @@ export default function UploadInputsTab(props) {
 
   // Currently using both new and old way of handling inputs but should refactor in the future
   const inputText = task.inputText || props.input.inputText;  
+  const selectedValues = task.useMultiInput
+    ? [props.values?.[props.inputIndex]]
+    : (props.values || []);
+  const uploadedInputs = selectedValues
+    .map(getSelectedInputSrc)
+    .filter(src => src !== "");
+  const hasUploadedInputs = uploadedInputs.length > 0;
 
   return (
     <div className={getBlock()}>
       <p className={getElement("help-text")}><b>Upload {longTaskName} file</b> to {inputText.toLowerCase()} </p>
       <Dashboard uppy={uppy} width={"100%"}/>
+      {hasUploadedInputs && (
+        <div className={getElement("preview")}>
+          <h3 className={getElement("preview-title")}>Uploaded input</h3>
+          <div className={getElement("preview-grid")}>
+            {uploadedInputs.map((src, index) => (
+              <div className={getElement("preview-item")} key={`${src}-${index}`}>
+                {taskName === QuickInputType.Image ? (
+                  <img src={src} alt={`Uploaded input ${index + 1}`} className={getElement("preview-image")} />
+                ) : taskName === QuickInputType.Audio ? (
+                  <audio controls src={src} className={getElement("preview-media")} />
+                ) : taskName === QuickInputType.Video ? (
+                  <video controls src={src} className={getElement("preview-media")} />
+                ) : (
+                  <a href={src} target="_blank" rel="noreferrer" className={getElement("preview-link")}>
+                    Uploaded file {index + 1}
+                  </a>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       {
         (task.id === maskGeneration && props.selectedInputs[props.inputIndex] !== '') && (
           <>
@@ -38,4 +75,3 @@ export default function UploadInputsTab(props) {
     </div>
   );
 }
-

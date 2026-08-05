@@ -20,14 +20,11 @@ export default function URLInputsTab(props) {
 
   const getInputClassName = (index) => getElement(getUrlValidity(index) ? "url url-error" : "url");
 
-  const inputHandlerForPreview = (e, index) => {
-    urlChanged(e, index);
-    props?.inputPreviewProps?.setURLValidity(false);
-
-    setTimeout(() => {
-      props?.inputPreviewProps?.setURLValidity(!getUrlValidity(0));
-      props?.inputPreviewProps?.setSelectedInputSrc(e.target.value);
-    }, 500);
+  const inputHandlerForPreview = async (e, index) => {
+    const url = e.target.value;
+    const isValid = await urlChanged(e, index);
+    props?.inputPreviewProps?.setURLValidity(isValid);
+    props?.inputPreviewProps?.setSelectedInputSrc(isValid ? url : "");
   };
 
   // IMPORTANT - When updating the code below, any changes to one <input> will (probably) need to be applied to all of them
@@ -134,4 +131,3 @@ export default function URLInputsTab(props) {
     </div>
   );
 }
-

@@ -16,6 +16,8 @@ const URLInputPreview = (props) => {
             UrlVerfiy(props.inputSrc, inputType).then((result) => {
                 setIsValidURLForMyInput(result);
             });
+        } else {
+            setIsValidURLForMyInput(false);
         }
     }, [props.inputSrc, inputType]);
 

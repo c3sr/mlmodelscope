@@ -4,9 +4,12 @@ import { TaskInputTypes } from "./TaskInputTypes";
 import VideoVerifier from "./videoVerifier";
 
 const UrlMatcher = /https?:\/\/.+/;
-const UrlVerfiy = async (tempUrl, inputType) => {
+const UrlVerfiy = async (tempUrl, inputType, options = {}) => {
+    const verifyMedia = options.verifyMedia ?? false;
     if (tempUrl.match(UrlMatcher) === null)
         return false;
+    if (!verifyMedia)
+        return true;
     else {
         let verifier;
         switch (inputType) {
