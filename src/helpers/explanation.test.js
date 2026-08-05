@@ -1,6 +1,8 @@
 import {
   gradCAMRequest,
-  isGradCAMSupportedModel
+  isGradCAMSupportedModel,
+  isTokenProbabilitySupportedModel,
+  tokenProbabilityRequest
 } from "./explanation";
 
 describe("explanation helpers", () => {
@@ -22,6 +24,27 @@ describe("explanation helpers", () => {
       enabled: true,
       method: "grad_cam",
       topK: 2
+    });
+  });
+
+  it("supports token probability explanations only for PyTorch GPT-2 text generation", () => {
+    expect(isTokenProbabilitySupportedModel({
+      name: "GPT_2",
+      framework: { name: "PyTorch" },
+      output: { type: "text_to_text" }
+    })).toBe(true);
+    expect(isTokenProbabilitySupportedModel({
+      name: "GPT_2",
+      framework: { name: "TensorFlow" },
+      output: { type: "text_to_text" }
+    })).toBe(false);
+  });
+
+  it("builds the token probability request", () => {
+    expect(tokenProbabilityRequest(true)).toEqual({
+      enabled: true,
+      method: "token_probability",
+      topK: 5
     });
   });
 });

@@ -266,13 +266,13 @@ export default class Task {
   });
   static text_to_text = new Task({
     name: "Text to Text",
-    description: "[insert text description here]",
+    description: "Generate text from a prompt.",
     id: textToText,
-    inputText: "[insert text input help text here]",
-    outputText: "[insert text output help text here]",
+    inputText: "continue with GPT-2.",
+    outputText: "Generated continuation",
     icon: (props) => <TextToText {...props} />,
     sampleInputs: [],
-    tutorialDescription: "[insert text tutorial page description here]",
+    tutorialDescription: "Type a prompt and compare generated continuations from text-generation models.",
     inputType: TaskInputTypes.Text,
   });
   static text_to_code = new Task({

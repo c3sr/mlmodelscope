@@ -131,6 +131,39 @@ describe('The API helper', () => {
         topK: 2
       });
     });
+
+    it('sends text prompt inputs for text-to-text trials', async () => {
+      fetchMock.post(`begin:${ApiRoot}/predict`, {trialId: 'test-trial'});
+      await api.runTrial(
+        {id: 10000, output: { type: 'text_to_text'}},
+        [{src: 'Once upon a time', inputType: 'TEXT'}]
+      );
+
+      const body = JSON.parse(fetchMock.lastOptions().body);
+      expect(body.model).toBe(10000);
+      expect(body.desiredResultModality).toBe('text_to_text');
+      expect(body.inputs).toEqual([
+        {src: 'Once upon a time', inputType: 'TEXT'}
+      ]);
+    });
+
+    it('includes token probability explanation settings for text-to-text trials', async () => {
+      fetchMock.post(`begin:${ApiRoot}/predict`, {trialId: 'test-trial'});
+      await api.runTrial(
+        {id: 10000, output: { type: 'text_to_text'}},
+        [{src: 'Once upon a time', inputType: 'TEXT'}],
+        null,
+        null,
+        {explanation: {enabled: true, method: 'token_probability', topK: 5}}
+      );
+
+      const body = JSON.parse(fetchMock.lastOptions().body);
+      expect(body.explanation).toEqual({
+        enabled: true,
+        method: 'token_probability',
+        topK: 5
+      });
+    });
   });
 
   describe('deleteTrial', () => {

@@ -24,3 +24,22 @@ export const gradCAMRequest = (enabled) => ({
   method: "grad_cam",
   topK: 2
 });
+
+export const isTokenProbabilitySupportedModel = (model) => {
+  if (model?.output?.type !== "text_to_text")
+    return false;
+
+  const framework = model?.framework?.name?.toLowerCase();
+  const normalizedName = model?.name
+    ?.toLowerCase()
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_|_$/g, "");
+
+  return framework === "pytorch" && normalizedName === "gpt_2";
+};
+
+export const tokenProbabilityRequest = (enabled) => ({
+  enabled,
+  method: "token_probability",
+  topK: 5
+});

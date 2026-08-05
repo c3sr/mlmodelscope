@@ -11,7 +11,9 @@ export default function TextOutput(props) {
   );
 
   const onSubmit = () => {
-    props.onSubmit(input);
+    if (typeof props.onSubmit === "function") {
+      props.onSubmit([{ src: input, inputType: "TEXT" }]);
+    }
   };
 
   return (

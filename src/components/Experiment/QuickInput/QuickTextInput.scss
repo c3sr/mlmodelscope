@@ -30,4 +30,31 @@
     justify-content: center;
     margin-top: 24px;
   }
+
+  &__explanation-option {
+    align-items: flex-start;
+    background: $azulLightest;
+    border: 1px solid rgba($azul, 0.25);
+    border-radius: 8px;
+    color: $richNavy;
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    padding: 16px;
+
+    input {
+      margin-top: 4px;
+    }
+
+    span {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    small {
+      color: $charcoalLightest;
+      line-height: 1.4;
+    }
+  }
 }

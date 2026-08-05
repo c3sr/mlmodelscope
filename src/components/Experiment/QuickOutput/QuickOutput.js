@@ -56,6 +56,7 @@ import AudioToAudioOutput from "./Outputs/AudioToAudio/AudioToAudioOutput";
 import VideoClassificationOutput from "./Outputs/VideoClassification/VideoClassificationOutput";
 import TableEditingOutput from "./Outputs/TableEditing/TableEditingOutput";
 import ExplanationPanel from "./Outputs/Classification/ExplanationPanel";
+import TextExplanationPanel from "./Outputs/Text/TextExplanationPanel";
 
 
 const defaultProps = {
@@ -73,8 +74,11 @@ export default function QuickOutput(givenProps) {
   const explanation = props.trialOutput?.results?.explanation;
   const showExplanation =
     !props.processFailed &&
-    props.trialOutput?.model?.output?.type === image_classification &&
+    [image_classification, textToText].includes(props.trialOutput?.model?.output?.type) &&
     explanation;
+  const explanationPanel = props.trialOutput?.model?.output?.type === textToText
+    ? <TextExplanationPanel explanation={explanation} />
+    : <ExplanationPanel explanation={explanation} />;
 
   const preview = props?.trialOutput?.inputs.length > 1 ? <MultiInputPreview inputs={props.trialOutput.inputs} onBackClicked={props.onBackClicked} /> : (
     <InputPreview
@@ -147,6 +151,7 @@ export default function QuickOutput(givenProps) {
           return (
             <TextOutput
               onBackClicked={props.onBackClicked}
+              onSubmit={props.runTrial}
               trial={props.trialOutput}
             />
           );
@@ -298,7 +303,7 @@ export default function QuickOutput(givenProps) {
       <div className={getElement("content")}>{makeOutput()}</div>
       {showExplanation && (
         <div className={getElement("explanation")}>
-          <ExplanationPanel explanation={explanation} />
+          {explanationPanel}
         </div>
       )}
       <div className={getElement("footer")}>

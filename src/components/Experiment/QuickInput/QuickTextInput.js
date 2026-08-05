@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import useBEMNaming from "../../../common/useBEMNaming";
 import Task from "../../../helpers/Task";
 import "./QuickTextInput.scss";
@@ -6,8 +6,13 @@ import {QuickInputTabTitle} from "./QuickInputTabTitle";
 import {QuickInputTabContent} from "./QuickInputTabContent";
 import useQuickInputControl from "./useQuickInputControl";
 import {QuickInputType} from "./quickInputType";
+import {
+    isTokenProbabilitySupportedModel,
+    tokenProbabilityRequest
+} from "../../../helpers/explanation";
 
 export default function QuickTextInput(props) {
+    const [explanationEnabled, setExplanationEnabled] = useState(false);
     const {
         tabIsSelected,
         selectedInputs,
@@ -23,6 +28,7 @@ export default function QuickTextInput(props) {
     const {getBlock, getElement} = useBEMNaming("quick-text-input");
     const task = Task.getStaticTask(props.model.output.type);
     const tabs = getTabs(QuickInputType.Text);
+    const supportsExplanation = isTokenProbabilitySupportedModel(props.model);
 
     return (
         <div className={getBlock()}>
@@ -62,9 +68,27 @@ export default function QuickTextInput(props) {
             </div>
 
 
+            {supportsExplanation && (
+                <label className={getElement("explanation-option")}>
+                    <input
+                        type="checkbox"
+                        checked={explanationEnabled}
+                        onChange={(event) => setExplanationEnabled(event.target.checked)}
+                    />
+                    <span>
+                        <strong>Explain this generation</strong>
+                        <small>Show tokenization, next-token probabilities, and top alternatives.</small>
+                    </span>
+                </label>
+            )}
+
             <button
                 disabled={submitButtonIsDisabled()}
-                onClick={() => runModel()}
+                onClick={() =>
+                    runModel({
+                        explanation: tokenProbabilityRequest(explanationEnabled)
+                    })
+                }
                 className={getElement("submit-button")}
             >
                 Run model and see results

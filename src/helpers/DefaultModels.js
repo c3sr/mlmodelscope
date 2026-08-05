@@ -353,31 +353,30 @@ export const DefaultImageTo3DModel = {
 
 // Note, this is the same as Image Segmentation
 export const DefaultTextModel = {
-  id: 184,
+  id: 10000,
   created_at: "2022-04-29T20:48:47.370171Z",
   updated_at: "2022-04-29T20:48:47.370171Z",
   attributes: {
     Top1: "",
     Top5: "",
-    kind: "CNN",
-    manifest_author: "Jingning Tang",
-    training_dataset: "PASCAL VOC 2012",
+    kind: "Transformer",
+    manifest_author: "OpenAI",
+    training_dataset: "WebText",
   },
   description:
-    "TensorFlow Semantic Segmentation model, which is trained on the COCO (Common Objects in Context) dataset. Use deeplabv3_mnv2_dm05_pascal_train_aug(deeplabv3_mnv2_dm05_pascal_train_aug_2018_10_01) from TensorFlow DeepLab Model Zoo.\n",
+    "PyTorch GPT-2 text generation model. Given a prompt, the model generates a likely continuation.\n",
   short_description:
-    "DeepLabv3 is a deep convolutional neural networks for  semantic image segmentation. It employ atrous convolution in cascade or in parallel to capture multi-scale context by adopting multiple atrous rates.",
+    "GPT-2 is a transformer language model that generates text one token at a time from a user prompt.",
   model: {
-    graph_checksum: "0336ceb67b378df8ada0efe9eadb5ac8",
-    graph_path:
-      "https://s3.amazonaws.com/store.carml.org/models/tensorflow/models/deeplabv3_mnv2_dm05_pascal_train_aug_2018_10_01/frozen_inference_graph.pb",
+    graph_checksum: "",
+    graph_path: "huggingface:gpt2",
     weights_checksum: "",
     weights_path: "",
   },
   framework: {
-    id: 4,
-    name: "TensorFlow",
-    version: "1.14.0",
+    id: 3,
+    name: "PyTorch",
+    version: "1.5.0",
     architectures: [
       {
         name: "amd64",
@@ -385,20 +384,21 @@ export const DefaultTextModel = {
     ],
   },
   input: {
-    description: "",
-    type: "text",
+    description: "Input prompt text.",
+    type: "TEXT",
   },
-  license: "Apache License, Version 2.0",
-  name: "DeepLabv3_MobileNet_v2_DM_05_PASCAL_VOC_Train_Aug",
+  license: "MIT",
+  name: "GPT_2",
   output: {
-    description: "the output semantic segment",
+    description: "Generated continuation text.",
     type: textToText,
   },
   url: {
     github:
-      "https://github.com/rai-project/tensorflow/blob/master/builtin_models/DeepLabv3_MobileNet_v2_DM_05_PASCAL_VOC_Train_Aug.yml",
-    citation: "https://arxiv.org/pdf/1802.02611v3.pdf",
-    link1: "https://arxiv.org/pdf/1706.05587.pdf",
+      "https://github.com/huggingface/transformers",
+    citation:
+      "https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf",
+    link1: "https://huggingface.co/gpt2",
     link2: "",
   },
   version: "1.0",
