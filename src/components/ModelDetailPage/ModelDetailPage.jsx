@@ -29,6 +29,7 @@ import {
   textToAudio,
   videoClassification,
   tableEditing,
+  audioDiarization
 } from "../../helpers/TaskIDs";
 import {
   SampleImageClassificationInputs,
@@ -78,6 +79,7 @@ const ModelDetailPage = (props) => {
       case textToCode:
         return SampleTextToCodeInputs;
       case audioToText:
+      case audioDiarization:
         return SampleAudioToTextInputs;
       case textConversation:
         return SampleTextConversationInputs;
@@ -118,6 +120,7 @@ const ModelDetailPage = (props) => {
       case videoClassification:
         return "video";
       case audioToText:
+      case audioDiarization:
       case audioToAudio:
       case audioClassification:
         return "audio";

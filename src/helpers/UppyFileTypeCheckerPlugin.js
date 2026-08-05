@@ -15,7 +15,8 @@ import {
   imageToText,
   audioClassification,
   maskGeneration,
-  tableEditing
+  tableEditing,
+  audioDiarization
 } from './TaskIDs';
 
 import fileTypeChecker from "file-type-checker";
@@ -23,6 +24,7 @@ import fileTypeChecker from "file-type-checker";
 export const getAllowedFileTypes = (task) => {
   switch (task) {
     case audioToText:
+    case audioDiarization:
     case audioClassification:
       return {
         fileTypes: ['aac', 'amr', 'flac', 'mp3', 'mp4', 'm4a', 'wav', 'webm'],

@@ -27,7 +27,8 @@ import {
   textToImage,
   audioToAudio,
   videoClassification,
-  tableEditing
+  tableEditing,
+  audioDiarization
 } from "../../../helpers/TaskIDs";
 import ObjectDetection from "./Outputs/ObjectDetection/ObjectDetection";
 import ImageEnhancement from "./Outputs/ImageEnhancement/ImageEnhancement";
@@ -50,6 +51,7 @@ import ImageToTextOutput from "./Outputs/ImageToText/ImageToTextOutput";
 import ImageTo3DOutput from "./Outputs/ImageTo3D/ImageTo3DOutput";
 import TextTo3DOutput from "./Outputs/TextTo3D/TextTo3DOutput";
 import AudioToTextOutput from "./Outputs/AudioToText/AudioToTextOutput";
+import AudioDiarizationOutput from "./Outputs/AudioDiarization/AudioDiarizationOutput";
 import TextToAudioOutput from "./Outputs/TextToAudio/TextToAudioOutput";
 import AudioClassificationOutput from "./Outputs/AudioClassification/AudioClassificationOutput";
 import AudioToAudioOutput from "./Outputs/AudioToAudio/AudioToAudioOutput";
@@ -165,6 +167,13 @@ export default function QuickOutput(givenProps) {
         case audioToText:
           return (
             <AudioToTextOutput
+              onBackClicked={props.onBackClicked}
+              trial={props.trialOutput}
+            />
+          );
+        case audioDiarization:
+          return (
+            <AudioDiarizationOutput
               onBackClicked={props.onBackClicked}
               trial={props.trialOutput}
             />

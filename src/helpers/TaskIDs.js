@@ -23,4 +23,5 @@ export const audioToAudio = "audio_to_audio";
 export const audioClassification = "audio_classification";
 export const videoClassification = "video_classification";
 export const tableEditing = "table_editing";
+export const audioDiarization = "audio_diarization";
 export const pending = "pending";

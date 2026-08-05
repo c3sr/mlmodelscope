@@ -23,7 +23,8 @@ import {
   audioToAudio,
   audioClassification,
   videoClassification,
-  tableEditing
+  tableEditing,
+  audioDiarization
 } from "./TaskIDs";
 import React from "react";
 import { ReactComponent as ImageClassification } from "../resources/icons/icon-imageClassification.svg";
@@ -298,6 +299,20 @@ export default class Task {
     sampleInputs: SampleAudioToTextInputs,
     tutorialDescription:
       "Audio to text models transcribe audio files, allowing you to read what is said.",
+    inputType: TaskInputTypes.Audio,
+  });
+  static audio_diarization = new Task({
+    name: "Audio Diarization",
+    description:
+      "Identify speakers and partition the audio stream into segments based on speaker identity.",
+    id: audioDiarization,
+    inputText:
+      "Upload an audio file to identify speakers and timestamps.",
+    outputText: "Diarization results:",
+    icon: (props) => <AudioToText {...props} />,
+    sampleInputs: SampleAudioToTextInputs,
+    tutorialDescription:
+      "Audio diarization models segment and track who spoke when in an audio file.",
     inputType: TaskInputTypes.Audio,
   });
   static text_to_audio = new Task({
@@ -585,6 +600,8 @@ export default class Task {
         return Task.text_to_code;
       case audioToText:
         return Task.audio_to_text;
+      case audioDiarization:
+        return Task.audio_diarization;
       case textToAudio:
         return Task.text_to_audio;
       case textConversation:
@@ -642,6 +659,7 @@ export default class Task {
         // Should this be different from text-to-text?
         return DefaultTextModel;
       case audioToText:
+      case audioDiarization:
         return DefaultAudioToTextModel;
       case textToAudio:
         return DefaultTextToAudioModel;
@@ -697,6 +715,7 @@ export default class Task {
       case textToText:
         return TestTextOutput;
       case audioToText:
+      case audioDiarization:
         return TestAudioToTextOutput;
       case textToAudio:
         return TestTextToAudioOutput;
@@ -746,6 +765,7 @@ export default class Task {
       this.getStaticTask(textConversation),
       this.getStaticTask(textToAudio),
       this.getStaticTask(audioToText),
+      this.getStaticTask(audioDiarization),
       this.getStaticTask(visualQuestionAnswering),
       this.getStaticTask(textGuidedImageToImage),
       this.getStaticTask(documentQuestionAnswering),
