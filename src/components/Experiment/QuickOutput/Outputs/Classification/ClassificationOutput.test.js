@@ -51,6 +51,25 @@ describe('Classification Output Component', () => {
         expect(predictions.childAt(1).prop('predictions')).toBe(TestFeatures);
       });
 
+      it('provides contextual AI actions without an artifact selector', () => {
+        const onExplainPrediction = jest.fn();
+        const onAskAIAboutResult = jest.fn();
+        const interactiveWrapper = shallow(
+          <ClassificationOutput
+            trial={TestImageClassificationResult}
+            features={TestFeatures}
+            onExplainPrediction={onExplainPrediction}
+            onAskAIAboutResult={onAskAIAboutResult}
+            explainablePredictionCount={5}
+          />
+        );
+
+        interactiveWrapper.find('.classification-output__ask-ai').simulate('click');
+        expect(onAskAIAboutResult).toHaveBeenCalledTimes(1);
+        expect(interactiveWrapper.find(TopPrediction).prop('onExplain')).toBeTruthy();
+        expect(interactiveWrapper.find(PredictionExpander).prop('explainablePredictionCount')).toBe(5);
+      });
+
     });
   });
 });

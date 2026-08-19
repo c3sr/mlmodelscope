@@ -1,7 +1,7 @@
 import React from "react";
 import expect from "expect";
 import { mount, shallow } from "enzyme";
-import QuickOutput from "./QuickOutput";
+import QuickOutput, { makeTokenDecisionArtifacts } from "./QuickOutput";
 import InputPreview from "./InputPreview";
 import ClassificationOutput from "./Outputs/Classification/ClassificationOutput";
 import ExplanationPanel from "./Outputs/Classification/ExplanationPanel";
@@ -10,6 +10,58 @@ import { TestObjectDetectionResult } from "./Outputs/ObjectDetection/testData/Te
 import { render } from "@testing-library/react";
 
 const TestInput = "http://example.com/image1.jpeg";
+
+describe("GPT_2 token decision artifacts", () => {
+  it("bounds prompt, prefix, and alternatives without including future tokens", () => {
+    const alternatives = Array.from({ length: 6 }, (_, index) => ({
+      id: index,
+      token: ` alternative-${index}`,
+      probability: 0.5 - index * 0.05
+    }));
+    const trial = {
+      inputs: [{ src: "p".repeat(2200), inputType: "TEXT" }],
+      model: {
+        name: "GPT_2",
+        output: { type: "text_to_text" },
+        framework: { name: "PyTorch", version: "1.5.0" }
+      }
+    };
+    const explanation = {
+      status: "complete",
+      pipeline: {
+        preprocess: {
+          tokenizer: "GPT2Tokenizer",
+          tokens: [{ id: 1, token: "prompt" }],
+          tensor: { vocabularySize: 50257 }
+        }
+      },
+      tokens: [
+        { position: 0, id: 11, token: ",", probability: 0.856, rank: 1, alternatives },
+        { position: 1, id: 12, token: " future", probability: 0.5, rank: 2, alternatives: [] }
+      ]
+    };
+
+    const [artifact] = makeTokenDecisionArtifacts(trial, explanation);
+
+    expect(artifact.kind).toBe("token_decision");
+    expect(artifact.selection).toEqual({
+      token: ",",
+      tokenId: 11,
+      position: 0,
+      probability: 0.856,
+      rank: 1
+    });
+    expect(artifact.structuredData.alternatives).toHaveLength(5);
+    expect(artifact.structuredData.tokenizer).toEqual({
+      name: "GPT2Tokenizer",
+      promptTokenCount: 1,
+      vocabularySize: 50257
+    });
+    expect(artifact.textContext.prompt).toHaveLength(2000);
+    expect(artifact.textContext.generatedPrefix).toBe(",");
+    expect(artifact.textContext.generatedPrefix).not.toContain("future");
+  });
+});
 
 describe("Experiment Quick Output component", () => {
   describe("with output", () => {

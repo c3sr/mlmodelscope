@@ -1,5 +1,6 @@
 import React from "react";
 import useBEMNaming from "../../../../../common/useBEMNaming";
+import AIExplainAction from "../../InteractiveExplanation/AIExplainAction";
 import "./TextExplanationPanel.scss";
 
 const formatPercent = (value) =>
@@ -11,7 +12,7 @@ const formatToken = (token) => {
   return token?.replace(/ /g, "·") || "empty";
 };
 
-function TokenBar({ token, getElement }) {
+function TokenBar({ token, getElement, onExplainToken }) {
   const width = Math.max((token.probability || 0) * 100, 3);
   const alternatives = token.alternatives || [];
   const topAlternative = alternatives[0];
@@ -36,22 +37,31 @@ function TokenBar({ token, getElement }) {
           </span>
         )}
       </div>
-      <details className={getElement("alternatives")}>
-        <summary>Show top alternatives</summary>
-        <ol>
-          {alternatives.map((alternative) => (
-            <li key={`${token.position}-${alternative.id}`}>
-              <span>{formatToken(alternative.token)}</span>
-              <b>{formatPercent(alternative.probability)}</b>
-            </li>
-          ))}
-        </ol>
-      </details>
+      <div className={getElement("token-actions")}>
+        <details className={getElement("alternatives")}>
+          <summary>Show top alternatives</summary>
+          <ol>
+            {alternatives.map((alternative) => (
+              <li key={`${token.position}-${alternative.id}`}>
+                <span>{formatToken(alternative.token)}</span>
+                <b>{formatPercent(alternative.probability)}</b>
+              </li>
+            ))}
+          </ol>
+        </details>
+        {onExplainToken && (
+          <AIExplainAction
+            className={getElement("token-explain")}
+            onClick={() => onExplainToken(token)}
+            ariaLabel={`Explain token ${formatToken(token.token)} at generation step ${token.position + 1} with AI`}
+          />
+        )}
+      </div>
     </article>
   );
 }
 
-export default function TextExplanationPanel({ explanation }) {
+export default function TextExplanationPanel({ explanation, onExplainToken }) {
   const { getBlock, getElement } = useBEMNaming("text-generation-explanation");
 
   if (!explanation) return null;
@@ -147,7 +157,12 @@ export default function TextExplanationPanel({ explanation }) {
 
       <div className={getElement("tokens")}>
         {tokens.map((token) => (
-          <TokenBar key={`${token.position}-${token.id}`} token={token} getElement={getElement} />
+          <TokenBar
+            key={`${token.position}-${token.id}`}
+            token={token}
+            getElement={getElement}
+            onExplainToken={onExplainToken}
+          />
         ))}
       </div>
 

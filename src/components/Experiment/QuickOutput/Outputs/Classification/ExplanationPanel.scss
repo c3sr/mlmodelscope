@@ -374,7 +374,7 @@
       box-shadow: 0 0 0 2px rgba($azul, 0.16);
     }
 
-    button {
+    > button {
       background: white;
       border: 0;
       cursor: pointer;
@@ -385,7 +385,7 @@
       width: 100%;
     }
 
-    button span {
+    > button span {
       color: $gray;
       font-size: 11px;
       text-transform: uppercase;
@@ -399,12 +399,18 @@
     }
 
     figcaption {
+      align-items: center;
       display: flex;
       font-size: 13px;
       justify-content: space-between;
       padding: 9px 12px;
 
-      span {
+      > div {
+        display: flex;
+        flex-direction: column;
+      }
+
+      > div span {
         color: $gray;
       }
     }

@@ -1,12 +1,14 @@
 import React, { useEffect, useRef } from "react";
+import AIExplainAction from "../../InteractiveExplanation/AIExplainAction";
 import "./SpectrogramModal.scss";
 
 /**
  * Props:
- * segment  – { start, end, speaker, confidence, spectrogram }
+ * segment  – { start, end, speaker, confidence, confidenceType, spectrogram }
  * onClose  – callback to close the modal
+ * onExplain – callback receiving the segment and rendered PNG data
  */
-export default function SpectrogramModal({ segment, onClose }) {
+export default function SpectrogramModal({ segment, onClose, onExplain }) {
     const canvasRef = useRef(null);
 
     useEffect(() => {
@@ -62,6 +64,11 @@ export default function SpectrogramModal({ segment, onClose }) {
         if (e.target === e.currentTarget) onClose();
     };
 
+    const handleExplain = () => {
+        const renderedSpectrogram = canvasRef.current?.toDataURL("image/png");
+        if (renderedSpectrogram) onExplain(segment, renderedSpectrogram);
+    };
+
     return (
         <div className="spectrogram-modal__backdrop" onClick={handleBackdropClick}>
             <div className="spectrogram-modal">
@@ -73,13 +80,21 @@ export default function SpectrogramModal({ segment, onClose }) {
                         </span>
                         {segment.confidence !== null && (
                             <span className="spectrogram-modal__conf-label">
-                                Confidence: {Math.round(segment.confidence * 100)}%
+                                {segment.confidenceType === "mean_speaker_activity" ? "Mean activity" : "Confidence"}: {Math.round(segment.confidence * 100)}%
                             </span>
                         )}
                     </div>
-                    <button className="spectrogram-modal__close" onClick={onClose} aria-label="Close">
-                        ✕
-                    </button>
+                    <div className="spectrogram-modal__actions">
+                        {onExplain && segment.spectrogram?.[0]?.length > 0 && (
+                            <AIExplainAction
+                                onClick={handleExplain}
+                                ariaLabel={`Explain the spectrogram for ${segment.speaker} with AI`}
+                            />
+                        )}
+                        <button className="spectrogram-modal__close" onClick={onClose} aria-label="Close spectrogram">
+                            ✕
+                        </button>
+                    </div>
                 </div>
 
                 <div className="spectrogram-modal__body">
@@ -88,6 +103,8 @@ export default function SpectrogramModal({ segment, onClose }) {
                             <canvas
                                 ref={canvasRef}
                                 className="spectrogram-modal__image"
+                                role="img"
+                                aria-label={`Spectrogram for ${segment.speaker} from ${formatTime(segment.start)} to ${formatTime(segment.end)}`}
                                 style={{ width: "100%", height: "240px", imageRendering: "pixelated" }}
                             />
                         </div>

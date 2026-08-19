@@ -38,6 +38,16 @@
     }
   }
 
+  &__title-actions {
+    align-items: center;
+    display: flex;
+    gap: 16px;
+  }
+
+  &__ask-ai {
+    white-space: nowrap;
+  }
+
   &__subtitle {
     @include body;
     border-bottom: 1px solid $smokeDarkest;

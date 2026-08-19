@@ -14,8 +14,16 @@ export default function PredictionExpander(givenProps) {
     const {getBlock, getElement} = useBEMNaming(props.className);
     const [predictionsExpanded, setPredictionsExpanded] = useState(!!props.showAll);
 
-    const makePrediction = (feature, index) => {
-        return <Prediction key={index} feature={feature}/>
+    const makePrediction = (feature, featureIndex) => {
+        const canExplain = props.onExplainPrediction &&
+            featureIndex < (props.explainablePredictionCount ?? 0);
+        return <Prediction
+            key={featureIndex}
+            feature={feature}
+            onExplain={canExplain
+                ? () => props.onExplainPrediction(feature, featureIndex)
+                : undefined}
+        />
     };
 
     const buttonClassName = getElement(`expand${predictionsExpanded ? '' : ' expand--collapsed'}`);
@@ -39,9 +47,9 @@ export default function PredictionExpander(givenProps) {
     return (
         <div className={getBlock()}>
             <div className={getElement('predictions')}>
-                {predictions.slice(1, 3).map(makePrediction)}
+                {predictions.slice(1, 3).map((feature, index) => makePrediction(feature, index + 1))}
                 <div hidden={!predictionsExpanded} className={predictionOverflowClassName}>
-                    {predictions.slice(3).map(makePrediction)}
+                    {predictions.slice(3).map((feature, index) => makePrediction(feature, index + 3))}
                 </div>
             </div>
             {makeExpanderButton()}

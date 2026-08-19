@@ -4,6 +4,7 @@ import formatProbability from "./ProbabilityFormatter";
 import "./TopPrediction.scss";
 import trim from "../../../../../helpers/labelTrimmer";
 import useBEMNaming from "../../../../../common/useBEMNaming";
+import AIExplainAction from "../../InteractiveExplanation/AIExplainAction";
 
 const defaultProps = {
     className: "top-prediction",
@@ -32,6 +33,13 @@ export default function TopPrediction(givenProps) {
         <div className={getBlock()}>
             <div className={getElement("prediction")}>{getPredictionLabel(props)}</div>
             <div className={getElement("probability")}>{getPredictionProbability(props)}</div>
+            {props.onExplain && (
+                <AIExplainAction
+                    className={getElement("explain")}
+                    onClick={props.onExplain}
+                    ariaLabel={`Explain the ${getPredictionLabel(props)} prediction with AI`}
+                />
+            )}
             {!props.hideRating &&
                 <Rating/>
             }

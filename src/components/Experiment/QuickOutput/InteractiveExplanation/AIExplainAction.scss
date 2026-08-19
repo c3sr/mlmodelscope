@@ -1,0 +1,40 @@
+@import "../../../../App";
+
+.ai-explain-action {
+  align-items: center;
+  background: #263548;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 18px;
+  box-shadow: 0 4px 14px rgba(24, 37, 52, 0.24);
+  color: white;
+  cursor: pointer;
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-size: 12px;
+  font-weight: bold;
+  gap: 5px;
+  line-height: 1.2;
+  padding: 7px 11px;
+  transition: background-color 140ms ease, box-shadow 140ms ease, transform 80ms ease;
+
+  &:hover {
+    background: $azul;
+    box-shadow: 0 5px 16px rgba(24, 37, 52, 0.3);
+  }
+
+  &:focus-visible {
+    background: $azul;
+    outline: 2px solid $azul;
+    outline-offset: 2px;
+  }
+
+  &:active {
+    box-shadow: 0 2px 8px rgba(24, 37, 52, 0.22);
+    transform: translateY(1px);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+}

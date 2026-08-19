@@ -107,6 +107,26 @@ describe("ExplanationPanel", () => {
     expect(wrapper.find("[aria-label='Evidence intensity legend']").length).toBe(1);
   });
 
+  it("explains the class and visualization associated with each evidence card", () => {
+    const onExplainEvidence = jest.fn();
+    const wrapper = mount(
+      <ExplanationPanel explanation={explanation} onExplainEvidence={onExplainEvidence} />
+    );
+
+    wrapper.find(".model-explanation__overlay-card figcaption button").at(1).simulate("click");
+    expect(onExplainEvidence).toHaveBeenLastCalledWith({
+      classResult: explanation.classes[1],
+      evidenceView: "focus"
+    });
+
+    wrapper.find("[aria-label='Evidence visualization'] button").at(1).simulate("click");
+    wrapper.find(".model-explanation__overlay-card figcaption button").at(0).simulate("click");
+    expect(onExplainEvidence).toHaveBeenLastCalledWith({
+      classResult: explanation.classes[0],
+      evidenceView: "intensity"
+    });
+  });
+
   it("shows fallback preprocessing operations when metadata is absent", () => {
     const withoutOperations = {
       ...explanation,

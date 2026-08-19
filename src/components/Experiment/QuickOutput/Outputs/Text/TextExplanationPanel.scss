@@ -235,6 +235,24 @@
     }
   }
 
+  &__token-actions {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__token-explain {
+    transition: background-color 140ms ease, box-shadow 140ms ease, opacity 140ms ease, transform 80ms ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &__token-row:not(:hover):not(:focus-within) &__token-explain {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
   &__limitations {
     background: #fff8e6;
     border: 1px solid #ffe0a3;

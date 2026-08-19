@@ -36,6 +36,13 @@
     flex-wrap: wrap;
   }
 
+  &__actions {
+    align-items: center;
+    display: flex;
+    flex: 0 0 auto;
+    gap: 10px;
+  }
+
   &__speaker-chip {
     padding: 4px 12px;
     border-radius: 20px;

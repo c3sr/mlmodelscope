@@ -228,6 +228,51 @@ class Api {
     return await response.json();
   }
 
+  async requestInteractiveExplanation(payload) {
+    const explanationApiUrl = process.env.REACT_APP_EXPLANATION_API_URL;
+    if (!explanationApiUrl)
+      throw new Error('REACT_APP_EXPLANATION_API_URL is not configured');
+
+    const {attachments = [], ...requestPayload} = payload;
+    let body;
+    let headers = {};
+
+    if (attachments.length > 0) {
+      body = new FormData();
+      body.append('context', JSON.stringify(requestPayload.context));
+      body.append('question', requestPayload.question);
+      body.append('expertiseLevel', requestPayload.expertiseLevel);
+      body.append('attachmentMetadata', JSON.stringify(
+        attachments.map(({role, mimeType, description}) => ({role, mimeType, description}))
+      ));
+      attachments.forEach((attachment, index) => {
+        body.append(
+          'attachments',
+          base64ToBlob(attachment.data, attachment.mimeType),
+          `${attachment.role}-${index}.${extensionForMimeType(attachment.mimeType)}`
+        );
+      });
+    } else {
+      body = JSON.stringify(requestPayload);
+      headers['Content-Type'] = 'application/json';
+    }
+
+    const response = await fetch(
+      `${explanationApiUrl.replace(/\/$/, '')}/v1/explain`,
+      {
+        method: 'POST',
+        headers,
+        body
+      }
+    );
+
+    const data = await response.json();
+    if (!response.ok)
+      throw new Error(data.error || 'Unable to generate interactive explanation');
+
+    return data;
+  }
+
   poll({fn, params, validate, maxAttempts}) {
     return new Observable(subscriber => {
       let attempts = 0;
@@ -269,6 +314,22 @@ class Api {
       };
     });
   }
+}
+
+function base64ToBlob(data, mimeType) {
+  const normalizedData = data.replace(/^data:[^;]+;base64,/, '');
+  const binary = atob(normalizedData);
+  const bytes = Uint8Array.from(binary, character => character.charCodeAt(0));
+  return new Blob([bytes], {type: mimeType});
+}
+
+function extensionForMimeType(mimeType) {
+  return {
+    'image/jpeg': 'jpg',
+    'image/png': 'png',
+    'image/webp': 'webp',
+    'image/gif': 'gif'
+  }[mimeType] || 'img';
 }
 
 let api;

@@ -7,6 +7,7 @@ import Task from "../../../../../helpers/Task";
 import OutputDuration from "../_Common/components/OutputDuration";
 import DurationConverter from "../_Common/utils/DurationConverter";
 import useBEMNaming from "../../../../../common/useBEMNaming";
+import AIExplainAction from "../../InteractiveExplanation/AIExplainAction";
 
 const defaultProps = {
     className: "classification-output",
@@ -21,8 +22,18 @@ export default function ClassificationOutput(givenProps) {
     const getPredictionBody = () => {
         if (props.features.length > 0)
             return <div className={getElement('predictions')}>
-                <TopPrediction hideRating={props.hideRating} feature={props.features[0]}/>
-                <PredictionExpander predictions={props.features}/>
+                <TopPrediction
+                    hideRating={props.hideRating}
+                    feature={props.features[0]}
+                    onExplain={props.onExplainPrediction
+                        ? () => props.onExplainPrediction(props.features[0], 0)
+                        : undefined}
+                />
+                <PredictionExpander
+                    predictions={props.features}
+                    onExplainPrediction={props.onExplainPrediction}
+                    explainablePredictionCount={props.explainablePredictionCount}
+                />
             </div>
 
         return <NoPredictions modelId={props.modelId}/>
@@ -32,9 +43,18 @@ export default function ClassificationOutput(givenProps) {
         <div className={getBlock()}>
             <div className={getElement("title-row")}>
                 <h3 className={getElement('title')}>Output</h3>
-                {!props.hideDuration &&
-                    <OutputDuration duration={DurationConverter(props.trial.results.duration)}/>
-                }
+                <div className={getElement("title-actions")}>
+                    {props.onAskAIAboutResult && (
+                        <AIExplainAction
+                            className={getElement("ask-ai")}
+                            onClick={props.onAskAIAboutResult}
+                            ariaLabel="Explain this classification result with AI"
+                        />
+                    )}
+                    {!props.hideDuration &&
+                        <OutputDuration duration={DurationConverter(props.trial.results.duration)}/>
+                    }
+                </div>
             </div>
             <div className={getElement('subtitle')}>{task.outputText}</div>
             {getPredictionBody()}

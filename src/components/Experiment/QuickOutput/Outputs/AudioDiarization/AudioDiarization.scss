@@ -196,9 +196,42 @@
 
   &__segment-content {
     display: flex;
-    flex-direction: column;
+    align-items: center;
     gap: 4px;
     flex: 1;
+  }
+
+  &__segment-summary {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &__segment-actions {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+  }
+
+  &__spectrogram-indicator {
+    color: var(--text-muted, #adb5bd);
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  @include maxWidth(500px) {
+    &__segment-row,
+    &__segment-content {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    &__segment-actions {
+      margin-left: 0;
+    }
   }
 
   &__segment-text {

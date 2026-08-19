@@ -164,6 +164,40 @@ describe('The API helper', () => {
         topK: 5
       });
     });
+
+    it('requests an interactive explanation without duplicating trial data', async () => {
+      const previousExplanationApiUrl = process.env.REACT_APP_EXPLANATION_API_URL;
+      process.env.REACT_APP_EXPLANATION_API_URL = 'http://explanation-api.test';
+      fetchMock.post('http://explanation-api.test/v1/explain', {
+        answer: 'The selected class had the highest probability.',
+        limitations: []
+      });
+
+      const payload = {
+        context: {
+          artifact: {
+            kind: 'classification',
+            selection: {classIndex: 1, label: 'goldfinch'},
+            structuredData: {
+              predictions: [{index: 1, label: 'goldfinch', probability: 0.8}]
+            }
+          },
+          model: {
+            name: 'Example Model',
+            task: 'image_classification',
+            framework: 'PyTorch',
+            frameworkVersion: '2.0'
+          }
+        },
+        question: 'Why was this class ranked highest?',
+        expertiseLevel: 'beginner'
+      };
+      const response = await api.requestInteractiveExplanation(payload);
+
+      expect(response.answer).toBe('The selected class had the highest probability.');
+      expect(JSON.parse(fetchMock.lastOptions().body)).toEqual(payload);
+      process.env.REACT_APP_EXPLANATION_API_URL = previousExplanationApiUrl;
+    });
   });
 
   describe('deleteTrial', () => {

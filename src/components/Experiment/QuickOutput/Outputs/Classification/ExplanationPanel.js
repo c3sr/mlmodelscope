@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import useBEMNaming from "../../../../../common/useBEMNaming";
+import AIExplainAction from "../../InteractiveExplanation/AIExplainAction";
 import "./ExplanationPanel.scss";
 
 const formatPercent = (value) =>
@@ -41,7 +42,7 @@ function ScoreRows({ classes, valueKey, formatter, getElement }) {
   );
 }
 
-export default function ExplanationPanel({ explanation }) {
+export default function ExplanationPanel({ explanation, onExplainEvidence }) {
   const { getBlock, getElement } = useBEMNaming("model-explanation");
   const [selectedRank, setSelectedRank] = useState(0);
   const [evidenceView, setEvidenceView] = useState("focus");
@@ -186,10 +187,12 @@ export default function ExplanationPanel({ explanation }) {
           <p className={getElement("eyebrow")}>Class evidence</p>
           <h4>Why did the leading scores differ?</h4>
         </div>
-        <p>
-          These overlays use the exact preprocessed crop above, not the full
-          uploaded image.
-        </p>
+        <div>
+          <p>
+            These overlays use the exact preprocessed crop above, not the full
+            uploaded image.
+          </p>
+        </div>
       </div>
 
       <div className={getElement("view-controls")}>
@@ -227,7 +230,7 @@ export default function ExplanationPanel({ explanation }) {
         </div>
       )}
 
-      <div className={getElement("evidence-board")}>
+      <div className={getElement("evidence-board")} data-explanation-section="Class evidence">
         <div className={getElement("overlay-grid")} role="group" aria-label="Winner and runner-up evidence maps">
           {classes.slice(0, 2).map((classResult, index) => (
             <figure
@@ -258,8 +261,16 @@ export default function ExplanationPanel({ explanation }) {
                 </span>
               </div>
               <figcaption>
-                <strong>{formatPercent(classResult.probability)}</strong>
-                <span>Logit {formatNumber(classResult.logit)}</span>
+                <div>
+                  <strong>{formatPercent(classResult.probability)}</strong>
+                  <span>Logit {formatNumber(classResult.logit)}</span>
+                </div>
+                {onExplainEvidence && (
+                  <AIExplainAction
+                    onClick={() => onExplainEvidence({ classResult, evidenceView })}
+                    ariaLabel={`Explain this Grad-CAM ${evidenceView === "focus" ? "focus visualization" : "intensity map"} for ${classResult.label} with AI`}
+                  />
+                )}
               </figcaption>
             </figure>
           ))}
