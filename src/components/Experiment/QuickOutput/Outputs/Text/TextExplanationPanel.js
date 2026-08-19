@@ -74,6 +74,10 @@ export default function TextExplanationPanel({ explanation }) {
   const postprocess = pipeline.postprocess || {};
   const tokens = explanation.tokens || [];
   const summary = explanation.summary || {};
+  const modelName = (inference.model || explanation.model || "the model")
+    .replace(/_/g, " ")
+    .replace(/\bbloom 560m\b/i, "BLOOM-560M")
+    .replace(/\bgpt 2\b/i, "GPT-2");
 
   return (
     <section className={getBlock()} aria-labelledby="text-generation-explanation-title">
@@ -82,7 +86,7 @@ export default function TextExplanationPanel({ explanation }) {
           <p className={getElement("eyebrow")}>Model explanation</p>
           <h3 id="text-generation-explanation-title">From prompt to generated text</h3>
           <p>
-            GPT-2 generates text one token at a time. Each row below shows the
+            {modelName} generates text one token at a time. Each row below shows the
             selected token, its probability at that step, and the strongest
             alternatives the model considered.
           </p>
@@ -97,7 +101,7 @@ export default function TextExplanationPanel({ explanation }) {
           <h4>Prompt to tokens</h4>
           <p>{(preprocess.operations || []).join(" → ")}</p>
           <dl>
-            <div><dt>Tokenizer</dt><dd>{preprocess.tokenizer || "GPT2Tokenizer"}</dd></div>
+            <div><dt>Tokenizer</dt><dd>{preprocess.tokenizer || "Unavailable"}</dd></div>
             <div><dt>Prompt tokens</dt><dd>{preprocess.tokens?.length || 0}</dd></div>
             <div><dt>Vocabulary</dt><dd>{preprocess.tensor?.vocabularySize?.toLocaleString() || "Unavailable"}</dd></div>
           </dl>
@@ -114,7 +118,7 @@ export default function TextExplanationPanel({ explanation }) {
           <h4>Predict next token</h4>
           <p>{inference.description}</p>
           <dl>
-            <div><dt>Model</dt><dd>{inference.model?.replace(/_/g, " ") || "GPT-2"}</dd></div>
+            <div><dt>Model</dt><dd>{modelName}</dd></div>
             <div><dt>Generated tokens</dt><dd>{summary.generatedTokenCount || tokens.length}</dd></div>
             <div><dt>Average selected probability</dt><dd>{formatPercent(summary.averageSelectedTokenProbability)}</dd></div>
           </dl>
@@ -135,7 +139,7 @@ export default function TextExplanationPanel({ explanation }) {
       <div className={getElement("guide")}>
         <strong>How to read this</strong>
         <p>
-          Higher probability means GPT-2 strongly expected that token from the
+          Higher probability means {modelName} strongly expected that token from the
           current context. Low probability marks a more uncertain or surprising
           token choice. These probabilities do not measure truthfulness.
         </p>

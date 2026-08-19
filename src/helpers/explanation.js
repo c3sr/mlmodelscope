@@ -6,6 +6,11 @@ const supportedResNetModels = new Set([
   "torchvision_resnet_152"
 ]);
 
+const supportedTokenProbabilityModels = new Set([
+  "gpt_2",
+  "bloom_560m"
+]);
+
 export const isGradCAMSupportedModel = (model) => {
   if (model?.output?.type !== "image_classification")
     return false;
@@ -35,7 +40,7 @@ export const isTokenProbabilitySupportedModel = (model) => {
     .replace(/[^a-z0-9]+/g, "_")
     .replace(/^_|_$/g, "");
 
-  return framework === "pytorch" && normalizedName === "gpt_2";
+  return framework === "pytorch" && supportedTokenProbabilityModels.has(normalizedName);
 };
 
 export const tokenProbabilityRequest = (enabled) => ({

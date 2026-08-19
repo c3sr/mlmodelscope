@@ -27,9 +27,14 @@ describe("explanation helpers", () => {
     });
   });
 
-  it("supports token probability explanations only for PyTorch GPT-2 text generation", () => {
+  it("supports token probability explanations for selected PyTorch text generation models", () => {
     expect(isTokenProbabilitySupportedModel({
       name: "GPT_2",
+      framework: { name: "PyTorch" },
+      output: { type: "text_to_text" }
+    })).toBe(true);
+    expect(isTokenProbabilitySupportedModel({
+      name: "bloom_560m",
       framework: { name: "PyTorch" },
       output: { type: "text_to_text" }
     })).toBe(true);
