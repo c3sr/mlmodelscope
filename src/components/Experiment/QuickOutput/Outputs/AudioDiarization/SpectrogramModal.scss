@@ -1,0 +1,127 @@
+.spectrogram-modal {
+  &__backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 16px;
+    backdrop-filter: blur(2px);
+    animation: fadeIn 0.15s ease;
+  }
+
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 760px;
+  animation: slideUp 0.2s ease;
+  overflow: hidden;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e9ecef;
+    background: #f8f9fa;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  &__speaker-chip {
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: #4e79a7;
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  &__time-label {
+    font-family: monospace;
+    font-size: 13px;
+    color: #495057;
+  }
+
+  &__conf-label {
+    font-size: 12px;
+    color: #6c757d;
+    font-weight: 500;
+  }
+
+  &__close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #6c757d;
+    line-height: 1;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.15s;
+
+    &:hover {
+      background: #e9ecef;
+      color: #212529;
+    }
+  }
+
+  &__body {
+    padding: 24px 20px;
+    min-height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__image {
+    width: 100%;
+    border-radius: 6px;
+  }
+
+  &__loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: #6c757d;
+    font-size: 14px;
+  }
+
+  &__spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid #dee2e6;
+    border-top-color: #4e79a7;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+
+  &__error {
+    color: #dc3545;
+    font-size: 14px;
+    text-align: center;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
