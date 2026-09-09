@@ -6,9 +6,10 @@ import { createApp } from "../src/app.js";
 function createTestApp(result = {
   answer: "The selected region is associated with the prediction.",
   limitations: ["This is model evidence, not proof."]
-}) {
+}, model = "test-explainer-model") {
   const calls = [];
   const explainer = {
+    model,
     async explain(input) {
       calls.push(input);
       return result;
@@ -48,7 +49,11 @@ test("accepts a text-only JSON explanation request", async () => {
   const response = await request(app).post("/v1/explain").send(payload);
 
   assert.equal(response.status, 200);
-  assert.deepEqual(response.body, { answer: "Text answer", limitations: [] });
+  assert.deepEqual(response.body, {
+    answer: "Text answer",
+    limitations: [],
+    model: "test-explainer-model"
+  });
   assert.equal(calls.length, 1);
   assert.equal(calls[0].attachments.length, 0);
   assert.equal(calls[0].question, payload.question);

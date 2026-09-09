@@ -69,7 +69,8 @@ export function createApp({
 
       response.json({
         answer: result.answer,
-        limitations: result.limitations
+        limitations: result.limitations,
+        model: explainer.model
       });
     } catch (error) {
       next(error);

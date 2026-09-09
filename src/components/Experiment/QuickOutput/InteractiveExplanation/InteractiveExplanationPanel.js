@@ -64,6 +64,7 @@ export default function InteractiveExplanationPanel() {
     ? "Asking..."
     : status === "error" ? "Try again" : "Ask";
   const speechText = answer ? buildSpeechText(answer) : "";
+  const explainerLabel = answer?.model || "AI model";
 
   return (
     <div className={getElement("backdrop")}>
@@ -77,7 +78,7 @@ export default function InteractiveExplanationPanel() {
             <p className={getElement("target")}>{describeTarget(selectedArtifact)}</p>
           </div>
           <div className={getElement("header-actions")}>
-            <span className={getElement("provider")}><span aria-hidden="true">✦</span> Gemini</span>
+            <span className={getElement("provider")}><span aria-hidden="true">✦</span> Explainer: {explainerLabel}</span>
             <button
               ref={closeButtonRef}
               type="button"
@@ -133,7 +134,7 @@ export default function InteractiveExplanationPanel() {
                 rows={3}
               />
               <div className={getElement("composer-footer")}>
-                <span>Gemini uses the selected result context.</span>
+                <span>{explainerLabel} uses the selected result context.</span>
                 <button
                   className={getElement("submit")}
                   type="submit"
@@ -147,7 +148,7 @@ export default function InteractiveExplanationPanel() {
         </form>
 
         {status === "loading" && (
-          <p className={getElement("status")} role="status">Gemini is reviewing this result...</p>
+          <p className={getElement("status")} role="status">The AI model is reviewing this result...</p>
         )}
         {status === "error" && <p className={getElement("error")} role="alert">{error}</p>}
         {status === "success" && answer && (

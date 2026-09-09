@@ -46,7 +46,8 @@ describe("InteractiveExplanationPanel", () => {
     process.env.REACT_APP_EXPLANATION_API_URL = "http://explanation-api.test";
     fetchMock.post("http://explanation-api.test/v1/explain", {
       answer: "The selected class had the highest probability.",
-      limitations: []
+      limitations: [],
+      model: "gpt-4.1-mini"
     });
   });
 
@@ -86,6 +87,7 @@ describe("InteractiveExplanationPanel", () => {
       expertiseLevel: "beginner"
     });
     expect(wrapper.text()).toContain("The selected class had the highest probability.");
+    expect(wrapper.find(".interactive-explanation__provider").text()).toContain("gpt-4.1-mini");
   });
 
   it("stays closed until a contextual action selects an artifact", () => {
@@ -104,6 +106,8 @@ describe("InteractiveExplanationPanel", () => {
     expect(wrapper.text()).toContain("goldfinch");
     expect(wrapper.find("select").first().prop("value")).toBe("beginner");
     expect(wrapper.find("textarea").prop("value")).toBe("Why was this class ranked highest?");
+    expect(wrapper.find(".interactive-explanation__provider").text()).toContain("AI model");
+    expect(wrapper.text()).not.toContain("Gemini");
     expect(wrapper.text()).not.toContain("Artifact");
   });
 
