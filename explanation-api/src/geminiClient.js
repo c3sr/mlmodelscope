@@ -1,4 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
+import { parseExplanationResponse } from "./explanationResponse.js";
 import { buildExplanationPrompt } from "./prompt.js";
 
 export function createGeminiExplainer({ apiKey, model = "gemini-3.6-flash" } = {}) {
@@ -48,19 +49,5 @@ export function createGeminiExplainer({ apiKey, model = "gemini-3.6-flash" } = {
 }
 
 export function parseGeminiResponse(text, expertiseLevel) {
-  try {
-    const parsed = JSON.parse(text);
-    if (typeof parsed.answer !== "string" || !Array.isArray(parsed.limitations))
-      throw new Error("Gemini returned an invalid explanation shape");
-    const limitations = parsed.limitations.filter((item) => typeof item === "string");
-    return {
-      answer: parsed.answer,
-      limitations: expertiseLevel === "beginner" ? limitations.slice(0, 2) : limitations
-    };
-  } catch (error) {
-    const parseError = new Error("Gemini returned an invalid JSON explanation");
-    parseError.cause = error;
-    parseError.statusCode = 502;
-    throw parseError;
-  }
+  return parseExplanationResponse(text, expertiseLevel, "Gemini");
 }

@@ -1,28 +1,95 @@
 # Multimodal Explanation API
 
-A small standalone Node.js service that accepts explanation context and optional image attachments, then asks a configurable Gemini Flash model for an explanation.
+A small standalone Node.js service that accepts explanation context and optional image attachments, then asks a configurable vision-language model for an explanation.
 
-It has no knowledge of ML Model Scope trials, experiments, or its existing backend.
+The service supports:
+
+- Google Gemini
+- OpenAI vision-language models
+- Local vLLM servers and other OpenAI-compatible APIs
+
+It has no knowledge of ML Model Scope trials, experiments, or its existing backend. Provider selection is server-side and does not change the `/v1/explain` request or response contract.
 
 ## Requirements
 
-- Node.js 18 or newer
-- A Gemini API key
+- Node.js 20 or newer; Node.js 22.23.2 is pinned in `.nvmrc` and the service image
+- An API key for Gemini or OpenAI; local vLLM does not require one unless its server was configured to require authentication
 
 ## Setup
 
 ```sh
 cd explanation-api
 cp .env.example .env
-# Set GEMINI_API_KEY in .env
 npm install
 npm test
 npm start
 ```
 
-The service listens on `http://127.0.0.1:8090` by default.
+The service listens on `http://127.0.0.1:8090` by default. Keep hosted-provider API keys server-side; do not expose them to the React application.
 
-`GEMINI_MODEL` defaults to `gemini-3.6-flash` and can be changed without code changes. Keep `GEMINI_API_KEY` server-side; do not expose it to the React application.
+This service deliberately has its own runtime boundary from the frontend. From this directory, `nvm install && nvm use`
+selects Node.js 22.23.2 without changing the Node.js 14.21.3 shell used to run the frontend. From the repository root,
+`docker compose up --build` builds and runs both services with their independently pinned runtimes.
+
+## Model provider configuration
+
+Set `EXPLANATION_PROVIDER` to `gemini`, `openai`, `vllm`, or `openai-compatible`.
+
+Generic variables work across providers:
+
+- `EXPLANATION_MODEL`: provider model identifier.
+- `EXPLANATION_BASE_URL`: base API URL for OpenAI-compatible providers. It may end in `/v1` or `/chat/completions`.
+- `EXPLANATION_API_KEY`: hosted-provider API key. Optional for vLLM and other unauthenticated local APIs.
+- `EXPLANATION_RESPONSE_FORMAT`: `json_schema` (default), `json_object`, or `none`. Use `json_object` or `none` for an older OpenAI-compatible server that does not accept JSON Schema.
+
+Provider-specific variables are also supported, and the generic variable takes precedence:
+
+| Provider | Model | Base URL | API key |
+| --- | --- | --- | --- |
+| Gemini | `GEMINI_MODEL` | n/a | `GEMINI_API_KEY` |
+| OpenAI | `OPENAI_MODEL` | `OPENAI_BASE_URL` | `OPENAI_API_KEY` |
+| vLLM | `VLLM_MODEL` | `VLLM_BASE_URL` | `VLLM_API_KEY` (optional) |
+
+If `EXPLANATION_PROVIDER` is omitted, the service retains its previous Gemini behavior. `GEMINI_MODEL` defaults to `gemini-3.6-flash`; the OpenAI model defaults to `gpt-4.1-mini`. A vLLM model name must be supplied because it depends on the model served locally.
+
+### Gemini
+
+```dotenv
+EXPLANATION_PROVIDER=gemini
+EXPLANATION_MODEL=gemini-3.6-flash
+EXPLANATION_API_KEY=your-key
+```
+
+The older `GEMINI_MODEL` and `GEMINI_API_KEY` names continue to work.
+
+### OpenAI
+
+```dotenv
+EXPLANATION_PROVIDER=openai
+EXPLANATION_MODEL=gpt-4.1-mini
+OPENAI_API_KEY=your-key
+```
+
+### Local vLLM
+
+Start a vision-language model with vLLM's OpenAI-compatible server, then configure this service with the served model name. No key is needed by default.
+
+```dotenv
+EXPLANATION_PROVIDER=vllm
+EXPLANATION_MODEL=Qwen/Qwen2.5-VL-7B-Instruct
+EXPLANATION_BASE_URL=http://127.0.0.1:8000/v1
+```
+
+The chosen local model must support image inputs when requests contain attachments. Text-only explanation requests can use a text-only model.
+
+### Other OpenAI-compatible platforms
+
+```dotenv
+EXPLANATION_PROVIDER=openai-compatible
+EXPLANATION_MODEL=provider-model-name
+EXPLANATION_BASE_URL=https://provider.example/v1
+EXPLANATION_API_KEY=your-key
+```
 
 ## Endpoint
 
@@ -46,7 +113,7 @@ The required request fields are:
 For image requests, use `multipart/form-data` with:
 
 - `attachments`: one or more image files.
-- `attachmentMetadata`: JSON array with one item per file. Supported roles are `original_input`, `gradcam_overlay`, `heatmap`, `segmentation_overlay`, `spectrogram`, and `visualization`.
+- `attachmentMetadata`: JSON array with one item per file. Supported roles are `original_input`, `focus_mask`, `gradcam_overlay`, `heatmap`, `segmentation_overlay`, `spectrogram`, and `visualization`.
 
 Images are held in memory only for the request. JPEG, PNG, WebP, and GIF files are accepted. The defaults are four files maximum and 10 MiB per file; configure them with `MAX_IMAGE_ATTACHMENTS` and `MAX_IMAGE_BYTES`.
 
@@ -85,6 +152,6 @@ curl -X POST http://127.0.0.1:8090/v1/explain \
   -F 'attachments=@gradcam.png;type=image/png'
 ```
 
-## Gemini behavior
+## Explanation behavior
 
-The prompt identifies the artifact, image roles, question, expertise level, model-result values, and existing XAI values. It instructs Gemini to distinguish supplied evidence from general interpretation and not describe visual evidence as proof when the context does not support that claim.
+The same provider-neutral prompt identifies the artifact, image roles, question, expertise level, model-result values, and existing XAI values. It instructs every model to distinguish supplied evidence from general interpretation and not describe visual evidence as proof when the context does not support that claim.

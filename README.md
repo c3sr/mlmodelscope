@@ -4,9 +4,9 @@
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/en/) (== 14.21.3 is the confirmed working version)
-    - It is recommended to use [nvm](https://github.com/nvm-sh/nvm#intro) to manage your Node.js versions across
-      multiple projects
+- [Node.js](https://nodejs.org/en/) 14.21.3 for the frontend
+    - The separate explanation API uses Node.js 22.23.2. Both directories contain an exact `.nvmrc`; run `nvm use`
+      after entering the directory whose service you are working on.
 - [Docker](https://docs.docker.com/get-docker/) (latest version)
   and [Docker Compose](https://docs.docker.com/compose/install/) (latest version)
     - Docker is used to run the backend services (e.g. database, MLModelScope server) locally
@@ -45,6 +45,46 @@ npm run start
 
 This will start the frontend app in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in
 the browser.
+
+### Running the frontend and explanation API
+
+The two services intentionally use different Node.js versions so that the legacy frontend remains on its confirmed
+runtime while the explanation API can use its modern dependencies. Each terminal keeps its own active nvm version:
+
+```bash
+# Terminal 1: frontend (Node.js 14.21.3)
+cd mlmodelscope
+nvm install
+nvm use
+npm install
+npm start
+```
+
+```bash
+# Terminal 2: explanation API (Node.js 22.23.2)
+cd mlmodelscope/explanation-api
+nvm install
+nvm use
+npm install
+npm start
+```
+
+For a reproducible combined build that does not depend on the host's active Node.js version, copy
+`explanation-api/.env.example` to `explanation-api/.env`, configure its model provider, and run:
+
+```bash
+docker compose up --build
+```
+
+This exposes the frontend at `http://localhost:3000` and the explanation API at `http://127.0.0.1:8090`. The images pin
+Node.js 14.21.3 and 22.23.2 independently. If vLLM runs on the Docker host, set
+`EXPLANATION_BASE_URL=http://host.docker.internal:8000/v1` in `explanation-api/.env`.
+
+Stop the combined deployment with:
+
+```bash
+docker compose down
+```
 
 ### Running storybook
 
