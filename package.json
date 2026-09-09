@@ -2,7 +2,7 @@
   "name": "mlmodelscope",
   "version": "0.4.10",
   "engines": {
-    "node": "14.21.3"
+    "node": ">=20"
   },
   "private": true,
   "config-overrides-path": "/config-overrides.js",
@@ -152,7 +152,7 @@
     ]
   },
   "volta": {
-    "node": "14.21.3"
+    "node": "22.23.2"
   },
   "jest": {
     "roots": [

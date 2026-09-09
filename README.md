@@ -4,9 +4,8 @@
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/en/) 14.21.3 for the frontend
-    - The separate explanation API uses Node.js 22.23.2. Both directories contain an exact `.nvmrc`; run `nvm use`
-      after entering the directory whose service you are working on.
+- [Node.js](https://nodejs.org/en/) 20 or newer
+    - Node.js 22.23.2 is pinned for both the frontend and explanation API. Run `nvm use` from either directory.
 - [Docker](https://docs.docker.com/get-docker/) (latest version)
   and [Docker Compose](https://docs.docker.com/compose/install/) (latest version)
     - Docker is used to run the backend services (e.g. database, MLModelScope server) locally
@@ -48,11 +47,10 @@ the browser.
 
 ### Running the frontend and explanation API
 
-The two services intentionally use different Node.js versions so that the legacy frontend remains on its confirmed
-runtime while the explanation API can use its modern dependencies. Each terminal keeps its own active nvm version:
+The frontend and explanation API use the same pinned Node.js version:
 
 ```bash
-# Terminal 1: frontend (Node.js 14.21.3)
+# Terminal 1: frontend (Node.js 22.23.2)
 cd mlmodelscope
 nvm install
 nvm use
@@ -77,7 +75,7 @@ docker compose up --build
 ```
 
 This exposes the frontend at `http://localhost:3000` and the explanation API at `http://127.0.0.1:8090`. The images pin
-Node.js 14.21.3 and 22.23.2 independently. If vLLM runs on the Docker host, set
+Node.js 22.23.2 for both services. If vLLM runs on the Docker host, set
 `EXPLANATION_BASE_URL=http://host.docker.internal:8000/v1` in `explanation-api/.env`.
 
 Stop the combined deployment with:

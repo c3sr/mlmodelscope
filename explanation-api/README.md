@@ -27,9 +27,8 @@ npm start
 
 The service listens on `http://127.0.0.1:8090` by default. Keep hosted-provider API keys server-side; do not expose them to the React application.
 
-This service deliberately has its own runtime boundary from the frontend. From this directory, `nvm install && nvm use`
-selects Node.js 22.23.2 without changing the Node.js 14.21.3 shell used to run the frontend. From the repository root,
-`docker compose up --build` builds and runs both services with their independently pinned runtimes.
+The frontend and this service both pin Node.js 22.23.2. From either directory, `nvm install && nvm use` selects the
+shared runtime. From the repository root, `docker compose up --build` builds and runs both services consistently.
 
 ## Model provider configuration
 
